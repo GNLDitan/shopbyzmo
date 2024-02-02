@@ -1,0 +1,61 @@
+<div class="container container-fluid justify-content-center align-items-center" *ngIf="products.length > 0">
+    <div class="features">
+        <div class="feature-type">
+            <h4>You might also be interested</h4>
+        </div>
+
+        <div class="slider">
+            <app-slick-carousel [inputFeatureType]="inputFeatureType" [products]="products" [user]="user">
+            </app-slick-carousel>
+        </div>
+
+        <!-- 
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-12 product-item" *ngFor="let product of products">
+                <div class="card mt-3">
+                    <div class="card-image">
+                        <img (click)="selectProduct(product)" class="img-fluid" [src]="product.currentImageUrl">
+                    </div>
+                    <div class="type-lb" *ngIf="product.displayTag === 'just arrived'">
+                        <label class="new">New</label>
+                    </div>
+                    <div class="type-on" *ngIf="product.displayTag === 'on sale'">
+                        <label class="onsale">Sale</label>
+                    </div>
+                    <div class="type-on" *ngIf="product.displayTag === 'pre-order'">
+                        <label class="pre-order">Pre Order</label>
+                    </div>
+                </div>
+                <div class="product-text">
+                    <h4 class="product-name">{{product.productName}}</h4>
+                    <div class="product-price">
+                        <div *ngIf="product.preOrder" class="viewDetails">
+                            <h4> <a (click)="selectProduct(product)">View Details</a> </h4>
+                        </div>
+                        <div *ngIf="!product.preOrder">
+                            <h4 *ngIf="!product.onSale">{{product.price | currency: '₱'}}</h4>
+                            <h4 ngPreserveWhitespaces *ngIf="product.onSale"><s
+                                    class="origprice">{{product.price | currency: '₱'}}</s>
+                                <span> </span>
+                                <span class="salesprice"> {{product.salesPrice | currency: '₱'}}</span></h4>
+                        </div>
+                    </div>
+                    <div class="cartButton">
+                        <button *ngIf="product.quantity > 0 && !product.preOrder" class="bz-btn"
+                            (click)="addProductToCart(product)">
+                            <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                        </button>
+                        <button *ngIf="product.quantity == 0" [disabled]="true" class="bz-stock-btn"><span> OUT OF
+                                STOCK</span></button>
+                        <button *ngIf="product.preOrder && product.quantity > 0" class="bz-btn"
+                            (click)="addProductToCart(product)">
+                            <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div> -->
+
+    </div>
+</div>

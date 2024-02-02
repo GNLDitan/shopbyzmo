@@ -1,0 +1,88 @@
+<!-- <div class="container">
+    <div class="title">Wish List</div>
+    <div class="content">
+        <div *ngIf="wishList.length == 0">
+            <h5>Nothing on this list yet</h5>
+        </div>
+        <div *ngFor="let wish of wishList">
+            <div class="row mt-3">
+                <div class="col-2">
+                    <div class="img-container">
+                        <img [src]="wish.product.currentImageUrl" class="wish-img img-responsive">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <span class="product-name" (click)="gotoProduct(wish.product)">
+                        {{wish.product.productName}}
+                    </span>
+                    <div class="mt-3">
+                        <button *ngIf="wish.product.quantity > 0 && !wish.product.preOrder" class="bz-btn"
+                            (click)="addProductToCart(wish)">
+                            <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                        </button>
+                        <button *ngIf="wish.product.quantity == 0" [disabled]="true" class="bz-stock-btn">
+                            <span class="span-text">
+                                <span class="fa-stack">
+                                    <i class="fa fa-ban fa-stack-2x"></i>
+                                    <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                                </span>
+                                OUT OF STOCK
+                            </span>
+                        </button>
+                        <button *ngIf="wish.product.preOrder && wish.product.quantity > 0" class="bz-btn"
+                            (click)="addProductToCart(wish)">
+                            <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline-accent ml-3" (click)="removeToWishList(wish)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div> -->
+
+<div class="container">
+    <div class="title">Wish List</div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="wishList.length == 0" class="nothing-list">
+                <h2>Nothing on this list yet</h2>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-12 product-item" *ngFor="let wish of wishList">
+            <div class="card mt-3">
+                <div class="card-image">
+                    <img [src]="wish.product.currentImageUrl" class="wish-img img-responsive img-fluid" alt="Wish product image">
+                </div>
+            </div>
+            <div class="product-text">
+                <h4 class="product-name">{{wish.product.productName}}</h4>
+                <button *ngIf="wish.product.quantity > 0 && !wish.product.preOrder" class="bz-btn"
+                    (click)="addProductToCart(wish)">
+                    <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                </button>
+                <button *ngIf="wish.product.quantity == 0" [disabled]="true" class="bz-stock-btn">
+                    <span class="span-text">
+                        <span class="fa-stack">
+                            <i class="fa fa-ban fa-stack-2x"></i>
+                            <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+                        OUT OF STOCK
+                    </span>
+                </button>
+                <button *ngIf="wish.product.preOrder && wish.product.quantity > 0" class="bz-btn"
+                    (click)="addProductToCart(wish)">
+                    <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                </button>
+                <button class="btn btn-sm btn-outline-accent ml-3" (click)="removeToWishList(wish)">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

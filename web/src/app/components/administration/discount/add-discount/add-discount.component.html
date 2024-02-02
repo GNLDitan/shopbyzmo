@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Add Discount</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form [formGroup]="discountForm" autocomplete="off" (ngSubmit)="save()">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div class="row pt-1">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="code">Code <span class="asterisk">*</span></label>
+                                    <input type="text" id="code" class="form-control" formControlName="code">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input type="text" id="description" class="form-control"
+                                        formControlName="description">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="amountTypeId">Amount Type</label>
+                                    <select class="form-control" id="amountTypeId" formControlName="amountTypeId"
+                                        (change)='onOptionsSelected(mySelect.value)' #mySelect>
+                                        <option [value]="type.code" *ngFor="let type of amountType">
+                                            {{ type.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pt-1">
+                            <div *ngIf="discountForm.controls['amountTypeId'].value == '1'" class="col-4">
+                                <div class="form-group">
+                                    <label for="amount" class="text-md-left text-center">
+                                        Amount
+                                    </label>
+                                    <input id="amount" type="number" class="form-control" formControlName="amount"
+                                        min="0">
+                                </div>
+                            </div>
+                            <div *ngIf="discountForm.controls['amountTypeId'].value != 1" class="col-4">
+                                <div class="form-group">
+                                    <label for="amount" class="text-md-left text-center">
+                                        Percent
+                                    </label>
+                                    <input id="amount" type="number" class="form-control" formControlName="amount"
+                                        min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="start-date">Start Date <span class="asterisk">*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}"
+                                            name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="startDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" (click)="d.toggle()"
+                                                type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="end-date">End Date <span class="asterisk">*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}"
+                                            name="dp" ngbDatepicker #ps="ngbDatepicker" formControlName="endDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" (click)="ps.toggle()"
+                                                type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="customcheck">One Time Use
+                                        <input type="checkbox" id="isOneTimeUse" formControlName="isOneTimeUse">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" class="bz-btn">
+                            Save Discount
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

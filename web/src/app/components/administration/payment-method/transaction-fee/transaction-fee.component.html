@@ -1,0 +1,52 @@
+<div class="byz-section-header mt-3">
+    <h5><a class="m-2" (click)="cancel()"><span><i class="fas fa-chevron-left header"></i></span></a>
+        Transaction Fee Info
+    </h5>
+</div>
+<div class="byz-section-body mf-max-body-width mt-5">
+    <form class="form-horizontal" [formGroup]="trasactionFeeForm">
+        <div class="row pt-1">
+            <div class="col-sm-9 col-12">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" class="form-control" formControlName="description">
+                </div>
+            </div>
+        </div>
+        <div class="row pt-1">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="amountTypeId">Amount Type</label>
+                    <select class="form-control" id="amountTypeId" formControlName="amountTypeId">
+                        <option [ngValue]="type.code" *ngFor="let type of amountType">
+                            {{ type.description }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-1">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="amount" class="text-md-left text-center">
+                        <span *ngIf="trasactionFeeForm.controls['amountTypeId'].value == 1">
+                            Amount
+                        </span>
+                        <span *ngIf="trasactionFeeForm.controls['amountTypeId'].value != 1">
+                            Percent
+                        </span>
+                    </label>
+                    <input id="amount" type="number" class="form-control" formControlName="amount" min="0">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row pt-1">
+                <div class="col-12">
+                    <button (click)="cancel()" type="button" class="byz-btn-trans-r mr-2 text-danger">Cancel</button>
+                    <button (click)="saveData()" class="byz-btn-trans-r mr-2 text-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

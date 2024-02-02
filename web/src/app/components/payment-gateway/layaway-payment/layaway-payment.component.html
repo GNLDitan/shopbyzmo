@@ -1,0 +1,53 @@
+<div class="container">
+    <br>
+    <div class="row payment-details">
+        <div class="col-12 col-md-7 col-lg-7">
+            <article class="card info">
+                <div class="tab-content container" id="nav-tabContent">
+
+                    <div class="details">
+                        <h2>Layaway Payment Order#{{layAwaySched.orderId}}</h2>
+                        <!-- <div class="row mt-3">
+                            <div class="col-6">Product Name</div>
+                            <div class="col-3 text-center">Due Date</div>
+                            <div class="col-3 text-center">Total</div>
+                        </div> -->
+
+                        <div class="row mb-3">
+                            <div class="col-4">Products Name</div>
+                            <div class="col-8">{{ product.productName }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">Date:</div>
+                            <div class="col-8">{{ layAwaySched.date | date }}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-4">Transaction Amount</div>
+                            <div class="col-8">{{ layAwaySched.monthly | conversion }}</div>
+                        </div>
+
+                        <div class="row mb-3" *ngIf="transactionFee > 0">
+                            <div class="col-4">Transaction Charge:</div>
+                            <div class="col-8">{{ transactionFee | conversion }}</div>
+                        </div>
+                        <div class="row mb-3" *ngIf="finalAmount > 0">
+                            <div class="col-4">Amount To Pay</div>
+                            <div class="col-8">{{ finalAmount | conversion }}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="col-12 col-md-5 col-lg-5">
+            <div class="payment-container">
+
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+
+</div>
+<!--container end.//-->

@@ -1,0 +1,34 @@
+.header {
+    cursor: pointer;
+}
+
+.blog-image {
+    .blog-image-in {
+        outline: none;
+        .img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            object-position: center center;
+        }
+    }
+}
+
+.asterisk{
+    color: red;
+}
+
+.video {
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+
+.video iframe {
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}

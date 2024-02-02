@@ -1,0 +1,63 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Angular specific dependencies
+web/node_modules/*
+web/dist/*
+web/src/environments/*
+environment.ts
+environment.prod.ts
+environment.qa.ts
+environment.staging.ts
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Git
+*.orig
+
+# .NET specific
+api/bin/*
+api/obj/*
+appSettings.json
+appSettings.Development.json
+appsettings.Staging.json
+
+# File
+api/file/images
+api/file/images/products
+api/file/images/landings
+api/file/images/blogs
+api/file/attachments

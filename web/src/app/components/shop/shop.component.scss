@@ -1,0 +1,68 @@
+.card-fs-content-header {
+    overflow: hidden;
+    border-bottom: #d5d5d5 1px solid;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.card-fs-content {
+    margin-bottom: 12px;
+    background-color: #fff;
+    height: 375px;
+}
+
+.card-fs-content-body-unit {
+    height: 290px;
+    width: 188px;
+    float: left;
+    margin-right: 12px;
+    position: relative;
+}
+
+.card-fs-content-body-unit .fs-card-img-container {
+    width: 188px;
+    height: 188px;
+    margin-bottom: 4px;
+}
+
+.card-fs-content-body-unit .fs-card-text {
+    margin: 0 8px;
+}
+
+.card-fs-content-body-unit .fs-card-img {
+    height: 100%;
+    width: 188px;
+    height: 188px;
+}
+
+.card-fs-content-body-unit .fs-card-title {
+    height: 36px;
+    line-height: 18px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.card-fs-content-body-unit .fs-card-price {
+    margin-bottom: 4px;
+    font-size: 18px;
+    color: #f57224;
+    letter-spacing: -.56px;
+    line-height: 22px;
+    height: 22px;
+}
+
+.card-fs-content-body-unit .fs-card-origin-price {
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 4px;
+}
+
+.card-fs-content-body-unit .fs-card-sold {
+    height: 16px;
+    margin-bottom: 7px;
+}

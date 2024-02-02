@@ -1,0 +1,235 @@
+<div class="container-fluid prd">
+    <h2>Product</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Product</button>
+        </div>
+        <div class="col filtr">
+            <button type="button" class="bz-btn" data-toggle="modal" data-target="#filterModal"><i
+                    class="fa fa-filter">Filter</i></button>
+            <!-- <button type="button" class="bz-btn" (click)="setUntagged()">Untagged {{ isUntaggedArrival ? 'Selected' : 'Arrival'}} </button> -->
+        </div>
+        
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-2 col-md-2 col-12"> 
+            <select class="form-control " name="duration" [(ngModel)]="selectedTag" (change)="changeTagSelected()">
+                <option *ngFor="let tag of allTags" [value]="tag.name">{{tag.name | titlecase}}</option>
+            </select>
+            <select class="form-control mt-2" name="duration" [(ngModel)]="selectedReTag" *ngIf="isRetagged">
+                <option *ngFor="let tag of availableRetags" [value]="tag.name">{{tag.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="col-lg-3 col-md-3 col-12">
+            <button type="button" class="bz-btn" (click)="setUntagged()" *ngIf="selectedTag != 'all'">
+                Untag
+            </button>
+            <button type="button" class="bz-btn ml-2" (click)="setRetag()" *ngIf="selectedTag != 'all'">
+                {{ isRetagged ? 'Retag Selected' : 'Retag' }} 
+            </button>
+        </div>
+        
+    </div>
+    <!-- <div class="col-12">
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-12">
+                <button type="button" class="bz-btn" routerLink="add">Add Product</button>
+            </div>
+            <div class="offset-lg-10 offset-md-10 col-lg-1 col-md-1 col-12 filtr">
+                <button type="button" class="bz-btn" data-toggle="modal" data-target="#filterModal"><i
+                        class="fa fa-filter">Filter</i></button>
+            </div>
+        </div>
+    </div> -->
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <div class="row mt-2">
+                <div class="col-md-12 col-12">
+                    <div class="table-responsive">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th class="repad text-center" *ngIf="selectedTag != 'all'">
+                                        <p>Select All</p> 
+                                        <input type="checkbox" class="text-center" (click)="selectAllProduct($event)" [(ngModel)]="isSelectAll">
+                                    </th>
+                                    <th class="image"></th>
+                                    <th>Name</th>
+                                    <!-- <th scope="col">Description</th> -->
+                                    <th>Item Number</th>
+                                    <th>Price</th>
+                                    <th>Stocks</th>
+                                    <th class="text-center">Pre-Order</th>
+                                    <th class="text-center">Pre-Order Layaway</th>
+                                    <th class="text-center">On Sale</th>
+                                    <th class="text-center">Active</th>
+                                    <th class="text-center">Option</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of productsDisplay | paginate: config">
+                                    <td class="repad text-center" *ngIf="selectedTag != 'all'">
+                                        <input type="checkbox"  [(ngModel)]="product.isSelected">
+                                    </td>
+                                    <td class="repad text-center">
+                                        <img alt="Product image" class="preview" *ngIf="product.currentImageUrl != null"
+                                            [src]="product.currentImageUrl">
+                                        <img alt="No image" class="preview cb" *ngIf="product.currentImageUrl == null"
+                                            src="assets/img/no-image.png">
+                                    </td>
+                                    <td class="desc">
+                                        {{product.productName}}
+                                    </td>
+                                    <!-- <td nowrap>
+                                        <div class="content-text-concat">
+                                            <div [innerHtml]="product.productDescription | sanitizeHtml"></div>
+                                        </div>
+                                    </td> -->
+                                    <td class="other-column">
+                                        <div class="content-text-concat">
+                                            <div>{{product.itemNumber}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="other-column">
+                                        <div class="content-text-concat">
+                                            <div *ngIf="!product.onSale">{{product.price}}</div>
+                                            <div *ngIf="product.onSale">{{product.salesPrice}}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="content-text-concat">
+                                            <div>{{product.quantity}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="other-column text-center">
+                                        <div class="content-text-concat">
+                                            <input type="checkbox" class="check" [disabled]="true"
+                                                [(ngModel)]="product.preOrder" [name]="product.preOrder">
+                                        </div>
+                                    </td>
+                                    <td class="other-column text-center">
+                                        <div class="content-text-concat">
+                                            <input type="checkbox" class="check" [disabled]="true"
+                                                [(ngModel)]="product.preOrderLayaway" [name]="product.preOrderLayaway">
+                                        </div>
+                                    </td>
+                                    <td class="other-column text-center">
+                                        <div class="content-text-concat">
+                                            <input type="checkbox" class="check" [disabled]="true"
+                                                [(ngModel)]="product.onSale" [name]="product.onSale">
+                                        </div>
+                                    </td>
+                                    <td class="other-column text-center">
+                                        <div class="content-text-concat">
+                                            <input type="checkbox" class="check" [disabled]="true"
+                                                [(ngModel)]="product.isactive" [name]="product.isactive">
+                                        </div>
+                                    </td>
+
+                                    <td class="other-column">
+                                        <button class="btn btn-sm btn-outline-accent ml-2"
+                                            (click)="toProductInventory(product)">Manage
+                                            Inventory</button>
+                                    </td>
+
+                                    <td class="repad text-right buttons">
+                                        <button class="btn btn-sm btn-outline-accent edit"
+                                            routerLink="{{product.id}}"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-accent delete"
+                                            (click)="deleteProduct(product)"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-outline-accent edit"
+                                            (click)="toNotification(product)"><i class="fa fa-bell"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Advance Filter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="productFilterForm" autocomplete="off">
+                        <div class="row">
+                            <div class="col-12 border border-light">
+                                <label>Product Name</label>
+                                <input type="text" id="price" class="mb-2" id="productName" class="form-control"
+                                    formControlName="productName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 border border-light">
+                                <label>Category</label>
+                                <div id="fake-input" class="fake-input" (click)="onOpenCombo()"
+                                    [ngClass]="{ 'fake-input-s': openCombo }">
+                                    <div class="in-selected-ter">
+                                        <span class="box-select" *ngFor="let s of selectedCategory">{{ s }}</span>
+                                    </div>
+                                    <i class="fa fa-caret-down pull-right" *ngIf="!openCombo"></i>
+                                    <i class="fa fa-times pull-right" style="color: #f05050" *ngIf="openCombo"></i>
+                                </div>
+                                <div class="category" *ngIf="openCombo" [style.width.px]="teWidth">
+                                    <section>
+                                        <ul>
+                                            <li *ngFor="let cat of allCategory" (click)="changeSelection(cat)">
+                                                <i class="fa fa-check"
+                                                    [ngClass]="{ 'fa-check-s': selectedCategory.indexOf(cat.code) > -1 }"></i>
+                                                {{ cat.category }}
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <div class="category-controls mb-2">
+                                        <span class="col-6 text-center" style="border-right: 1px solid #ddd"
+                                            (click)="selectAll()">Select All</span>
+                                        <span class="col-6 text-center" (click)="deselectAll()">Select None</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 border border-light">
+                                <label>Item #</label>
+                                <input type="text" id="price" class="mb-2" id="itemNumber" class="form-control"
+                                    formControlName="itemNumber">
+                            </div>
+                            <div class="col-6 border border-light">
+                                <label>Tag</label>
+                                <input type="text" id="price" class="mb-2" id="tag" class="form-control"
+                                    formControlName="tag">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="clearAllFilter()">Clear All
+                    Filter</button>
+                <button type="button" class="btn btn-primary" (click)="searchProduct()"
+                    data-dismiss="modal">Search</button>
+            </div>
+        </div>
+    </div>
+</div>

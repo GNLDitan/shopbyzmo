@@ -1,0 +1,28 @@
+<div *ngIf="trending.length > 0">
+    <div class="border-bottom header pt-3 py-2 mb-4">Recent Posts</div>
+    <div *ngFor="let most of trending" class="most-popular">
+        <div class="row pb-3">
+            <!-- <div class="col-5 align-self-center cover">
+            <div> <img [src]="most.coverFileName" alt=""> </div>
+        </div> -->
+            <!-- <div class="col-6 align-self-center image">
+                <div class="image-child" [ngStyle]="{'background-image':'url(' + most.coverFileName + ')'}"
+                    (click)="goToContent(most)">
+                </div>
+            </div> -->
+            <div class="image col-lg-6 col-md-6 col-12">
+                <a [routerLink]="['/blog/content/' + most.id + '/' + most.titleUrl]">
+                    <img [src]="most.coverFileName" alt="Trending cover image">
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 padding">
+                <a class="text-left font-weight-bold title" [routerLink]="['/blog/content/' + most.id + '/' + most.titleUrl]">
+                    {{most.title}}
+                </a>
+                <div class="py-2">
+                    {{most.startDate | date:'mediumDate'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

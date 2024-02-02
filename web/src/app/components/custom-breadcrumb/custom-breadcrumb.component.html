@@ -1,0 +1,8 @@
+<ul class="breadcrumb">
+    <li *ngFor="let cat of category; let i = index;">
+        <a (click)="toProducts(cat)">
+            {{cat.category}}
+            <span class="m-2 text-white" *ngIf="i != (category.length - 1)"><i class="fas fa-angle-right"></i></span>
+        </a>
+    </li>
+</ul>

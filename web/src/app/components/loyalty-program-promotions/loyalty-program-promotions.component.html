@@ -1,0 +1,71 @@
+<!-- <div class="landing">
+    <app-landing></app-landing>
+</div> -->
+<div class="container container-lg justify-content-center align-items-center info">
+    <div class="text-center title-container" id="title">
+        <h2 class="title">Loyalty Programs</h2>
+    </div>
+    <div class="content mt-4">
+        <div>
+            <p>The tier below is based on the peso value of the total accumulated orders. The table shows the
+                corresponding
+                discount for each tier. Shopbyzmo loyalty program is a lifetime discount, however, it cannot be combined
+                with any other existing promotions or discount coupons. Peso value will be added to the accumulated
+                points
+                once the order has been paid in full, shipped, and completely fulfilled.
+                <a href="signup">Sign Up to create an account and be able to avail of this Loyalty Programs.</a></p>
+        </div>
+
+        <div class="text-center">
+            <div class="offset-lg-3 offset-md-3 col-lg-6 col-md-6 col-12">
+                <div class="table-responsive w-auto">
+                    <table class="table byz-table">
+                        <thead class="thead">
+                            <tr>
+                                <!-- <th scope="col">Tier Name</th> -->
+                                <th scope="col">Discount</th>
+                                <th scope="col">Accumulated Purchase Amount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let discount of loyaltyDiscount">
+                                <!-- <td>{{ discount.tierLevel }}</td> -->
+
+                                <td class="text-center"> <span
+                                        *ngIf="discount.discountAmountType === 1">{{discount.discount | conversion }}</span>
+
+                                    <span *ngIf="discount.discountAmountType != 1">{{discount.discount}}%</span>
+                                </td>
+                                <td class="text-center">
+                                    {{ discount.rangeFrom }} - {{ discount.rangeTo }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="text-center title-container" id="title">
+        <h2 class="title">Discount & Promotions</h2>
+    </div>
+    <div class="content mt-4">
+        <div>
+            <p>From time to time, Shopbyzmo will have promos for extra discount and/or free shipping. You may use any
+                one of them per transaction. We will not honor multiple discounts. In the event that you entered two
+                (and by some miracle both went through), we will only honor the one with the higher discount, but not
+                both. Promotions are subject to change without prior notice. Promotions will also be effective within a
+                specific time frame ONLY. All dates and time will be in Philippine (GMT+8) Time. Please take note of the
+                time as we will be holding auctions onsite. We will not be responsible for misunderstandings.</p>
+        </div>
+        <div>
+            <p>In addition, Loyalty discounts may not be combined with any other promotions. Only one voucher/coupon may
+                be availed per order. Loyalty discount is not valid for Sale and layaway items. Loyalty discounts may be
+                applied on pre-order or on hand goods.</p>
+        </div>
+    </div>
+</div>

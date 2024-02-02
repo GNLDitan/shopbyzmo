@@ -1,0 +1,212 @@
+<!-- <canvas id="myLine" width="700" height="400"></canvas> -->
+<!-- <canvas id="myChart" width="700" height="400"></canvas> -->
+
+<div class="content">
+    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-12">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="card byz-container mt-2">
+                        <div class="card-header">
+                            No of out of stock
+                            <span class="float-right">
+                                <a href="administration/in-stock-products-report" routerLinkActive="active">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="card-body text-center">
+                            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                                [fullScreen]="false">
+                            </ngx-spinner>
+                            <strong>{{dashboard.outOfStock}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="card byz-container mt-2">
+                        <div class="card-header">
+                            No. of Delayed Payment
+                            <span class="float-right">
+                                <a href="administration/order-layaway-payment" routerLinkActive="active">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="card-body text-center">
+                            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                                [fullScreen]="false">
+                            </ngx-spinner>
+                            <strong>{{dashboard.delayedPayment}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="card byz-container mt-2">
+                        <div class="card-header">
+                            New Order
+                            <span class="float-right">
+                                <a href="administration/orders" routerLinkActive="active">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="card-body text-center">
+                            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                                [fullScreen]="false">
+                            </ngx-spinner>
+                            <strong>{{dashboard.orderCount}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="card byz-container mt-2">
+                        <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                            [fullScreen]="false">
+                        </ngx-spinner>
+                        <div class="card-header">
+                            No. of Subscribed User.
+                            <span class="float-right">
+                                <a href="administration/subscription-emails-report" routerLinkActive="active">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="card-body text-center">
+                            <strong>{{dashboard.userSubscribed}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card byz-container mt-2">
+                        <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                            [fullScreen]="false">
+                        </ngx-spinner>
+                        <div class="card-body">
+                            <canvas id="myChartjs" width="700" height="250" #myChartjs></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-12 recent">
+            <div class="card byz-container mt-2">
+                <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                    [fullScreen]="false">
+                </ngx-spinner>
+                <div class="card-header">
+                    Order Status Summary (2021)
+                    <span class="float-right">
+                        <a href="administration/order-status-report" routerLinkActive="active">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart" style="width: 100%;"></canvas>
+                </div>
+            </div>
+            <div class="card byz-container mt-2">
+                <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                    [fullScreen]="false">
+                </ngx-spinner>
+                <div class="card-header">
+                    Recent Blog Comments
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table">
+                            <tbody>
+                                <tr *ngFor="let rb of dashboard.recentBlogComment">
+                                    <td>
+                                        <strong>{{rb.name}} </strong> commented on your Blog post
+                                        <span class="blog-title">{{rb.title}}</span>. <a (click)="goToBlog(rb)"
+                                            class="view">View
+                                            post.</a> <br>
+                                        {{calcDate(rb.datetime)}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="card byz-container mt-2">
+                <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                    [fullScreen]="false">
+                </ngx-spinner>
+                <div class="card-header">
+                    Top 5 Most Ordered Product
+                    <span class="float-right">
+                        <a href="administration/product-sale-report" routerLinkActive="active">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>No of Order</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let mo of dashboard.mostProduct">
+                                    <td>{{ mo.productName }} </td>
+                                    <td class="text-center">{{ mo.count }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="card byz-container mt-2">
+                <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                    [fullScreen]="false">
+                </ngx-spinner>
+                <div class="card-header">
+                    Most Loyalty User
+                    <span class="float-right">
+                        <a href="administration/loyalty-discount-tracker-report" routerLinkActive="active">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Email</th>
+                                    <th>Tier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let mo of dashboard.mostLoyaltyUser">
+                                    <td>{{ mo.name }} </td>
+                                    <td>{{ mo.email }}</td>
+                                    <td>{{ mo.tierlevel }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

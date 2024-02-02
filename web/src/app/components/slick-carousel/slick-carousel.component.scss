@@ -1,0 +1,113 @@
+@import '~bootstrap/scss/bootstrap-grid';
+
+.slick-slider {
+    width: 90%;
+    margin: auto;
+
+    .slick-slide:focus { 
+        outline: 0;
+    }
+}
+
+.card {
+    object-fit: cover;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 300px;
+    width: 230px;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover .card-image {
+        transform: scale(1.2);
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.card-image {
+    margin: auto;
+    max-height: 250px;
+    transition: all 0.2s ease-in-out;
+}
+  
+.img-fluid {
+    height: 230px;
+    margin: auto;
+}
+
+.card-title {
+    font-size: unset;
+    text-align: center;
+}
+
+.card-body {
+    height: 90px;
+}
+
+.card-footer {
+    background: transparent;
+    height: 60px;
+}
+
+.product-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 58px;
+}
+
+.info-layaway {
+    float: right;
+}
+
+.cart {
+    cursor: pointer;
+    background-color:#662e93;
+
+    &:hover{
+        background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+        background-color:#378de5;
+    }
+}
+
+.outofstock {
+    color: white;
+    cursor: not-allowed;
+    background-color: #666;
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+.origprice {
+    color: rgb(52, 58, 64);
+}
+
+.salesprice {
+    color: red;
+}
+
+.viewDetails{
+    a{
+        color: blue;
+        text-decoration: underline;
+        background-color: transparent; // Remove the gray background on active links in IE 10.
+        cursor: pointer !important;
+    }
+}
+
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+  .bz-btn {
+    width: 100%;
+  }
+  .product-text {
+    text-align: center !important;
+  }
+}
+  

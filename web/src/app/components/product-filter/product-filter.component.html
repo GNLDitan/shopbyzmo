@@ -1,0 +1,183 @@
+<div class="horizontal-bar-container horizontal-bar-container-variation desktop">
+    <div class="wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="horizontal-bar-content">
+                    <div class="filter-panel filter-panel-collapsed">
+                        <div class="filter-list-container">
+                            <div *ngFor="let filter of filters; let i = index" class="list-container" [ngClass]="{'filter-sort': filter.sorts.length > 0,
+                                            'filter-availability': filter.availability.length > 0 }">
+                                <div class="horizontal horizontal-filter" [attr.id]="filter.code">
+                                    <div class="title" (click)="openFilterDialog(filter.code)">
+                                        <span class="gl-label gl-label-l">{{ filter.name }}</span>
+                                    </div>
+                                    <div class="options-container" *ngIf="filter.category.length > 0" (click)="click()"
+                                        (mouseleave)="mouseLeave()">
+                                        <ul class="plp-sidebar-item multiselect-list">
+                                            <li *ngFor="let cat of filter.category">
+                                                <div class="gl-form-item">
+                                                    <div class="gl-checkbox gl-checkbox-checked multiselectFilter"
+                                                        [ngClass]="{ 'disable-category': !cat.isDisplay }">
+                                                        <label class="gl-checkbox-label">
+                                                            <input type="checkbox" [checked]="cat.isSelected"
+                                                                (click)="selectedFilter(cat);">
+                                                            <span class="checkmark"></span>
+                                                            <span class="gl-checkbox-text">
+                                                                {{cat.category | titlecase}}
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="options-container filter-sort " *ngIf="filter.availability.length > 0"
+                                        (click)="click()" (mouseleave)="mouseLeave()">
+                                        <ul class="plp-sidebar-item multiselect-list">
+                                            <li *ngFor="let cat of filter.availability">
+                                                <div class="gl-form-item gl-checkbox-checked multiselectFilter">
+                                                    <label class="gl-checkbox-label">
+                                                        <input type="checkbox" [checked]="cat.isSelected"
+                                                            (click)="selectedTag(filter.availability, cat)">
+                                                        <span class="checkmark"></span>
+                                                        <span class="gl-checkbox-text">
+                                                            {{cat.name}}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="options-container filter-sort " *ngIf="filter.sorts.length > 0"
+                                        (click)="click()" (mouseleave)="mouseLeave()">
+                                        <ul class="plp-sidebar-item multiselect-list">
+                                            <li *ngFor="let cat of filter.sorts">
+                                                <div class="gl-form-item" (click)="selectedSort(cat, i)">
+                                                    <label class="gl-checkbox-label">
+                                                        <span class="gl-checkbox-text">
+                                                            {{cat}}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-3">
+        <div class="saved-tags">
+            <ng-container *ngFor="let filter of summaryFilter">
+                <a class="badge badge-lg badge-secondary" (click)="removeFilter(filter)">
+                    <span>{{ filter.name | titlecase}} </span>
+                </a>
+            </ng-container>
+            <ng-container *ngFor="let filter of summaryTagFilter">
+                <a class="badge badge-lg badge-secondary" (click)="removeTagFilter(filter)">
+                    <span>{{ filter| titlecase }} </span>
+                </a>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<div class="mobile">
+    <span class="filter float-left" (click)="openModal(true)">
+        <p class="mobile-filter-title">Filter</p>
+    </span>
+    <span class="filter float-right" (click)="openModal(false)">
+        <span *ngIf="filters.length > 0">
+            <div *ngFor="let filter of filters">
+                <span *ngIf="filter.sorts.length > 0" class="mobile-filter-title">
+                    {{ filter.name }}
+                </span>
+            </div>
+        </span>
+        <span *ngIf="filters.length == 0">
+            Sort
+        </span>
+    </span>
+    <div id="mobileFilter" class="overlay">
+        <div class="overlay-content">
+            <a class="closebtn" (click)="closeNav()">&times;</a>
+            <h5 class="title">{{ isFilter ? 'Filter' : 'Sort' }}</h5>
+            <div class="mobile-filter-container" [ngClass]="isFilter ? 'filter-list' : 'sort-list' ">
+                <div *ngIf="isFilter && filters.length > 0">
+                    <div *ngFor="let filter of filters;let i = index">
+                        <div [id]="'collapse'+i" [class]="filter.name">
+                            <button class="accordion" (click)="clickPanel('collapse'+i)">{{filter.name}}</button>
+                            <div class="panel">
+                                <div *ngFor="let cat of filter.category">
+                                    <div class="mobile-filter">
+                                        <div class="item">
+                                            <label class="gl-checkbox-label">
+                                                <input type="checkbox" [checked]="cat.isSelected"
+                                                    (click)="selectedFilter(cat, i);">
+                                                <span class="checkmark"></span>
+                                                <span class="gl-checkbox-text">
+                                                    {{ cat.category | titlecase }}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngFor="let cat of filter.availability">
+                                    <div class="mobile-filter">
+                                        <div class="item">
+                                            <label class="gl-checkbox-label">
+                                                <input type="checkbox" [checked]="cat.isSelected"
+                                                    (click)="selectedTag(filter.availability, cat, i)">
+                                                <span class="checkmark"></span>
+                                                <span class="gl-checkbox-text">
+                                                    {{ cat.name }}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isFilter && filters.length > 0">
+                    <div *ngFor="let filter of filters;let i = index">
+                        <div class="mobile-filter-sort" *ngIf="filter.sorts.length > 0" (click)="click()">
+                            <div *ngFor="let cat of filter.sorts">
+                                <div class="sort-item">
+                                    <div class="gl-form-item" (click)="mobileSort(cat, i)">
+                                        <label class="gl-checkbox-label">
+                                            <span class="gl-checkbox-text">
+                                                {{cat}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-3">
+        <div class="saved-tags ">
+            <ng-container *ngFor="let filter of summaryFilter">
+                <a class="badge badge-lg badge-secondary" (click)="removeFilter(filter)">
+                    <span>{{ filter.name }} </span>
+                </a>
+            </ng-container>
+            <ng-container *ngFor="let filter of summaryTagFilter">
+                <a class="badge badge-lg badge-secondary" (click)="removeTagFilter(filter)">
+                    <span>{{ filter }} </span>
+                </a>
+            </ng-container>
+        </div>
+    </div>
+
+</div>

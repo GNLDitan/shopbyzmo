@@ -1,0 +1,291 @@
+.cover-img {
+   margin-top: 20px;
+    .img {
+        margin-bottom: 20px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+}
+
+.upload-cover{
+    cursor: pointer;
+}
+
+.add {
+    margin: auto;
+}
+
+.tags,
+.saved-tags {
+
+  a {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+}
+
+.asterisk{
+  color: red;
+}
+
+.small {
+  font-size: 11px;
+}
+
+
+//modal
+
+.modal {
+  padding-right: 180px !important;
+  padding-left: 180px !important;
+}
+.modal-full {
+  min-width: 100%;
+  margin: 0;
+}
+
+.modal-full .modal-content {
+  min-height: 100%;
+}
+
+.blog {
+  overflow-x: hidden;
+  max-width: 1400px;
+  .image {
+    width: 800px;
+    // max-height: 350px;
+    width: 100%;
+    .cover{
+        width: 100%;
+        max-width: 800px;
+    }
+  }
+  .title {
+      font-weight: bold;
+      &:hover {
+          cursor: pointer;
+      }
+  }
+
+  .blog-title {
+      font-weight: bold;
+      font-size: 34px;
+      margin-left: 20px;
+      overflow-wrap: break-word;
+  }
+  .content-image {
+      display: flex;
+      
+    .column {
+      cursor: pointer;
+      flex: 33.33%;
+      padding: 5px;
+    }
+    
+    .column img {
+        width: 100%;
+    }
+  }
+    
+   
+  
+  .single-image{
+    width: 100%;
+    img{
+        width: 100%;
+        height: auto;
+        max-width: 800px;
+    }
+  }
+
+  .most-popular {
+      img{
+          height: 60px;
+          width: 100%;
+      }
+  }
+
+  .date-stamp {
+      font-size: 14px;
+      margin-left: 20px;
+  }
+
+  .social-area{
+    float: right;
+
+    .sharing{
+        vertical-align: middle;
+        display: inline-block;
+
+        .label {
+            vertical-align: middle;
+            font-size: 13.6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 20px;
+        }
+
+        .fab {
+            padding: 8px 8px 20px;
+            font-size: 15px;
+            text-align: center;
+            text-decoration: none;
+            margin: 5px 2px;
+            height: 20px;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.7;
+            }
+          }
+          
+          /* Facebook */
+          .fa-facebook {
+            background: #3B5998;
+            color: white;
+          }
+          
+          /* Twitter */
+          .fa-twitter {
+            background: #55ACEE;
+            color: white;
+          }
+        
+
+    }
+}
+
+  .add-comment {
+      text-align: right;
+      margin-top: 50px;
+      margin-bottom: 20px;
+  }
+
+  .avatar {
+      margin: 3px 5px;
+      float: left;
+    }
+    
+    .ava-30 {
+      width: 30px;
+      height: 30px;
+    }
+  
+  .comment {
+      width: 100%;
+      padding: 10px;
+  }
+
+  .video {
+      margin: auto;
+  }
+}
+
+.container-fluid {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.theater {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(#000000, 0.75);
+  z-index: 2000;
+
+  .theater-in {
+    padding: 0 25px;
+    img {
+      height: 100vh;
+      width: auto;
+    }
+  }
+}
+
+
+.goofy {
+  overflow: hidden;
+}
+
+// .byz-close {
+//   font-size: 24px;
+//   color: #ffffff;
+//   cursor: pointer;
+//   position: absolute;
+//   top: 40px;
+//   right: 40px;
+// }
+
+.save-m{
+  display: none;
+}
+
+.preview {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.date-range {
+  margin-left: 10px;
+}
+
+.draft{
+  margin-bottom: 20px;
+}
+
+.bz-btn{
+  height: 35px;
+  width: 150px;
+  &:hover{
+      background-color: #eaba6b;
+  }
+
+}
+
+
+.bz-cover{
+  height: 35px;
+  width: 50%;
+  color: #ffffff !important;
+  font-size: 14px;
+  padding: 3px;
+  border-radius: 8px;
+  min-width: 120px;
+  border: 0;
+  background-color: #652d90;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover{
+    background-color: #eaba6b;
+  }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px) {
+  .modal {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+
+  .save-d{
+    display: none;
+  }
+
+  .save-m{
+    display: block;
+  }
+  
+  .bz-cover{
+    width: 100%;
+  }
+
+}

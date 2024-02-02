@@ -1,0 +1,131 @@
+<div class="container-fluid blg">
+    <h2>Loyalty Discount Tracker</h2>
+    <!-- <app-report-filter (filterSettings)="search($event)" [inputReportType]="reportType"></app-report-filter> -->
+    <div class="content container mt-2">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-12">
+                <div class="form-group">
+                    <div><label for="start-date">Qualified Discount:</label></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" id="qualifiedDiscount" [(ngModel)]="qualifiedDiscount">
+                                <option [ngValue]="discount.id" *ngFor="let discount of loyalDiscount">
+                                    {{ discount.tierLevel }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-lg-7 offset-md-7 col-lg-2 col-md-2 col-12 search">
+                <button class="bz-btn" (click)="getLoyaltyDiscountTracker()">
+                    <span>Search</span>
+                </button>
+                <button class="bz-btn mt-2 mb-2" (click)="export()">
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <h5 class="text-center">Loyalty Discount Tracker</h5>
+            <div class="table-responsive">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th class="text-center" width="20%">Customer Name</th>
+                            <th class="text-center" width="20%">Email</th>
+                            <th class="text-center" width="15%">Accumulated Purchase Amount</th>
+                            <th class="text-center">Qualified Discount</th>
+                            <th class="text-center">Discount Codes</th>
+                            <th class="text-center">Availed</th>
+                            <th class="text-center" width="20%">Order No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let report of reports">
+                            <tr>
+                                <td [attr.rowspan]="report.loyaltyDiscountTracker.length > 0 ? report.loyaltyDiscountTracker.length : 1"
+                                    class="repad text-center">
+                                    {{report.name }}
+                                </td>
+                                <td [attr.rowspan]="report.loyaltyDiscountTracker.length > 0 ? report.loyaltyDiscountTracker.length : 1"
+                                    class="repad text-center">
+                                    {{report.email }}
+                                </td>
+                                <td [attr.rowspan]="report.loyaltyDiscountTracker.length > 0 ? report.loyaltyDiscountTracker.length : 1"
+                                    class="text-center">
+                                    {{report.accumulatedPurchaseAmount | number : '1.0-2' }}
+                                </td>
+                                <td [attr.rowspan]="report.loyaltyDiscountTracker.length > 0 ? report.loyaltyDiscountTracker.length : 1"
+                                    class="text-center">
+                                    <span *ngIf="report.tierLevel != ''">
+                                        {{report.tierLevel }}
+                                    </span>
+                                    <span *ngIf="report.tierLevel == ''">
+                                        -
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="report.loyaltyDiscountTracker.length > 0">
+                                        {{report.loyaltyDiscountTracker[0].discountCode }}
+                                    </span>
+                                    <span *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                        -
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="report.loyaltyDiscountTracker.length > 0">
+                                        {{report.loyaltyDiscountTracker[0].availed }}
+                                    </span>
+                                    <span *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                        -
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="report.loyaltyDiscountTracker.length > 0">
+                                        <span *ngIf="report.loyaltyDiscountTracker[0].orderId != ''">
+                                            {{report.loyaltyDiscountTracker[0].orderId }}
+                                        </span>
+                                        <span *ngIf="report.loyaltyDiscountTracker[0].orderId == ''">
+                                            -
+                                        </span>
+                                    </span>
+                                    <span *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                        -
+                                    </span>
+                                </td>
+                                <td class="text-center" *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                </td>
+                                <td class="text-center" *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                </td>
+                                <td class="text-center" *ngIf="report.loyaltyDiscountTracker.length == 0">
+                                </td>
+                            </tr>
+                            <ng-container *ngFor="let disct of report.loyaltyDiscountTracker; let i= index;">
+                                <tr *ngIf="i!=0" class="text-center">
+                                    <td>{{disct.discountCode}}</td>
+                                    <td>{{disct.availed}}</td>
+                                    <td>
+                                        <span *ngIf="disct.orderId != ''">
+                                            {{disct.orderId}}
+                                        </span>
+                                        <span *ngIf="disct.orderId == ''">
+                                            -
+                                        </span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

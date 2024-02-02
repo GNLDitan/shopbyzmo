@@ -1,0 +1,82 @@
+.blg {
+    margin-bottom: 20px;
+}
+
+
+table th, table td{
+    width: 80px;
+    }
+
+    tbody{
+    width: 100%;
+    margin-right: 20px;
+}
+
+th:nth-child(1), td:nth-child(1){
+    width: 200px !important;
+    text-align: left;
+}
+th:nth-child(2), td:nth-child(2){
+    width: 300px !important;
+    text-align: left;
+}
+
+th:nth-child(3), td:nth-child(3){
+    text-align: center;
+}
+
+th:nth-child(4), td:nth-child(4){
+    text-align: center;
+}
+
+th:nth-child(5), td:nth-child(5){
+    text-align: center;
+}
+
+.edit {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.delete {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+
+.buttons{
+    white-space: nowrap;
+    width: 20%;
+}
+
+.table{
+    table-layout: fixed;
+}
+
+
+.desc{
+    word-wrap:break-word;
+}
+
+.bz-btn{
+    height: 35px;
+
+    &:hover{
+        background-color: #eaba6b;
+    }
+}
+
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    
+    .buttons{
+        white-space: nowrap;
+        width: 50%;
+    }
+}

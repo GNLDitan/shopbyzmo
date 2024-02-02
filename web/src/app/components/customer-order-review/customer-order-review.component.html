@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="back">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="title">Rate and review order product</h3>
+                <div *ngFor="let cartProduct of order.orderCart">
+                    <div class="card order-padding">
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <img class="thumbnail review-image" [src]="cartProduct.product.currentImageUrl" alt="Product image" >
+                            </div>
+                            <div class="col-8">
+                                <div class="product-name" (click)="goToProduct(cartProduct.product)"> 
+                                    {{ cartProduct.product.productName }}
+                                </div>
+                                <div><small>{{cartProduct.product.itemNumber}}</small></div>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-outline-primary" data-toggle="modal" 
+                                    data-target="#at-review" (click)="viewReviewProduct(cartProduct)">Review
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<section class="at-layaway-form">
+    <!-- Reviews -->
+    <div class="modal fade review-container" data-backdrop="false" id="at-review" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>
+                        <b>Rate and review purchased product</b>
+                    </span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-3">
+                        <div class="col-2 text-center">
+                            <img class="thumbnail review-image" [src]="cart.product.currentImageUrl" alt="Product image" >
+                        </div>
+                        <div class="col-8">
+                            <div><b> {{cart.product.productName}} </b></div>
+                            <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                                <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}">
+                                    <i class="fa fa-star fa-2x"></i>
+                                </li>
+                            </ul>
+                            <div><small>Review detail</small> </div>
+                            <textarea name="review" id="review-id" class="input-review" [(ngModel)]="clientComment"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" (click)="submitReview()" data-dismiss="modal" aria-label="Close" 
+                        [disabled]="selectedValue === 0">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>

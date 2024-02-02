@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <h2>User Product Notification</h2>
+    <h4>Product Name: {{ product.productName }}</h4>
+
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <div class="row pt-1">
+                <div class="col-md-12 col-12">
+                    <div *ngIf="productNotification.length == 0">
+                        <h3>No User For Notification</h3>
+                    </div>
+                    <div class="table-responsive" *ngIf="productNotification.length > 0">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th style="width:45%">Email</th>
+                                    <th style="width:30%">Date Added</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let notif of productNotification">
+                                    <td>{{notif.email}}</td>
+                                    <td>{{notif.dateAdded | date:'longDate' }}</td>
+                                    <td> <button class="btn btn-sm btn-outline-accent ml-2" (click)="sendEmail(notif)"
+                                            [disabled]="isSending">
+                                            {{ notif.isSend ? 'Re-send' : 'Send' }}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

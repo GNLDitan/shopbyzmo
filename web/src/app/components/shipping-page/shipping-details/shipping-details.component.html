@@ -1,0 +1,259 @@
+<span>
+    Shipping Details
+</span>
+
+<div class="row address" *ngIf="isEmailDisabled">
+    <div class="col-12">
+        <div class="card p-2">
+            <i class="fa fa-map-marker mb-2 address-header" aria-hidden="true">
+                <span>Selected Address</span>
+            </i>
+            <div class="row">
+                <div class="col-9">
+                    {{selectedAddress.completeAddress}}
+                </div>
+                <div class="col-3 change" data-toggle="tooltip" title="address" id="addressesId" data-toggle="modal"
+                    data-target="#cart-addresses">
+                    CHANGE
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<span class="float-right" *ngIf="user.id <= 0">Already have an account? <span class="font-weight-bold login"
+        (click)="loginUser()">Login</span>
+</span>
+<form autocomplete="off" [formGroup]="shippingAccountForm" (ngSubmit)="continuePayment()">
+    <div class="form-group field">
+        <label for="completeName">Complete Name</label>
+        <input type="text" class="form-control" id="completeName" formControlName="completeName">
+    </div>
+    <div class="form-group field">
+        <label for="email">Email Address</label>
+        <input type="text" class="form-control" id="email" formControlName="email" [attr.disabled]="isEmailDisabled">
+        <!-- <div *ngIf="isShowSubs">
+            <input type="checkbox" class="check" formControlName="isEmailSubscribe">
+            <span class="ml-2">Keep me up to date on news and exclusive offers.</span>
+        </div> -->
+    </div>
+    <div class="form-group field">
+        <label for="mobileNumber">Mobile Number</label>
+        <div class="row">
+            <div class="col-3">
+                <input type="text" disabled class="form-control" id="numCode" formControlName="numCode">
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="mobileNumber" formControlName="mobileNumber">
+            </div>
+        </div>
+    </div>
+    <div class="form-group field">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" formControlName="address">
+    </div>
+    <div class="form-group field">
+        <label for="barangay">Barangay</label>
+        <input type="text" class="form-control" id="barangay" formControlName="barangay">
+    </div>
+    <div class="form-group field">
+        <label for="city">City</label>
+        <textarea type="text" class="form-control" id="city" formControlName="city"></textarea>
+    </div>
+    <!-- Other than US, CN, JP, PH CA -->
+    <div *ngIf="['US','JP','CN','PH', 'CA'].indexOf(shippingAccountForm.controls.countryCode.value) < 0">
+        <div class="form-group  field">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+    </div>
+    <!-- PH -->
+    <div *ngIf="shippingAccountForm.controls.countryCode.value == 'PH'">
+        <div class="form-group field-half field">
+            <label for="province">Province</label>
+            <select class="form-control" id="province" formControlName="province">
+                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group field-half field">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+    </div>
+    <!-- US -->
+    <div *ngIf="shippingAccountForm.controls.countryCode.value == 'US'">
+        <div class="form-group field-half field">
+            <label for="states">States</label>
+            <select class="form-control" id="states" formControlName="states">
+                <option [value]="prv.code" *ngFor="let prv of states">{{ prv.name }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group field-half field">
+            <label for="zipCode">ZIP Code</label>
+            <input type="text" class="form-control" id="zipCode" formControlName="zipCode">
+        </div>
+    </div>
+    <!-- CN -->
+    <div *ngIf="shippingAccountForm.controls.countryCode.value == 'CN'">
+        <div class="form-group field-half field">
+            <label for="province">Province</label>
+            <select class="form-control" id="province" formControlName="province">
+                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group field-half field">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+    </div>
+    <!-- JP -->
+    <div *ngIf="shippingAccountForm.controls.countryCode.value == 'JP'">
+        <div class="form-group field">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+        <div class="form-group field">
+            <label for="prefecture">Prefecture</label>
+            <select class="form-control" id="prefecture" formControlName="prefecture">
+                <option [value]="prv.code" *ngFor="let prv of prefecture">{{ prv.name }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <!-- CA -->
+    <div *ngIf="shippingAccountForm.controls.countryCode.value == 'CA'">
+        <div class="form-group field-half field">
+            <label for="province">Province</label>
+            <select class="form-control" id="province" formControlName="province">
+                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group field-half field">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+        </div>
+    </div>
+
+    <div class="form-group field">
+        <label for="countryCode">Country</label>
+        <select class="form-control" id="countryCode" formControlName="countryCode" (change)="countryChange()">
+            <option [value]="country.code" *ngFor="let country of countries">
+                {{ country.name }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group field">
+        <div>
+            <input type="checkbox" class="check" (change)="selectDefault()" formControlName="isSelectedDefault">
+            <span class="ml-2">Same with Shipping address</span>
+        </div>
+        <label for="billingAddress">Billing Address </label>
+        <textarea type="text" class="form-control" id="billingAddress" formControlName="billingAddress"></textarea>
+    </div>
+    <div class="form-group field">
+        <label for="facebookName">Facebook Name</label>
+        <input type="text" class="form-control" id="facebookName" formControlName="facebookName">
+    </div>
+    <div class="form-group field">
+        <label for="specialInstruction">Special Instructions (Optional)</label>
+        <input type="text" class="form-control" id="specialInstruction" formControlName="specialInstruction">
+    </div>
+
+
+    <div class="mt-3">
+        <button type="submit" class="bz-btn">
+            <span>Continue to Shipping Method</span>
+        </button>
+    </div>
+</form>
+
+<section class="at-login-form">
+
+    <div class="modal fade" data-backdrop="false" id="cart-login" tabindex="-1" role="dialog"
+        aria-labelledby="addresssLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <div class="col-12">
+                            <div class="logo">
+                                <img alt="logo" src="assets/img/byzmo_header.png">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-fb" title="Under construction" data-dismiss="modal"
+                        (click)="signInWithSocialMedia('facebook')"> <i class="fab fa-facebook-f pull-left"
+                            aria-hidden="true"></i>
+                        Login with Facebook </button> <br>
+                    <button class="btn-gp" data-dismiss="modal" (click)="signInWithSocialMedia('google')">
+                        <i class=" fab fa-google-plus-g pull-left" aria-hidden="true"></i>
+                        Login with Google </button> <br>
+                    <div class="signup-or-separator">
+                        <span class="h6 signup-or-separator--text">or</span>
+                        <hr>
+                    </div>
+                    <form *ngIf="!isLogin" [formGroup]="loginForm" (ngSubmit)="login()">
+                        <div class="form-group">
+                            <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="password"
+                                placeholder="Password">
+                        </div>
+                        <div class="row">
+                            <div class="col error">
+                                <span *ngIf="errorMessage !== null && errorMessage !== undefined && errorMessage !== ''"
+                                    class="error-message">{{ errorMessage }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><a data-dismiss="modal" routerLink="/forgot">
+                                        Forgot Password?</a></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="bz-btn">
+                            <span>Login</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- MODAL LOGIN -->
+<div class="modal fade" data-backdrop="false" id="cart-addresses" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5> Addresses</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div *ngFor="let addr of addresses" class="mb-3">
+                    <input type="radio" name="addr" [checked]="addr.isSelected" (click)="selectedAddressChange(addr)">
+                    <span class="pl-2">{{addr.completeAddress}}</span>
+                    <span *ngIf="addr.isDefault"> (Default)</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="changeSelectedAddress()" data-dismiss="modal"
+                    aria-label="Close">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

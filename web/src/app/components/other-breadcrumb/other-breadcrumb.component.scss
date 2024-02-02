@@ -1,0 +1,48 @@
+@import '~angular-crumbs/style';
+
+
+
+ol.breadcrumb li a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: ">" !important;
+}
+
+.bread{
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 32px;
+    padding: 0 0 11px;
+    position: relative;
+    text-transform: capitalize;
+    color: #000;
+    margin-left: 12px;
+    margin-top: 20px;
+}
+
+.breadcrumb li {
+    display: inline;
+    font-size: 20px;
+    font-weight: bold !important;
+    
+  }
+  
+  .breadcrumb-item.active {
+    color:black !important;
+    font-weight: bold !important;
+  }
+  
+  .breadcrumb li a {
+    font-size: 20px !important;
+    letter-spacing: 0 !important;
+    line-height: 32px !important;
+    position: relative !important;
+    text-transform: capitalize;
+    color: black;
+    margin-left: 12px !important;
+  }
+  

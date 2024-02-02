@@ -1,0 +1,38 @@
+<div class="container-fluid blg">
+    <h2>Payment</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Payment</button>
+        </div>
+    </div>
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <div class="table-responsive w-auto">
+                <table class="table byz-table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of paymentMethods | paginate: config">
+                            <td>{{ payment.name }}</td>
+                            <td>
+                                <div class="desc" [innerHtml]="payment.description | sanitizeHtml"></div>
+                            </td>
+                            <td class="repad text-right buttons">
+                                <button class="btn btn-sm btn-outline-accent edit" routerLink="{{payment.id}}"><i
+                                        class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-accent delete"
+                                    (click)="deletePaymentMethod(payment)"><i class="fa fa-trash"></i></button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

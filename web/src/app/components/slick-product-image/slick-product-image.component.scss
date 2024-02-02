@@ -1,0 +1,155 @@
+@import '~bootstrap/scss/bootstrap-grid';
+@import '../../../assets/styles/site.scss';
+
+// Slider
+
+
+.slick-slider {
+    width: 90%;
+    margin: auto;
+    background: transparent;
+}
+
+.carousel {
+    margin: 0;
+    width: 100%;
+
+    .slide {
+        height: auto;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        background-color: #ffffff;
+        display: inline-block;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        &:focus {
+            outline: 0;
+            border: 2px solid $byz-purple-l;
+        }
+    }
+}
+
+.slick-slide {
+    margin-left:10px;
+}
+
+.slick-list {
+    margin-left:-10px;
+}
+
+.img-responsive{
+    max-width: 150px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.slick-slide{
+    margin-left: 0;
+}
+
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    height: 20px;
+    width: 20px;
+  
+ 
+  }
+
+  .arrow.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+
+  .arrow.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-bottom: 5px;
+  }
+
+  .btn-next, .btn-prev {
+    width: 85% !important;
+    background: $byz-purple-m;
+    opacity: 80%;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+.btn-next {
+    /* z-index: 100000; */
+    bottom: 10px;
+    position: absolute;
+   
+}
+
+.btn-prev {
+    top: 0;
+    position: absolute;
+    z-index: 2;
+}
+
+
+
+
+@media only screen and (min-width: 280px) and (max-width: 599px) {
+    .slide img {
+        object-position: center center;
+        overflow: hidden;
+        position: relative;
+        height: 100px;
+      }
+  
+      .thumbnails-container {
+          top: 0px !important;
+          display: flex;
+          width: 500px;
+      }
+
+      .btn-next {
+        height: 100%;
+        z-index: 1;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        width: 25px !important; 
+      }
+
+      .arrow.down {
+        margin-top: 50px;
+        margin-right: 25px;
+        transform: rotate(-45deg) !important;
+        -webkit-transform: rotate(-45deg) !important;
+      }
+
+      .btn-prev {
+        height: 100%;
+        z-index: 1;
+        position: absolute;
+        left: 10px;
+        top: 0;
+        width: 25px !important; 
+      }
+
+
+      .arrow.up {
+        margin-top: 50px;
+        margin-left: 10px;
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      
+  }

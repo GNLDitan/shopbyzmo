@@ -1,0 +1,422 @@
+<!-- <table style="background-color:#eeeeee;">
+    <tr>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0"
+                style="width:700px;background-color:white;margin:10px 100px;">
+                <tr style="text-align:left;background-color:white;color:white;">
+                    <td style="display:block;margin:20px;">
+                        <div>
+                            <img class="responsive" style="width: 150px; height: 150px;" src="{ImageLogo}">
+                        </div>
+                    </td>
+                </tr>
+                <tr style="text-align:left;background-color: white;color:black;">
+                    <td style="display:block;margin:20px;">
+                        <p>
+                        <h2>Order
+                            <span style="color:#4cf9fa;text-decoration:none;">#{OrderNumber}</span>
+                        </h2>
+                        </p>
+
+                        <h4>Hi {CustomerName},</h4>
+                    </td>
+                </tr>
+                <tr style="text-align:left;background-color: white;color:black;">
+                    <td style="display:block;margin:30px;">
+                        <div>
+                            <p>{Content}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="text-align:left;background-color: white;color:black;">
+                    <td style="display:block;margin:50px;">
+                        <h4>Order Summary:</h4>
+                    </td>
+                </tr>
+                {OrderItems}
+                <tr style="text-align:right;background-color: white;color:black;">
+                    <td style="display:block;margin-left:390px;">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="text-align:left;font-weight: bold;">Subtotal:</td>
+                                    <td></td>
+                                    <td>{SubTotal}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;font-weight: bold;">Discount Amount:</td>
+                                    <td></td>
+                                    <td>{DiscountAmount}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;font-weight: bold;">Shipping Amount:</td>
+                                    <td></td>
+                                    <td>{ShippingAmount}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;font-weight: bold;">Total Price:</td>
+                                    <td></td>
+                                    <td>{SumTotalPrice}</td>
+                                </tr>
+                                {AmountToPay}
+                            </table>
+                            {AmountToPayNote}
+                        </div>
+                    </td>
+                </tr>
+                <tr style="text-align:left;background-color: white;color:black;">
+                    <td style="display:block;margin:50px;">
+                        <p>
+                        <h4>Customer Information
+                        </h4>
+                        </p>
+                        <p>Shipping Address</p>
+                        <p>{CustomerName}</p>
+                        <br />
+                        <p>{ShippingAddress}</p>
+                        <p>Thank you! :)</p>
+                    </td>
+                </tr>
+                <tr style="text-align:left;background-color: white;color:black;">
+                    <td style="display:block;margin:50px;">
+                        <p>
+                        <h4>Payment Method
+                        </h4>
+                        </p>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="text-align:left;">{PaymentMethodName}</td>
+                                    <td>{SumTotalPrice}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <p>{PaymentMethodDescription}</p>
+                        <p>{ManualNote}</p>
+                        <p>Please note that non-payment within three (3) days will automatically cancel your order, </p>
+                        <p>but you may place your order again, subject to stock availability come that time.</p>
+
+                        <p>If you have any questions or queries, reply to this email or contact us at
+                            shopbyzmo@gmail.com.</p>
+                        <p>Thank you for your Purchase!</p>
+                        <p>Shop Byzmo</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display:inline-block;margin: 30px 143px 10px 143px;width:220px;">
+                        <div style="width:90px;float:left;">
+                            <a style="text-decoration:none;font-family:arial,helvetica,sans-serif;padding-bottom:5px;color:#007182;font-size:12px;"
+                                target="_blank" href="{ClientOrderLink}">View your order</a>
+                        </div>
+                        <div style="float:right;">
+                            <a style="text-decoration:none;font-family:arial,helvetica,sans-serif;padding-bottom:5px;color:#007182;font-size:12px;"
+                                href="{ByzmoLink}" target="_blank">Visit our store</a>
+                            <br />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table> -->
+
+
+<table style="width:100%;border-spacing:0;border-collapse:collapse;margin:40px 0 20px">
+    <tbody>
+        <tr>
+            <td>
+                <center>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <img class="responsive" style="width: 150px; height: 150px;" src="{ImageLogo}"
+                                            alt="Image logo">
+                                    </div>
+                                </td>
+                                <td style="text-transform: uppercase; font-size: 14px; color: #999;" align="right">
+                                    <span style="font-size:16px">
+                                        Order # {OrderNumber}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table style="width:100%;border-spacing:0;border-collapse:collapse">
+    <tbody>
+        <tr>
+            <td style="padding-bottom:40px;">
+                <center>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2 style="font-weight:normal;font-size:24px;margin:0 0 10px">
+                                        Hi {CustomerName},
+                                    </h2>
+                                    {Content}
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:20px">
+                                        <tbody>
+                                            <tr>
+                                                <td style="line-height:0.5em">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:18px; margin-bottom:20px;">
+                                                    {CourierTrackingLink}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table
+                                                        style="border-spacing:0;border-collapse:collapse;float:left;margin-right:15px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="border-radius:4px" align="center"
+                                                                    bgcolor="#1990C6">
+                                                                    <a style="font-size:16px;text-decoration:none;display:block;color:#fff;padding:20px 25px"
+                                                                        target="_blank" href="{ClientOrderLink}">View
+                                                                        your order</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table
+                                                        style="border-spacing:0;border-collapse:collapse;margin-top:19px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    or
+                                                                    <a style="font-size:16px;text-decoration:none;color:#1990c6"
+                                                                        href="{ByzmoLink}" target="_blank">Visit our
+                                                                        store</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table
+    style="width:100%;border-spacing:0;border-collapse:collapse;border-top-width:1px;border-top-color:#e5e5e5;border-top-style:solid">
+    <tbody>
+        <tr>
+            <td style="padding:40px 0">
+                <center>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3 style="font-weight:normal;font-size:20px;margin:0 0 25px">
+                                        Order summary
+                                    </h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {OrderItems}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:20px">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding:5px 0;width:50%">
+                                                    <p style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                        <span style="font-size:16px">
+                                                            Subtotal
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="padding:5px 0" align="right">
+                                                    <strong style="font-size:16px;color:#555">
+                                                        {SubTotal}
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                {DiscountAmount}
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:5px 0">
+                                                    <p style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                        <span style="font-size:16px">
+                                                            Shipping Amount
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="padding:5px 0" align="right">
+                                                    <strong style="font-size:16px;color:#555">
+                                                        {ShippingAmount}
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            {InsuranceFee}
+                                            <tr>
+                                                <td style="padding:5px 0">
+                                                    <p style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                        <span style="font-size:16px">
+                                                            Total Price
+                                                        </span>
+                                                    </p>
+                                                </td>
+                                                <td style="padding:5px 0" align="right">
+                                                    <strong style="font-size:16px;color:#555">
+                                                        {SumTotalPrice}
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            {AmountToPay}
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table
+    style="width:100%;border-spacing:0;border-collapse:collapse;border-top-width:1px;border-top-color:#e5e5e5;border-top-style:solid">
+    <tbody>
+        <tr>
+            <td style="padding:40px 0">
+                <center>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3 style="font-weight:normal;font-size:20px;">
+                                        Customer information
+                                    </h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+                                        <tr>
+                                            <td style="width:50%;padding-bottom: 10px;">
+                                                <h4 style="font-weight:500;font-size:16px;color:#555;margin:0 0 5px">
+                                                    Shipping address
+                                                </h4>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {CustomerName}
+                                                </p>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {ShippingAddress}
+                                                </p>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {MobileNumber}
+                                                </p>
+                                                <br>
+                                            </td>
+                                            <td style="width:50%;padding-bottom: 10px;">
+                                                <h4 style="font-weight:500;font-size:16px;color:#555;margin:0 0 5px">
+                                                    Billing address
+                                                </h4>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {CustomerName}
+                                                </p>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {BillingAddress}
+                                                </p>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {MobileNumber}
+                                                </p>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse;">
+                                        <tr>
+                                            <td style="width: 50%;padding-bottom: 10px;">
+                                                <h4 style="font-weight:500;font-size:16px;color:#555;margin:0 0 5px">
+                                                    Shipping Method
+                                                </h4>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {ShippingMethod}
+                                                </p>
+                                                <br>
+                                            </td>
+                                            <td style="width:50%;padding-bottom: 10px;">
+                                                <h4 style="font-weight:500;font-size:16px;color:#555;margin:0 0 5px">
+                                                    Payment method
+                                                </h4>
+                                                <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                    {PaymentMethodName}
+                                                </p>
+                                                <strong style="font-size:16px;color:#555">
+                                                    {SumTotalPrice}
+                                                </strong>
+                                                {PayNow}
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-bottom:40px;">
+                                                    <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                        {EmailInstruction}
+                                                    </p>
+                                                    <br>
+                                                    <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                        {PaymentNote}</p>
+                                                    </p>
+                                                    <br>
+                                                    <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                        If you have any questions or queries, you may reply to this
+                                                        email. You can also contact us at shopbyzmo@gmail.com.
+                                                    </p>
+                                                    <br>
+                                                    <p style="color:#777;line-height:150%;font-size:16px;margin:0">
+                                                        Thank you for your Purchase!
+                                                        Shop Byzmo
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>

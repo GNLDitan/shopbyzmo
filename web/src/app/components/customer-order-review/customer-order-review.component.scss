@@ -1,0 +1,54 @@
+  
+.order-padding {
+  padding: 10px 10px 10px 10px;
+
+  .review-image {
+    height: 80px;
+  }
+}
+.card {
+  height: 100px;
+  margin-bottom: 20px;
+
+  .product-name {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.rating-list {
+  margin-bottom: 0px;
+  li {
+    float: right;
+    color: #ddd;
+    padding: 5px 5px;
+  
+  }
+}
+  
+
+.rating-list li:hover,
+.rating-list li:hover ~ li, .rating-list li.selected {
+  color: #ffd700;
+}
+
+.rating-list {
+  display: inline-block;
+  list-style: none;
+}
+
+
+
+.at-layaway-form .review-container {
+  .review-image {
+    height: 100px;
+  }
+  .input-review {
+    width: 100%;
+    height: 100px;
+  }
+}

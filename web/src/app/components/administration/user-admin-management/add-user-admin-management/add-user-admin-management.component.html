@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Add User Admin</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form [formGroup]="newUserForm" autocomplete="off" (ngSubmit)="createUser()">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div class="form-group">
+                            <label for="name">Complete name<span class="asterisk">*</span></label>
+                            <input type="text" class="form-control" id="name" placeholder="Complete Name"
+                                formControlName="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email<span class="asterisk">*</span></label>
+                            <input type="text" class="form-control" id="email" placeholder="Email Address"
+                                formControlName="email" (keyup)="emailKeyUp.next($event)"
+                                (keyup.backspace)="emailKeyUp.next($event)" (paste)="onPaste($event)">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password<span class="asterisk">*</span></label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                                formControlName="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password<span class="asterisk">*</span></label>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                placeholder="Confirm Password" formControlName="confirmPassword">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <button type="submit" class="bz-btn">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="container-fluid blg">
+    <h2>Registered Emails Report</h2>
+
+    <div class="content container mt-2">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-12">
+                <div><label for="start-date">Sort:</label></div>
+                <select class="form-control" id="sortId" [(ngModel)]="selectedSort">
+                    <option [ngValue]="sort" *ngFor="let sort of sorts">
+                        {{ sort }}
+                    </option>
+                </select>
+            </div>
+            <div class="offset-lg-7 offset-md-7 col-lg-2 col-md-2 col-12 search">
+                <button class="bz-btn" (click)="getCustomerListReport()">
+                    <span>Search</span>
+                </button>
+                <button class="bz-btn mt-2 mb-2" (click)="export()">
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <h5 class="text-center">Registered Emails Report</h5>
+            <div class="table-responsive">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th class="text-center" width="30%">Customer Name</th>
+                            <th class="text-center" width="30%">Email address</th>
+                            <th class="text-center">Phone number</th>
+                            <th class="text-center">Date Registered</th>
+                            <th class="text-center">No. of Fulfilled Orders </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let report of reports; let i = index">
+
+                            <td class="repad">
+                                {{ report.name }}
+                            </td>
+                            <td class="repad">
+                                {{report.email }}
+                            </td>
+                            <td class="repad text-center">
+                                {{ report.mobileNumber }}
+                            </td>
+                            <td class="repad text-center">
+                                {{report.dateCreated | date:'longDate' }}
+                            </td>
+                            <td class="text-center">
+                                <span *ngIf="report.noFulfilled > 0">
+                                    {{report.noFulfilled }}
+                                </span>
+                                <span *ngIf="report.noFulfilled == 0">
+                                    -
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

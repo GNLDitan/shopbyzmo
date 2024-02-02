@@ -1,0 +1,118 @@
+.title {
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 32px;
+    position: relative;
+    text-transform: capitalize !important;
+    color:black;
+    font-weight: bold;
+    margin-left: 12px;
+}
+.paynow {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.details{
+  margin-bottom: 70px;
+}
+
+.back{
+    cursor: pointer;
+}
+
+.theader{
+  color: #ffffff;
+  background-color: #652d90;
+}
+
+.desc{
+    word-wrap:break-word;
+}
+
+
+tr.border_bottom td {
+    border-bottom: 1px solid black;
+}
+
+
+.thumbnail {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    /* max-width: 100%; */
+    height: auto;
+  
+  }
+
+
+  .subtotal{
+    margin-left: 20px;
+  }
+  
+  .breakdown{
+    margin-left: 20px;
+  }
+
+  
+.at-layaway-form .ta-l
+{
+	text-align:left;
+	margin-top: 5px;
+}
+
+ .at-layaway-form .modal-dialog {
+	width: auto;
+    margin: 30px auto;
+}
+
+.at-layaway-form .modal-content
+{
+	padding: 0px 10px;
+}
+
+.at-layaway-form  .modal-header {
+    padding: 10px 10px;
+    border-bottom: 0px solid #e5e5e5;
+}
+
+.text-muted{
+  font-size: 13px;
+}
+
+.pred{
+  color: #ffa500;
+}
+
+.origprice {
+  color: rgb(52, 58, 64);
+}
+
+.salesprice {
+  color: red;
+}
+
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    
+    .buttons{
+        white-space: nowrap;
+        width: 50%;
+    
+        .view{
+            margin-left: 10px;
+        }
+    
+        .print{
+            margin-left: 10px;
+        }
+    }
+}
+

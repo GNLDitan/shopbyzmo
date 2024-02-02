@@ -1,0 +1,26 @@
+@import '../../../assets/styles/site.scss';
+
+/* Style the list */
+.breadcrumb {
+  padding: 1em;
+  color: #ffffff;
+  background-color: $byz-purple-m !important;
+  list-style: none;
+  border-radius: unset;
+
+  li {
+    display: inline;
+    font-size: 15px;
+    word-break: break-all;
+
+    a {
+      color: #ffffff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

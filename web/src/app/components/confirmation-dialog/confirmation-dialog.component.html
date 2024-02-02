@@ -1,0 +1,41 @@
+<div class="modal-body">
+    <p><strong>{{ title }} <span class="text-primary">{{ highlightedText }}</span><span
+                *ngIf="title.indexOf('Are you') > -1"> ?</span></strong></p>
+    <p>{{ message }} <span class="text-danger">{{ dangerText }}</span></p>
+
+    <div *ngIf="withTextBox || withSelectionBox">
+        <form class="confirmation" [formGroup]="confirmForm" autocomplete="off">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="output">Reason For Cancellation </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="withTextBox">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input type="text" id="output" class="form-control" formControlName="output">
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="withSelectionBox">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" id="output" formControlName="output">
+                                <option [ngValue]="cancel" *ngFor="let cancel of reasonCancellation">
+                                    {{ cancel }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light btn-sm" (click)="accept()">{{ btnOkText }}</button>
+    <button ngbAutofocus type="button" class="btn btn-danger btn-sm" (click)="decline()">{{ btnCancelText }}</button>
+</div>

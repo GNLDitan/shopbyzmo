@@ -1,0 +1,281 @@
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-12">
+        <div class="container">
+            <h3 class="mb-0">Edit Blog</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+
+            <form [formGroup]="blogForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row pt-1">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Title <span class="asterisk">*</span></label>
+                                    <input type="text" id="title" class="form-control" formControlName="title">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="start-date">Start Date <span class="asterisk">*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" name="dp" ngbDatepicker #d="ngbDatepicker"
+                                            formControlName="startDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" (click)="d.toggle()"
+                                                type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <input type="checkbox" id="all-day" formControlName="allDay">
+                                    <label for="all-day" class="date-range"> Date Range</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div *ngIf="blogForm.controls['allDay'].value" class="row pt-1">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="end-date">End Date <span class="asterisk">*</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" name="dp" ngbDatepicker #ps="ngbDatepicker"
+                                            formControlName="endDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" (click)="ps.toggle()"
+                                                type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="tags">Tags ( Use featured post, recent post, popular post )</label>
+                                    <div class="saved-tags">
+                                        <ng-container *ngFor="let dTag of designTags">
+                                            <a class="badge badge-lg badge-secondary" (click)="removeTag(dTag)">
+                                                <span>{{ dTag.name }}</span>
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                    <input type="text" id="tags" class="form-control" [(ngModel)]="tagNameQuery"
+                                        [ngModelOptions]="{standalone: true}" (keyup)="getTopSuggestedTags()">
+
+                                    <div class="tags">
+                                        <div class="small">Suggested tags (click to add)</div>
+                                        <ng-container *ngFor="let sTag of topSuggestedTags">
+                                            <a class="badge badge-lg badge-primary"
+                                                (click)="addSuggestedTag(sTag)"><span>{{ sTag.name }}</span></a>
+                                        </ng-container>
+                                        <ng-container *ngIf="tagNameQuery !== ''">
+                                            <a class="badge badge-lg badge-primary"
+                                                (click)="addTag()"><span>{{ tagNameQuery }}</span></a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row save-d">
+                            <div class="col-6" *ngIf="blog.isDraft">
+                                <button type="submit" (click)="save(true)" class="bz-btn">
+                                    Save Draft
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" (click)="save(false)" class="bz-btn">
+                                    Publish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="col-lg-8 col-md-8 col-12">
+        <div class="container">
+            <div class="row pt-1">
+                <div class="col-md-6 col-12 cover-img">
+                    <img alt="No image" *ngIf="coverImageUrl == ''" class="img" src="assets/img/no-image.png">
+                    <img alt="Cover image" *ngIf="coverImageUrl != ''" class="img" [src]="coverImageUrl">
+                    <div class="small">Properly format your blog cover image for different screen sizes. Preferred Image
+                        size Dimension 800(width) x 450(height).
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="file" name="coverImageFile" hidden #coverImageFile (change)="uploadCoverImage($event)">
+                    <button type="button" class="bz-cover" (click)="coverImageFile.click()">Upload
+                        Cover
+                    </button>
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class="col-8">
+                    <h6>Contents (<span class="text-primary"> {{ blogContents.length }} </span>) <span
+                            class="asterisk">*</span> </h6>
+                </div>
+                <div class="col-4 add">
+                    <button class="byz-btn-trans-r text-primary" (click)="contentInfo()">
+                        <span><i class="fa fa-plus"></i></span> Content
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" *ngIf="!viewContentInfo">
+                    <div cdkDropList class="byz-content-list " [cdkDropListData]="blogContents"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="byz-content-box" *ngFor="let content of blogContents" cdkDrag>
+                            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+                            <div class="row">
+                                <div class="col-10 col-sm-10">
+                                    <label class="byz-content-headertext">{{content.headerText}}</label>
+                                </div>
+                                <div class="col-2 col-sm-2 byz-content-ctrl">
+                                    <button *ngIf="!content.isDeleted" (click)="removeContainer(content,content.typeId)"
+                                        class="byz-close text-primary" type="button"><span><i
+                                                class="far fa-trash-alt fa-xs"></i></span></button>
+                                    <button *ngIf="content.isDeleted" (click)="undoRemove(content)"
+                                        class="byz-close text-primary" type="button"><span><i
+                                                class="fas fa-undo fa-xs"></i></span></button>
+                                    <button *ngIf="!content.isDeleted" (click)="contentInfo(content)"
+                                        class="byz-close text-primary" type="button"><span><i
+                                                class="far fa-edit fa-xs"></i></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-5" *ngIf="blogContents.length <= 0">
+                        Add Content.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" *ngIf="viewContentInfo">
+                    <app-blog-content [contentCount]="blogContents.length"
+                        [selectedContentImages]="selectedContentImages"
+                        (viewContentInfo)="cancelViewContentInfo($event)" (content)="contentHandler($event)"
+                        (contentImages)="contentImageHandler($event)"
+                        (contentRemovedImageUrls)="removedImageHandler($event)">
+                    </app-blog-content>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" (click)="previewBlog()" data-toggle="modal" data-target="#at-preview"
+                        class="bz-btn preview">
+                        Preview
+                    </button>
+
+                </div>
+            </div>
+            <div class="row save-m">
+                <div class="col-md-6 draft" *ngIf="blog.isDraft">
+                    <button type="submit" (click)="save(true)" class="bz-btn">
+                        Save Draft
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" (click)="save(false)" class="bz-btn">
+                        Publish
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- modal -->
+<div *ngIf="blog.title != ''" class="modal" id="at-preview" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container blog">
+                    <div class="row">
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-8">
+                            <div class="news col-12">
+                                <h3 class="text-left blog-title">{{blog.title}}</h3>
+                                <h4 class="date-stamp"><small>{{blog.startDate | date:'longDate'}}</small></h4>
+                                <div class="social-area">
+                                    <div ngPreserveWhitespaces class="sharing social-links">
+                                        <a class="links" shareButton="facebook"><i class="fab fa-facebook"
+                                                aria-hidden="true"></i></a>
+                                        <span> </span>
+                                        <a class="links" shareButton="twitter"><i class="fab fa-twitter"
+                                                aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="text-center mt-5 image"> <img [src]="coverImageUrl" alt="Conver image"
+                                            class="cover">
+                                    </div>
+                                    <div *ngFor="let content of blog.blogContents">
+                                        <div class="mt-2">
+                                            <div [innerHtml]="content.description | sanitizeHtml"
+                                                *ngIf="content.typeId == 1"></div>
+                                            <!-- <div class="row content-image" *ngIf="content.typeId == 2">
+                                                <div *ngFor="let contentImage of content.contentImages" class="column">
+                                                    <img [src]="contentImage.fileName" alt="">
+                                                </div>
+                                            </div> -->
+                                            <div class="row" *ngIf="content.typeId == 2">
+                                                <div class="content-image" *ngIf="content.contentImages.length != 1">
+                                                    <div *ngFor="let contentImage of content.contentImages"
+                                                        class="column">
+                                                        <img [src]="contentImage.fileName" alt="Content image">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12" *ngIf="content.contentImages.length === 1">
+                                                    <div class="single-image"
+                                                        *ngFor="let contentImage of content.contentImages">
+                                                        <img [src]="contentImage.fileName" alt="Content image">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row video col-12" *ngIf="content.typeId == 3">
+                                                <div *ngIf="content.embeddedUrl != ''"
+                                                    class="embed-responsive embed-responsive-16by9">
+                                                    <iframe class="embed-responsive-item" width="560" height="349"
+                                                        [src]="content.videoLink | safe" frameborder="0"
+                                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

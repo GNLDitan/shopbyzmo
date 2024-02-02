@@ -1,0 +1,482 @@
+<div class="container text-left details">
+    <div class="row" *ngIf="user.id != 0">
+        <h2 class="title"><a class="m-2 back" (click)="infoCancel()"><span><i
+                        class="fas fa-chevron-left header"></i></span></a>
+            Back to My Orders
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Order Number :
+        </div>
+        <div class="col-8 mt-2">
+            {{ order.id }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Customer Name :
+        </div>
+        <div class="col-8 mt-2">
+            {{ completeName }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Shipping Address :
+        </div>
+        <div class="col-8 desc mt-2">
+            {{ order.shippingAddress}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Billing Address :
+        </div>
+        <div class="col-8 desc mt-2">
+            {{ order.shippingDetails.billingAddress }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Shipping Via :
+        </div>
+        <div class="col-8 desc mt-2">
+            {{ shippingMethodDescription}}
+        </div>
+    </div>
+    <div class="row" *ngIf="order.statusId == 3">
+        <div class="col-4 mt-2">
+            Courier No :
+        </div>
+        <div class="col-8 desc mt-2">
+            <a href="{{order.shippingDetails.trackingUrl}}" target="_blank">{{order.trackingNumber}}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2">
+            Payment Type:
+        </div>
+        <div class="col-8 desc mt-2">
+            {{ order.paymentMethodName}}
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-4 mt-2">
+                Facebook Name :
+            </div>
+            <div class="col-8 desc mt-2">
+                {{ facebookName }}
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-4 mt-2">
+            Special Instruction :
+        </div>
+        <div class="col-8 desc mt-2">
+            {{ specialInstruction}}
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="order.statusId === 5">
+        <div class="col-4 mt-2">
+            Reason for cancellation :
+        </div>
+        <div class="col-8 desc mt-2">
+            {{order.reason}}
+        </div>
+    </div>
+    <!-- table -->
+    <div class="row item-table mt-5">
+        <table class="table table-striped">
+            <thead class="theader">
+                <tr>
+                    <th></th>
+                    <th>Item No.</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    <th>Qty</th>
+                    <th>Order Price</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cart of order.orderCart">
+                    <td>
+                        <div class="col-12">
+                            <img class="thumbnail" [src]="cart.product.currentImageUrl" alt="Product image" width="120"
+                                height="100">
+                        </div>
+                    </td>
+                    <td>{{ cart.product.itemNumber }}</td>
+                    <td>
+                        <div class="desc">{{ cart.product.productName }}</div>
+                        <span *ngIf="cart.preOrder || cart.preOrderLayaway" class="pred"><b>(Pre-Order)</b></span>
+                    </td>
+                    <td>
+                        <div class="col">
+                            <div class="row">
+                                <span class="text-muted" *ngIf="!cart.onSale">{{ cart.origPrice |
+                                    conversion}}</span>
+                                <span ngPreserveWhitespaces class="text-muted" *ngIf="cart.onSale"><s
+                                        class="origprice">{{ cart.origPrice | conversion}}</s>
+                                    <span> </span>
+                                </span>
+                            </div>
+                            <div class="row" *ngIf="cart.onSale">
+                                <span class="salesprice">{{ cart.salesPrice | conversion}}</span>
+                            </div>
+                        </div>
+
+
+                    </td>
+                    <td>{{ cart.quantity}}</td>
+                    <td>
+                        <div class="col" *ngIf="!cart.preOrder && !(cart.preOrderLayaway && !cart.isLayAway)">
+                            <div class="row">
+                                <small> <span class="text-muted"> {{ cart.totalPrice | conversion}} </span></small>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="cart.preOrder || (cart.preOrderLayaway && !cart.isLayAway)">
+                            <div class="row">
+                                <small> <span class="text-muted"> {{ cart.origPrice | conversion}}</span>
+                                </small>
+                            </div>
+                            <div class="row"
+                                *ngIf="(cart.preOrder || (cart.preOrderLayaway && !cart.isLayAway)) && cart.totalPrice > 0">
+                                <small> <span class="text-muted"> ( DP : {{ cart.totalPrice | conversion}} )</span>
+                                </small>
+                            </div>
+                            <div class="row" *ngIf="cart.hasRushFee">
+                                <span class="text-muted">
+                                    (Rush Fee : {{ cart.rushFee | conversion}} )</span>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td> <small> <span class="text-muted"> {{ cart.totalAmount | conversion}}</span>
+                        </small>
+                    </td>
+                    <td class="repad text-right buttons" *ngIf="cart.isLayAway">
+                        <button class="btn btn-sm btn-outline-accent down" data-toggle="modal" data-target="#at-layaway"
+                            (click)="viewLayAway(cart)">View LayAway
+                        </button>
+                    </td>
+                    <td class="repad text-right buttons"
+                        *ngIf="cart.preOrder || (cart.preOrderLayaway && !cart.isLayAway)">
+                        <button class="btn btn-sm btn-outline-accent down" data-toggle="modal"
+                            data-target="#at-preorder" (click)="viewLayAway(cart)">View Balance
+                        </button>
+                    </td>
+                    <td *ngIf="!cart.isLayAway && !cart.preOrder && !cart.preOrderLayaway"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div class="row breakdown">
+        <div class="col-md-6 col-12">
+            <div class="mt-3">
+                <div class="subtotal">
+                    <label class="orderNum">Cost Breakdown</label>
+                </div>
+                <div class="subtotal">
+                    <label class="orderNum">Subtotal</label>
+                    <span class="float-right font-weight-bold">{{subTotal | conversion}}</span>
+                </div>
+                <div class="subtotal" *ngIf="order.discountAmount > 0">
+                    <label class="orderNum">Discount</label>
+                    <span class="float-right font-weight-bold">( {{order.discountAmount | conversion}} )</span>
+                </div>
+                <div class="subtotal" *ngIf="!isWithLayAway">
+                    <label class="orderNum">Shipping</label>
+                    <span class="float-right font-weight-bold">{{order.shippingAmount | conversion}}</span>
+                </div>
+                <div class="subtotal" *ngIf="order.insuranceFee  > 0">
+                    <label class="orderNum">Shipping Insurance Fee</label>
+                    <span class="float-right font-weight-bold">{{order.insuranceFee | conversion}}</span>
+                </div>
+
+                <div class="subtotal mt-3">
+                    <label class="orderNum">Total</label>
+                    <span class="float-right font-weight-bold">{{order.totalPrice | conversion}}</span>
+                </div>
+
+                <!-- <div class="subtotal" *ngIf="order.transactionFee > 0">
+                    <label class="orderNum">Transaction Fee</label>
+                    <span class="float-right font-weight-bold">{{order.transactionFee | conversion}}</span>
+                </div>
+
+
+                <div class="subtotal" *ngIf="order.finalAmount > 0">
+                    <label class="orderNum">Final Amount</label>
+                    <span class="float-right font-weight-bold">{{order.finalAmount | conversion}}</span>
+                </div> -->
+                <!-- <div class="subtotal" *ngIf="order.layaway">
+                    <label class="orderNum">Amount to pay</label>
+                    <span class="float-right font-weight-bold">{{order.amountToPay | conversion}}</span>
+                </div>
+                <div class="subtotal" *ngIf="order.layaway">
+                    <span>For Layaway items, only the amount in Non refundable deposit will be included in
+                        Amount to Pay. Installment amount and Shipping will be paid on scheduled payment
+                        date. </span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6" *ngIf="order.statusId == 1">
+            <button type="submit" (click)="cancelOrder()" class="bz-btn">
+                Cancel Order
+            </button>
+        </div>
+        <div class="col-6" *ngIf="order.statusId == 2 || order.statusId == 3">
+            <button type="submit" [disabled]="true" class="bz-btn byz-disable" data-toggle="tooltip"
+                title="Cancellation for Processing/Shipped order status is unavailable.">
+                Cancel Order
+            </button>
+
+        </div>
+        <div class="col-6" *ngIf="order.statusId == 5">
+            <button type="submit" [disabled]="true" class="bz-btn" data-toggle="tooltip" title="Order cancelled.">
+                Cancelled
+            </button>
+        </div>
+    </div>
+</div>
+
+<section class="at-layaway-form">
+    <!-- LAYAWAY LOGIN -->
+    <div class="modal fade" data-backdrop="false" id="at-layaway" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <span><b>View LayAway for Item No. {{itemNumber}}</b></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <span><b>Order Number:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{ order.id }} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <span><b>Product Name:</b> </span>
+                        </div>
+                        <div class="col-6">
+                            <span> {{cart.product.productName}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <span><b>Price:</b> </span>
+                        </div>
+                        <div class="col-6">
+                            <span> {{cart.totalAmount | conversion}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <span><b>Number of installment:</b> </span>
+                        </div>
+                        <div class="col-6">
+                            <span> {{cart.numberOfInstallment}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <span><b>Day of Month:</b> </span>
+                        </div>
+                        <div class="col-6">
+                            <span> {{getDays(cart.datesOfPayment)}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div *ngFor="let sched of cart.layAwaySchedule">
+                                <div class="row">
+                                    <div class="col-5"
+                                        *ngIf="!sched.isNonRefundDeposit && !sched.isShipping && !sched.isInsurance">
+                                        <b>{{sched.date | date}} :</b>
+                                    </div>
+                                    <div class="col-5" *ngIf="sched.isNonRefundDeposit">
+                                        <b>Non Refundable Deposit :</b>
+                                    </div>
+                                    <div class="col-5" *ngIf="sched.isShipping">
+                                        <b>Shipping :</b>
+                                    </div>
+                                    <div class="col-5" *ngIf="sched.isInsurance">
+                                        <b>Shipping Insurance Fee :</b>
+                                    </div>
+                                    <div class="col-3">
+                                        {{sched.monthly | conversion}}
+                                    </div>
+                                    <div class="col-2">
+                                        {{sched.isCleared ? 'Paid' : 'Unpaid'}}
+                                    </div>
+                                    <!-- <div class="col-2" *ngIf="!isOnlinePayment">
+                                        <select id="currencyId" [(ngModel)]="sched.isCleared"
+                                            (change)="updatePaymentLayawaySchedule(sched)">
+                                            <option *ngFor="let opt of clearOption" [(ngValue)]="opt.id">
+                                                {{ opt.value }}
+                                            </option>
+                                        </select>
+                                    </div> -->
+                                    <div class="col-2">
+                                        <!-- <a class="attachment" data-toggle="tooltip" title="Attach Proof of Payment"><i
+                                                class="fas fa-paperclip" aria-hidden="true"></i></a> -->
+                                        <button class="btn btn-sm btn-outline-accent down ml-2" *ngIf="!sched.isCleared && isOnlinePayment && !sched.isNonRefundDeposit && order.statusId != 5 
+                                            && !sched.isNonRefundDeposit" (click)="payNow(sched)">
+                                            <div *ngIf="sched.paymongoStatus != 2">Pay Now</div>
+                                            <div *ngIf="sched.paymongoStatus == 2">Processing</div>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">
+                                    <b> Pay in Full (remaining) </b>
+                                </div>
+                                <div class="col-3">
+                                    {{totalPending | conversion}}
+                                </div>
+                                <div class="offset-2 col-2"
+                                    *ngIf="totalPending > 0 && isOnlinePayment && order.statusId != 5">
+                                    <button class="btn btn-sm btn-outline-accent down ml-2"
+                                        (click)="payRemaining(true)">Pay
+                                        Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>
+
+
+
+<section class="at-layaway-form">
+    <!-- LAYAWAY LOGIN -->
+    <div class="modal fade" data-backdrop="false" id="at-preorder" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <span><b>View Pre Order for Item No. {{itemNumber}}</b></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <span><b>Order Number:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{ order.id }} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <span><b>Product Name:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.product.productName}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Price:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.product.price | conversion}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2" *ngIf="cart.hasRushFee && cart.rushFee > 0">
+                        <div class="col-4">
+                            <span><b>Rush Fee:</b> </span>
+                        </div>
+                        <div class="col-8" *ngIf="cart.hasRushFee && cart.rushFee > 0">
+                            <span> {{cart.rushFee | conversion}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Qty :</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.quantity}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div *ngFor="let sched of cart.preOrderSchedule">
+                                <div class="row">
+
+                                    <div class="col-5">
+                                        <b>{{ sched.paymentTermDesc }} :</b>
+                                    </div>
+                                    <div class="col-3">
+                                        {{sched.amount | conversion}}
+                                    </div>
+                                    <div class="col-2">
+                                        {{sched.isCleared ? 'Paid' : 'Unpaid'}}
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-sm btn-outline-accent down ml-2"
+                                            *ngIf="!sched.isCleared && isOnlinePayment && order.statusId != 5 && sched.paymentTerm != 'DP'"
+                                            (click)="payNowPreOrder(sched)">
+                                            <span *ngIf="sched.paymongoStatus != 2">Pay Now</span>
+                                            <span *ngIf="sched.paymongoStatus == 2">Processing</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">
+                                    <b> Pay in Full (remaining)
+                                    </b>
+                                </div>
+                                <div class="col-3">
+                                    {{totalPending | conversion}}
+                                </div>
+                                <div class="offset-2 col-2"
+                                    *ngIf="isOnlinePayment && order.statusId != 5 && totalPending > 0">
+                                    <button class="btn btn-sm btn-outline-accent down ml-2"
+                                        (click)="payRemaining(false)">Pay
+                                        Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>

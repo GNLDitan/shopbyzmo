@@ -1,0 +1,82 @@
+@import "~bootstrap/scss/bootstrap-grid";
+@import "../../../assets/styles/site.scss";
+
+.footer-main{
+  padding: 10px 0px;
+  color: #ffffff;
+  padding-bottom: 10em;
+  background: $byz-purple-m;
+
+  a {
+    color: #ffffff;
+  }
+
+  h4 {
+    font-weight: 700;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0 10px;
+    list-style: none;
+    display: block;
+    // overflow: auto;
+  }
+
+  .footer-top-box {
+    ul {
+      li {
+        // float: left;
+        font-size: 25px;
+        margin-right: 10px;
+
+        a:hover {
+          color: $byz-purple-l;
+        }
+      }
+
+      li:last-child {
+        margin-right: 0;
+      }
+    } 
+  
+    label {
+      display: block;
+    }
+
+    button {
+      border: 0;
+      font-weight: 700;
+    }
+  
+  }
+}
+
+.btn.register {
+  background-color: #faae40;
+  color: white;
+}
+.currency {
+  width: 100%;
+}
+
+// .list-inline-item {
+//   font-size: 9px !important; 
+// }
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+  .footer-main {
+    text-align: center;
+  }
+  // ul { 
+  //   width: 400px; 
+  //   margin-left: auto !important; 
+  //   margin-right: auto !important; 
+  //   }
+
+  .footer-details {
+    margin-top: 20px;
+  }
+}
+  
+

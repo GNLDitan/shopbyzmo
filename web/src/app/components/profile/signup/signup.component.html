@@ -1,0 +1,50 @@
+<div class="container container-lg justify-content-center align-items-center signup">
+    <form class="form-horizontal" [formGroup]="newUserForm" autocomplete="off" (ngSubmit)="createUser()">
+        <div class="row mod-login justify-content-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <!-- <div class="byz-section-header-nb mt-3">
+                    <h5>Register Byzmo Account</h5>
+                </div> -->
+                <div class="logo">
+                    <img alt="logo" src="assets/img/byzmo_header.png">
+                </div>
+                <b class="d-block my-3 text-center">Register Byzmo Account</b>
+
+                <div class="form-group">
+                    <label for="name" class="byz-vshidden">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Complete Name"
+                        formControlName="name">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="byz-vshidden">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder="Email Address"
+                        formControlName="email" (keyup)="emailKeyUp.next($event)"
+                        (keyup.backspace)="emailKeyUp.next($event)" (paste)="onPaste($event)">
+                </div>
+                <div class="form-group">
+                    <label for="mobileNumber" class="byz-vshidden">Mobile</label>
+                    <input type="text" class="form-control" id="mobileNumber" placeholder="Mobile Number"
+                        formControlName="mobileNumber">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="byz-vshidden">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                        formControlName="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword" class="byz-vshidden">Confirm password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
+                        formControlName="confirmPassword">
+                </div>
+                <div class="mt-3">
+                    <div class="form-group subm">
+                        <button type="submit" class="bz-btn" [disabled]="isFormSubmit">
+                            <span *ngIf="!isFormSubmit">Submit</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="pt-3 text-center"><a class="link" routerLink="/">Go Back Home</a></div>
+            </div>
+        </div>
+    </form>
+</div>

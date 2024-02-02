@@ -1,0 +1,46 @@
+.info {
+    position: relative;
+    height: auto;
+    padding: 2em;
+    // margin-top: 10em;
+    // margin-bottom: 5em;
+    // background-color: #ffffff;
+    // box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
+.title {
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 32px;
+    padding: 0 0 11px;
+    position: relative;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+}
+
+.sub-title {
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 32px;
+    padding: 0 0 11px;
+    position: relative;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+}
+
+.terms-list-text{
+    font-weight: bold;
+}
+
+
+.link {
+    text-decoration: underline !important;
+    cursor: pointer !important;
+    font-size: 15px;
+}
+
+.term-head {
+    font-weight: bold;
+}

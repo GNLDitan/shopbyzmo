@@ -1,0 +1,190 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Update Product</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form [formGroup]="productForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row pt-1">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="productName">Product Name <span class="asterisk">*</span></label>
+                                    <input type="text" id="productName" class="form-control"
+                                        formControlName="productName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="productDescription">Description <span class="asterisk">*</span></label>
+                                    <quill-editor #quillEditor [modules]="editor_modules"
+                                        formControlName="productDescription"
+                                        (onEditorCreated)="onEditorCreated($event)">
+                                    </quill-editor>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="itemNumber">Item Number <span class="asterisk">*</span></label>
+                                    <input type="text" id="itemNumber" class="form-control"
+                                        formControlName="itemNumber">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="costPrice">Cost Price <span class="asterisk">*</span></label>
+                                    <input type="number" id="costPrice" class="form-control"
+                                        formControlName="costPrice">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Selling Price <span class="asterisk">*</span></label>
+                                    <input type="number" id="price" class="form-control" formControlName="price">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <span>
+                                        <label class="customcheck">Layaway
+                                            <input type="checkbox" id="isLayAway" formControlName="isLayAway">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                    <span>
+                                        <label class="customcheck">On Sale
+                                            <input type="checkbox" id="on-sale" formControlName="onSale">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                    <span>
+                                        <label class="customcheck">Pre-Order
+                                            <input type="checkbox" id="pre-order" formControlName="preOrder">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                    <span>
+                                        <label class="customcheck">Pre-Order with Layaway
+                                            <input type="checkbox" id="pre-order" formControlName="preOrderLayaway">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                </div>
+                                <div *ngIf="productForm.controls['onSale'].value" class="form-group">
+                                    <label for="salesPrice">Sale Price <span class="asterisk">*</span></label>
+                                    <span>
+                                        <input type="number" id="salesPrice" class="form-control"
+                                            formControlName="salesPrice">
+
+                                    </span>
+                                </div>
+                                <div *ngIf="productForm.controls['preOrder'].value || productForm.controls['preOrderLayaway'].value"
+                                    class="form-group">
+                                    <label for="preOrderDepositAmount">Pre Order Deposit Amount <span
+                                            class="asterisk">*</span></label>
+                                    <input type="number" id="preOrderDepositAmount" class="form-control"
+                                        formControlName="preOrderDepositAmount">
+                                </div>
+                                <div *ngIf="productForm.controls['preOrder'].value || productForm.controls['preOrderLayaway'].value"
+                                    class="form-group">
+                                    <span>
+                                        <label class="customcheck">Rush Fee
+                                            <input type="checkbox" id="hasRushFee" formControlName="hasRushFee">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </span>
+                                </div>
+                                <div class="form-group" *ngIf="productForm.controls['hasRushFee'].value">
+                                    <label for="rushFee">Rush Fee Price <span class="asterisk">*</span></label>
+                                    <input type="number" id="rushFee" class="form-control" formControlName="rushFee">
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity" class="text-md-left text-center d-inline">Quantity</label>
+                                    <input id="quantity" type="number" class="form-control d-inline"
+                                        [attr.disabled]="true" formControlName="quantity" min="1">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="tags">Tags ( Use just arrived , on hand , on sale , pre-order,
+                                        pre-order-layaway
+                                        )</label>
+                                    <div class="saved-tags">
+                                        <ng-container *ngFor="let dTag of designTags">
+                                            <a class="badge badge-lg badge-secondary" (click)="removeTag(dTag)">
+                                                <span>{{ dTag.name }}</span>
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                    <input
+                                        [readonly]="productForm.controls.preOrder.value || productForm.controls.preOrderLayaway.value"
+                                        type=" text" id="tags" class="form-control" [(ngModel)]="tagNameQuery"
+                                        [ngModelOptions]="{standalone: true}" (keyup)="getTopSuggestedTags()">
+
+                                    <div class="tags">
+                                        <div class="small">Suggested tags (click to add)</div>
+                                        <ng-container *ngFor="let sTag of topSuggestedTags">
+                                            <a class="badge badge-lg badge-primary"
+                                                (click)="addSuggestedTag(sTag)"><span>{{ sTag.name }}</span></a>
+                                        </ng-container>
+                                        <ng-container *ngIf="tagNameQuery !== ''">
+                                            <a class="badge badge-lg badge-primary" (click)="addTag()"><span>{{
+                                                    tagNameQuery }}</span></a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="category" class="text-md-left text-center d-inline">Category (Fill up
+                                        all fields)</label>
+                                    <app-category (outputCategory)="setCurrentCategory($event)"
+                                        [inputCurrentCategory]="currentCategory">
+                                    </app-category>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-12 bt">
+                                <button type="submit" class="bz-btn" (click)="updateProduct()">
+                                    Update Product
+                                </button>
+                            </div>
+                            <div class="col-md-2 col-12 bt">
+
+                            </div>
+                            <div class="col-md-7 col-12 bt">
+                                <div class="row">
+                                    <div class="col-md-6 col-12 bt">
+                                        <button type="button" class="bz-btn" (click)="upload.click()">
+                                            Upload Image/s
+                                        </button>
+                                        <input type="file" name="file" accept="image/*" hidden #upload multiple
+                                            (change)="uploadImages($event)">
+                                    </div>
+                                    <div class="col-md-6 col-12 bt">
+                                        <button type="submit" class="bz-btn" (click)="updateActive()">
+                                            Set {{isActive}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2" *ngIf="!isUploading">
+                    <div class="col-lg-4 col-md-6 col-12 col-fix product" *ngFor="let img of imageBlobs; let i = index">
+                        <div *ngIf="img.imageUrl != null" class="img-options product-in">
+                            <img alt="Product image" class="img" [src]="img.imageUrl">
+                            <div class="round update ml-2 mt-2">
+                                <input type="checkbox" id="{{i}}" [checked]="img.isDefaultImage"
+                                    (change)="setDefaultImage(i)" />
+                                <label for="{{i}}"></label>
+                            </div>
+                            <button class="btn btn-sm delete" (click)="removeImages(img.imageUrl)"><i
+                                    class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>

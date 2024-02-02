@@ -1,0 +1,59 @@
+.preorder{
+    position: relative;
+    height: 500px;
+}
+
+.absolute {
+    position: absolute;
+    top: 15px;
+    left: 0; 
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    max-height: 400px;
+    z-index: 2;
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        min-height: 100%;
+    }
+}
+
+.orders {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    float: right;
+    height: 430px;
+    padding-left: 225px;
+    background-color: #f9bccc;
+    text-align: center;
+    width: calc(100% - 160px);
+    border-radius: 5px 0 0 5px;
+
+    .details {
+        align-self: center;
+        
+        label { 
+            display: block;
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .absolute {
+        width: 100%;
+        display: block;
+        position: unset;
+    }
+
+    .orders {
+        width: 100%;
+        height: 50%;
+        padding-left: 0;
+    }
+}

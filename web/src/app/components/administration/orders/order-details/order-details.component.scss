@@ -1,0 +1,179 @@
+.orderNum {
+    font-weight: bold;
+
+}
+
+.orderCont{
+    margin-top: 10px;
+}
+
+.ord{
+    margin-left: 10px;
+}
+
+.asterisk{
+    color: red;
+  }
+
+.desc{
+  word-break: break-all;
+}
+
+
+.theader{
+  color: #ffffff;
+  background-color: #652d90;
+}
+
+.bz-btn{
+  height: 35px;
+
+  &:hover{
+      background-color: #eaba6b;
+  }
+}
+
+.origprice {
+  color: rgb(52, 58, 64);
+}
+
+.salesprice {
+  color: red;
+}
+
+// table th, table td{
+//   width: 80px;
+//   }
+
+//   tbody{
+//   width: 100%;
+//   margin-right: 20px;
+// }
+
+// th:nth-child(1), td:nth-child(1){
+//   text-align: center;
+// }
+// th:nth-child(2), td:nth-child(2){
+//   width: 50px !important;
+//   text-align: center;
+// }
+
+// th:nth-child(3), td:nth-child(3){
+//   width: 250px !important;
+//   text-align: left;
+// }
+
+// th:nth-child(4), td:nth-child(4){
+//   text-align: center;
+// }
+
+// th:nth-child(5), td:nth-child(5){
+//   text-align: center;
+// }
+
+// .table-responsive{
+//   overflow: auto;
+// }
+
+.thumbnail {
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  /* max-width: 100%; */
+  height: auto;
+
+}
+
+.desc{
+  word-wrap:break-word;
+}
+
+.subtotal{
+  margin-left: 20px;
+}
+
+.breakdown{
+  margin-left: 20px;
+}
+
+.attachment{
+  font-size: 22px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.file-content {
+  font-weight: bold;
+  /* font-size: 13px; */
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #07C;
+  padding-right: 12px;
+  word-break: break-word;
+  text-decoration: underline;
+}
+
+.memail{
+  display: none;
+}
+
+
+.at-layaway-form .ta-l
+{
+	text-align:left;
+	margin-top: 5px;
+}
+
+ .at-layaway-form .modal-dialog {
+	width: auto;
+  margin: 30px auto;
+}
+
+.at-layaway-form .modal-content
+{
+  padding: 0px 10px;
+  width: 900px;
+}
+
+.at-layaway-form  .modal-header {
+    padding: 10px 10px;
+    border-bottom: 0px solid #e5e5e5;
+}
+
+.layAwayNote{
+  font-size: 12px;
+}
+
+.table-responsive{
+  width: 100%;
+}
+
+.table-borderless th, .table-borderless td {
+  /* padding: 0.75rem; */
+  padding: 0px !important;
+  padding-left: 10px !important;
+}
+
+.prSend{
+  margin-right: 14px;
+}
+@media (min-width: 767px) {
+  .table-responsive {
+      overflow-x: hidden;
+  }
+
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    
+  .email{
+    display: none;
+  }
+
+  .memail{
+    display: block;
+  }
+}

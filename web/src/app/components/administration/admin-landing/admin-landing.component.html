@@ -1,0 +1,66 @@
+<div class="container-fluid landing">
+    <h2>Landing</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Landing</button>
+        </div>
+    </div>
+    <div class="card byz-container  mt-2">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <div class="table-responsive w-auto">
+                <table class="table byz-table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Url</th>
+                            <th scope="col">Order</th>
+                            <th scope="col">Preview</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let landing of landings | paginate: config">
+                            <td>
+                                <div class="url">
+                                    {{ landing.url }}
+                                </div>
+                            </td>
+                            <td>{{ landing.orderId }}</td>
+
+                            <td class="repad text-center">
+                                <img alt="Landing image" class="preview" *ngIf="landing.fileName != null"
+                                    [src]="getFullPath(landing.fileName)">
+                                <img alt="No image" class="preview cb" *ngIf="landing.fileName == null"
+                                    src="assets/img/no-image.png">
+                            </td>
+                            <td class="repad text-right buttons">
+
+                                <button class="btn btn-sm btn-outline-accent edit" routerLink="{{landing.id}}"><i
+                                        class="fa fa-edit"></i></button>
+                                <button *ngIf="landing != null && landings.length > 0 && landings[0] !== landing"
+                                    class="btn btn-sm btn-outline-accent up" (click)="moveOrderId(landing,1)">Move
+                                    Up
+                                </button>
+                                <button
+                                    *ngIf="landing != null && landings.length > 0 && landings[landings.length - 1] !== landing"
+                                    class="btn btn-sm btn-outline-accent down" (click)="moveOrderId(landing,2)">Move
+                                    Down
+                                </button>
+
+                                <button class="btn btn-sm btn-outline-accent delete" (click)="deleteLanding(landing)"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

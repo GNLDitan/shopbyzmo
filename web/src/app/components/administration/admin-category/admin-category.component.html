@@ -1,0 +1,76 @@
+<h2>Category</h2>
+<div class="row">
+    <div class="col-lg-5 col-md-5 col-12" *ngIf="!isLoading">
+        <div class="container">
+            <h5>Category Summary Tree</h5>
+            <div class="treeview js-treeview">
+                <ul>
+                    <li *ngFor="let category of categoryTree">
+                        <div class="treeview__level" data-level="C">
+                            <span class="level-title" (click)='getCategory(category)'> {{category.name}} </span>
+
+                        </div>
+                        <ul>
+                            <li *ngFor="let subcategory of category.subs">
+                                <div class="treeview__level SC" data-level="SC"
+                                    *ngIf="subcategory.hierarchy =='subcategory'">
+                                    <span class="level-title"
+                                        (click)='getCategory(subcategory)'>{{subcategory.name}}</span>
+                                </div>
+                                <div class="treeview__level B" data-level="B" *ngIf="subcategory.hierarchy =='brand'">
+                                    <span class="level-title"
+                                        (click)='getCategory(subcategory)'>{{subcategory.name}}</span>
+                                </div>
+                                <ul>
+                                    <li *ngFor="let brand of subcategory.subs">
+                                        <div class="treeview__level B" data-level="B" *ngIf="brand.hierarchy =='brand'">
+                                            <span class="level-title" (click)='getCategory(brand)'>{{brand.name}}</span>
+                                            <div class="treeview__level-btns ">
+                                                <!-- <div class="btn btn-default btn-sm level-add">
+                                                    <span class="fa fa-trash text-danger"></span>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="treeview__level SB" data-level="SB"
+                                            *ngIf="brand.hierarchy =='subbrand'">
+                                            <span class="level-title" (click)='getCategory(brand)'>{{brand.name}}</span>
+
+                                        </div>
+
+                                        <ul>
+                                            <li *ngFor="let subBrand of brand.subs">
+                                                <div class="treeview__level SB" data-level="SB">
+                                                    <span class="level-title"
+                                                        (click)='getCategory(subBrand)'>{{subBrand.name}}</span>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-7 col-md-7 col-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <h5>Add/edit Category</h5>
+                </div>
+
+            </div>
+            <div class="category-container">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </div>
+
+</div>

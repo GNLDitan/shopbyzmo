@@ -1,0 +1,32 @@
+.bz-btn{
+    height: 35px;
+    width: 100px;
+    &:hover{
+        background-color: #eaba6b;
+    }
+  }
+
+  .theader{
+    color: #ffffff;
+    background-color: #652d90;
+  }
+  
+  .bal{
+      font-size: 24px;
+  }
+
+  .bt{
+    margin-right: 20px;
+  }
+
+  .form-group{
+    margin-bottom: 0px !important;
+  }
+
+  .inventory-order {
+    color: blue;
+    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+    }
+  }

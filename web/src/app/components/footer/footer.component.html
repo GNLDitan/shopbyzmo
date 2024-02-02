@@ -1,0 +1,129 @@
+<!-- <section class="section">
+    <div class="header-footer">
+        <div class="content-footer text-center">
+            <div class="text-center footer-title">
+                <p>New to ShopByzmo?</p>
+            </div>
+            <div class="footer-msg">
+                <div> <a href="#" class="btn btn-primary btn-sm float-center register" routerLink="/signup">REGISTER
+                        NOW!</a></div>
+            </div>
+        </div>
+
+        <div class="container footer small footer-details">
+            <div class="col text-center">
+                <ul class="list-inline icons">
+                    <li class="list-inline-item mr-3">
+                        <a href="https://www.facebook.com/shopbyzmo" target="_blank"><i class="fab fa-facebook-square"
+                                aria-hidden="true"></i></a>
+                    </li>
+                    <li class="list-inline-item mr-3">
+                        <a href="https://instagram.com/shopbyzmo" target="_blank"><i class="fab fa-instagram"
+                                aria-hidden="true"></i></a>
+                    </li>
+                    <li class="list-inline-item mr-3">
+                        <a href="https://youtube.com/shopbyzmo" target="_blank"><i
+                                class="fab fa-youtube-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- Start Footer  -->
+<footer>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="footer-widget">
+                        <h4>About Byzmo</h4>
+                        <ul>
+                            <li><a routerLink="/about-us">About Us</a></li>
+                            <li><a routerLink="/terms-and-conditions">Terms & Conditions</a></li>
+                            <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
+                            <li><a routerLink="/payment-terms">Payment Terms</a></li>
+                            <li><a routerLink="/shipping-policy">Shipping Policy</a></li>
+                            <li><a routerLink="/loyalty-program-promotions">Loyalty Programs & Promotions</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12 footer-details">
+                    <div class="footer-top-box">
+                        <h4>Get Connected</h4>
+                        <div class="media-container">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="https://www.facebook.com/shopbyzmo" rel="noreferrer" target="_blank"
+                                        title="Facebook">
+                                        <span><i class="fab fa-facebook"></i></span>
+                                    </a>
+                                <li class="list-inline-item">
+                                    <a href="https://instagram.com/shopbyzmo" rel="noreferrer" target="_blank"
+                                        title="Instagram">
+                                        <span><i class="fab fa-instagram"></i></span>
+                                    </a>
+
+                                </li>
+                                <li class="list-inline-item"> <a
+                                        href="https://www.youtube.com/channel/UCSgScrCOMjnuqu0r7uFx9ng" rel="noreferrer"
+                                        target="_blank" title="Youtube">
+                                        <span><i class="fab fa-youtube-square"></i></span>
+                                    </a></li>
+                            </ul>
+                        </div>
+                        <label class="mt-4">New to ShopByzmo?</label>
+                        <button class="btn register" routerLink="/signup">
+                            REGISTER NOW!
+
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12 footer-details">
+                    <div class="footer-link-contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <span><i class="fas fa-envelope"></i></span>
+                                Email: <a href="mailto:shopbyzmo@gmail.com">shopbyzmo@gmail.com</a>
+                            </li>
+                        </ul>
+
+                        <h4>Currency</h4>
+                        <ul>
+                            <li>
+                                <label for="province" class="byz-vshidden">Province</label>
+                                <select id="province" [(ngModel)]="selectedCurrency" (change)="selectCurrency()"
+                                    class="currency">
+                                    <option [value]="cc.code" *ngFor="let cc of currencyList">{{ cc.code }} -
+                                        {{ cc.name }}
+                                    </option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-12 col-sm-12 footer-details">
+                    <div class="footer-link-contact">
+                        <h4>News Letter</h4>
+                        <ul>
+                            <li>
+                                <p>Get the latest news and promotions from Shop Byzmo. Subscribe to our newsletter.</p>
+                            </li>
+                            <li>
+                                <button class="btn register submit" (click)="goToSubscription()">
+                                    SUBSCRIBE
+                                </button>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- End Footer  -->

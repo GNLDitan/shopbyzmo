@@ -1,0 +1,94 @@
+<app-product-filter></app-product-filter>
+<div class="container  pt-2 products">
+    <div class="row">
+        <div *ngIf="products.length === 0 &&  !isLoading" class="col-12">
+            <h2 class="text-center"> No result found. </h2>
+        </div>
+        <div class="col-lg-3 col-md-3 col-6 product-item" *ngFor="let product of products">
+            <a class="card mt-3" [routerLink]="['/products/' + product.linkName]">
+                <div class="card-image">
+                    <img class="img-fluid" [src]="product.currentImageUrl" alt="Product image">
+                </div>
+
+                <div class="type-lb" *ngIf="product.displayTag == 'just arrived'">
+                    <label class="new">New</label>
+                </div>
+                <div class="type-on" *ngIf="product.displayTag == 'on sale'">
+                    <label class="onsale">Sale</label>
+                </div>
+                <div class="type-on" *ngIf="product.displayTag == 'pre-order-layaway'">
+                    <label class="pre-order">Pre Order</label>
+                </div>
+                <div class="type-on" *ngIf="product.displayTag == 'pre-order'">
+                    <label class="pre-order">Pre Order</label>
+                </div>
+
+            </a>
+
+            <div class="product-text">
+                <h4 class="product-name">{{product.productName}}</h4>
+                <div class="product-price">
+                    <div *ngIf="product.preOrder" class="viewDetails">
+                        <div class="view-details"> <a [routerLink]="['/products/' + product.linkName]">View Details</a>
+                        </div>
+                    </div>
+                    <div *ngIf="!product.preOrder">
+                        <div *ngIf="!product.onSale">
+                            <span class="price">{{product.price | conversion }}</span>
+                            <span *ngIf="product.isLayAway || product.preOrderLayaway" class="info-layaway">
+                                <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip"
+                                    title="(Layaway option available)"></i>
+
+                            </span>
+                        </div>
+                        <div ngPreserveWhitespaces *ngIf="product.onSale"><s class="origprice">{{product.price |
+                                conversion }}</s>
+                            <span> </span>
+                            <span class="salesprice"> {{product.salesPrice | conversion }}</span>
+                            <span *ngIf="product.isLayAway || product.preOrderLayaway" class="info-layaway">
+                                <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip"
+                                    title="(Layaway option available)"></i>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="cartButton">
+                    <button *ngIf="product.quantity > 0 && (!product.preOrder && !product.preOrderLayaway)"
+                        class="bz-btn" (click)="addProductToCart(product)">
+                        <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                    </button>
+                    <button *ngIf="product.quantity == 0" [disabled]="true" class="bz-stock-btn">
+                        <span class="span-text">
+                            <span class="fa-stack">
+                                <i class="fa fa-ban fa-stack-2x"></i>
+                                <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            </span>
+                            OUT OF STOCK
+                        </span>
+                    </button>
+                    <button class="notify-me" (click)="addNotification(product, $event)" *ngIf="product.quantity == 0"
+                        [disabled]="isUserNotifLoading" data-toggle="tooltip"
+                        title="Be notified when product becomes available.">
+                        <i class="fa fa-bell" aria-hidden="true" [ngClass]="{'isAdded': product.isNotification}"></i>
+                    </button>
+                    <button *ngIf="(product.preOrder || product.preOrderLayaway) && product.quantity > 0" class="bz-btn"
+                        (click)="addProductToCart(product)">
+                        <span><i class=" far fa-clock"></i> PRE-ORDER</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row m-lg-5 m-md-5" *ngIf="hasMore">
+        <div class="col-12 col-sm-12 text-center">
+            <a class="bz-btn-text see-more" (click)="showMore()">
+                SEE MORE PRODUCTS
+                <span><i class="fas fa-angle-right"></i></span>
+                <span><i class="fas fa-angle-double-right"></i></span>
+            </a>
+        </div>
+    </div>
+</div>

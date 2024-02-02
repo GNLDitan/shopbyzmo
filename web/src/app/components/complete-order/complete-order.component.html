@@ -1,0 +1,250 @@
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="thank-you">
+        <img alt="thank-you" src="assets/img/byzmo_header.png" class="logo-img">
+        <div class="thank-you-text text-center">
+            <h1 class="pt-2 purchase">
+                <p>Thank you for your Purchase!</p>
+            </h1>
+            <div>
+                <p>We've sent a confirmation email to {{ order.email}} with the order and payment details.</p>
+            </div>
+            <div>
+                <p>Please check your email inbox or spam folder for order confirmation.</p>
+            </div>
+            <div *ngIf="isLoginUser">
+                <p>You can track the status of your order here <a routerLink="/client-order">View Orders</a></p>
+
+            </div>
+            <div *ngIf="!isLoginUser">
+                <p>For a better, faster shopping experience , <a routerLink="/signup">Sign Up</a> here. </p>
+            </div>
+
+            <h3 class=" mt-5 mb-2 purchase"> <span>Order Summary</span> </h3>
+            <div class="summary-order">
+                <div class="row text-left">
+                    <div class="offset-1 col-4 mt-2">
+                        <span>Order Number:</span>
+                    </div>
+                    <div class="col-7 mt-2 ">
+
+                        <span>{{ order.id }}</span>
+                    </div>
+                </div>
+                <div class="row text-left">
+                    <div class="offset-1 col-4 mt-2">
+                        <span>Customer Name:</span>
+                    </div>
+                    <div class="col-7 mt-2 ">
+                        <span>{{ order.customerName }}</span>
+                    </div>
+                </div>
+                <div class="row text-left">
+                    <div class="offset-1 col-4 mt-2">
+                        <span>Payment Method:</span>
+                    </div>
+                    <div class="col-7 mt-2 ">
+
+                        <span>{{ order.paymentMethodName }}</span>
+                    </div>
+                </div>
+                <div class="row text-left">
+                    <div class="offset-1 col-4 mt-2">
+                        <span>Shipping via:</span>
+                    </div>
+                    <div class="col-7 mt-2">
+                        <span>{{ order.shippingDetails.shippingName }}</span>
+                    </div>
+                </div>
+                <div class="card byz-container byz-card mt-3">
+                    <div class="card-body">
+                        <div class="row product-row mb-5" *ngFor="let item of order.orderCart">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class=" col-12 col-sm-12 col-md-4 col-lg-4  text-center">
+                                        <img class="img-thumbnail" [src]="item.product.currentImageUrl" alt="Product image"
+                                            width="120" height="100">
+                                    </div>
+                                    <div class="col-12 text-sm-center text-md-left col-md-8">
+                                        <div class="row mt-1">
+                                            <div class="col-12">
+                                                <h6 class="product-name">
+                                                    <p><b>{{item.product.productName}}</b></p>
+                                                </h6>
+                                                <div *ngIf="item.isLayAway">
+                                                    <button class="btn btn-sm btn-outline-accent down mb-2" data-toggle="modal"
+                                                        data-target="#at-layaway" (click)="viewLayAway(item)">View LayAway
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" *ngIf="item.preOrderSchedule && item.preOrderSchedule.length > 0">
+                                                <!-- <p>{{ item.product.price | conversion }}</p> -->
+                                                <p>(Balance: {{ getPreOrderAmount(item.preOrderSchedule, 'RB') | conversion }}
+                                                    X {{item.quantity}})</p>
+                                                <p>(DP:
+                                                    {{ getPreOrderAmount(item.preOrderSchedule, 'DP') | conversion
+                                                    }}
+                                                    X {{item.quantity}})</p>
+                                            </div>
+                                            <div class="col-12" *ngIf="!item.preOrderSchedule">
+                                                <p>{{ (item.onSale ? item.product.salesPrice : item.price) |
+                                                    conversion}}
+                                                    X {{item.quantity}}</p>
+                                            </div>
+                                            <div class="col-12" *ngIf="item.hasRushFee">
+                                                <p>{{ item.rushFee | conversion }} X {{item.quantity}}</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p> Total:
+                                                    {{ ((item.onSale ? item.product.salesPrice : item.price) *
+                                                        item.quantity) + item.rushFee | conversion}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class=" offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Subtotal</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{ subTotal | conversion }}</b>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" *ngIf="order.shippingDetails.discountAmount > 0">
+                                    <div class="offset-1 col-12 col-md-6 col-lg-6  text-left">
+                                        <span><b>Discount</b></span>
+                                        <span *ngIf="discountNoteEnable"><small> (Layaway / On Sale Item not
+                                                included)</small></span>
+                                    </div>
+                                    <div class=" col-12 col-md-4 col-lg-4  text-right">
+                                        <b> ({{order.shippingDetails.discountAmount | conversion }})</b>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Shipping Amount</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{order.shippingDetails.shippingAmount | conversion }}</b>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="order.shippingDetails.insuranceFee > 0">
+                                    <div class="offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Insurance Amount</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{order.shippingDetails.insuranceFee | conversion }}</b>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Total price</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{order.totalPrice | conversion }}</b>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="order.transactionFee > 0">
+                                    <div class="offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Transaction Fee</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{order.transactionFee | conversion }}</b>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="order.finalAmount > 0">
+                                    <div class="offset-1 col-12 col-md-4 col-lg-4  text-left">
+                                        <b>Final Amount</b>
+                                    </div>
+                                    <div class=" col-12 col-md-6 col-lg-6  text-right">
+                                        <b> {{order.finalAmount | conversion }}</b>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="register pt-4 mb-5">
+            <button class="btn btn-outline-primary" (click)="goToProduct()">Shop more</button>
+        </div>
+    </div>
+</div>
+
+
+<section class="at-layaway-form">
+    <!-- LAYAWAY LOGIN -->
+    <div class="modal fade" data-backdrop="false" id="at-layaway" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>
+                        <div>
+                            <b>Order #{{order.id}}</b>
+                        </div>
+                    </span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <span><b>Product Name:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cartLayaway.product.productName}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sched of cartLayaway.layAwaySchedule">
+                                    <td>
+                                        <span
+                                            *ngIf="!sched.isNonRefundDeposit && !sched.isShipping && !sched.isInsurance">
+                                            <b>{{sched.date | date}} :</b>
+                                        </span>
+                                        <span *ngIf="sched.isNonRefundDeposit">
+                                            <b>Non Refundable Deposit :</b>
+                                        </span>
+                                        <span *ngIf="sched.isShipping">
+                                            <b>Shipping :</b>
+                                        </span>
+                                        <div *ngIf="sched.isInsurance">
+                                            <b>Shipping Insurance Fee :</b>
+                                        </div>
+                                    </td>
+                                    <td>{{sched.monthly | conversion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>

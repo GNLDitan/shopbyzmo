@@ -1,0 +1,148 @@
+<div class="content container mb-2">
+    <form autocomplete="off" class="form-horizontal" [formGroup]="searchForm" (submit)="search()">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12 " *ngIf="[3].indexOf(reportType) >= 0">
+                        <div class="form-group">
+                            <div><label for="start-date">Date From:</label></div>
+                            <div class="input-group">
+                                <input class="form-control" name="dp" ngbDatepicker #dp="ngbDatepicker"
+                                    formControlName="startDate">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button"><i
+                                            class="fa fa-calendar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12" *ngIf="[3].indexOf(reportType) >= 0">
+                        <div class="form-group">
+                            <div><label for="start-date">Date To:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" name="d" ngbDatepicker #d="ngbDatepicker"
+                                        formControlName="endDate">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
+                                                class="fa fa-calendar"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-3 col-12">
+                        <div class="form-group">
+                            <!-- <div><label for="start-date">Category:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="categoryFilter" formControlName="categoryFilter">
+                                        <option [ngValue]="filter.code" *ngFor="let filter of filterOrder">
+                                            {{ filter.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <label>Category</label>
+                            <div id="fake-input" class="fake-input" (click)="onOpenCombo()"
+                                [ngClass]="{ 'fake-input-s': openCombo }">
+                                <div class="in-selected-ter">
+                                    <span class="box-select" *ngFor="let s of selectedCategory">{{ s }}</span>
+                                </div>
+                                <i class="fa fa-caret-down pull-right" *ngIf="!openCombo"></i>
+                                <i class="fa fa-times pull-right" style="color: #f05050" *ngIf="openCombo"></i>
+                            </div>
+                            <div class="category" *ngIf="openCombo" [style.width.px]="teWidth">
+                                <section>
+                                    <ul>
+                                        <li *ngFor="let cat of allCategory" (click)="changeSelection(cat)">
+                                            <i class="fa fa-check"
+                                                [ngClass]="{ 'fa-check-s': selectedCategory.indexOf(cat.code) > -1 }"></i>
+                                            {{ cat.category }}
+                                        </li>
+                                    </ul>
+                                </section>
+                                <div class="category-controls mb-2">
+                                    <span class="col-6 text-center" style="border-right: 1px solid #ddd"
+                                        (click)="selectAll()">Select All</span>
+                                    <span class="col-6 text-center" (click)="deselectAll()">Select None</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="form-group">
+                            <div><label for="start-date">Product Type:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="productType" formControlName="productType">
+                                        <option [ngValue]="type.id" *ngFor="let type of productType">
+                                            {{ type.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="form-group">
+                            <div><label for="start-date">Sort By:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="productSort" formControlName="productSort">
+                                        <option [ngValue]="sort.id" *ngFor="let sort of sortFilter">
+                                            {{ sort.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12" *ngIf="[2].indexOf(reportType) >= 0">
+                        <div class="form-group">
+                            <div><label for="start-date">Stocks:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="stockFilter" formControlName="stockFilter">
+                                        <option [ngValue]="sort.id" *ngFor="let sort of stocksFilter">
+                                            {{ sort.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12" *ngIf="[4].indexOf(reportType) >= 0">
+                        <div class="form-group">
+                            <div><label for="start-date">Tags Filter:</label></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="form-control" id="tag" formControlName="tag">
+                                        <option [ngValue]="type.id" *ngFor="let type of tagsFilter">
+                                            {{ type.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-12 search">
+                <div class="col-lg-1 col-md-1 col-12">
+                    <button class="bz-btn submit">
+                        <span>Search</span>
+                    </button>
+                    <button class="bz-btn mt-2" (click)="print()">
+                        <span>Print</span>
+                    </button>
+                    <button class="bz-btn mt-2" (click)="export()">
+                        <span>Export</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

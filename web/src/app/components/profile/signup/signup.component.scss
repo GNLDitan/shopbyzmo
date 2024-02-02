@@ -1,0 +1,40 @@
+@import '~bootstrap/scss/bootstrap-grid';
+
+.login-title {
+  width: 810px;
+  height: 26px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.mod-login {
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #757575;
+  margin-bottom: 20px;
+
+  img {
+    height: 250px;
+    //width: 100%;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+ 
+}
+
+.bz-btn{
+  display: block;
+  width: 100%;
+}
+
+@include media-breakpoint-only(xs) {
+  .logo {
+    display: none;
+  }
+}
+
+
+

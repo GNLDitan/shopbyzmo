@@ -1,0 +1,62 @@
+<div class="container-fluid blg">
+    <h2>Order</h2>
+    <app-search-filter (filterSettings)="filterHandler($event)"></app-search-filter>
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <div class="table-responsive">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th style="width: 5%">#</th>
+                            <th>Order Date</th>
+                            <th style="width: 15%">Customer Name</th>
+                            <th style="width: 15%">Email</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th style="width: 5%">LayAway</th>
+                            <th style="width: 5%">Pre-Order</th>
+                            <th>Status</th>
+                            <th style="width: 5%"></th>
+                            <th style="width: 5%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders | paginate: config">
+                            <td>{{ order.orderNumber }} </td>
+                            <td>{{ order.dateOrder | date:'MM/dd/yyyy' }}</td>
+                            <td> {{ order.customerName }}</td>
+                            <td> {{ order.email }}</td>
+                            <td>{{ order.totalPrice | currency: '₱' }}</td>
+                            <td>{{getPaymentStatus(order.paymentStatusId)}}</td>
+                            <td class="text-center">
+                                <div class="content-text-concat">
+                                    <input type="checkbox" class="check" [disabled]="true" [(ngModel)]="order.layaway"
+                                        [name]="order.layaway">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="content-text-concat">
+                                    <input type="checkbox" class="check" [disabled]="true"
+                                        [(ngModel)]="order.withPreOrder" [name]="order.withPreOrder">
+                                </div>
+                            </td>
+                            <td>{{getStatus(order.statusId)}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-accent view" routerLink="{{order.id}}">View
+                                </button>
+                            </td>
+                            <td>
+                                <button data-toggle="tooltip" title="Print Invoice" class="print"><i class="fa fa-print"
+                                        (click)="printInvoice(order)"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

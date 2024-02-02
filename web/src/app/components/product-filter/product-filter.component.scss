@@ -1,0 +1,475 @@
+@import '../../../assets/styles/site.scss';
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 16;
+}
+
+.content {
+    width: 100%;
+}
+.desktop {
+    display: block;
+}
+
+
+.horizontal-bar-container {
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    opacity: 1;
+    transition: opacity .25s ease;
+}
+
+
+.horizontal-bar-container .horizontal-bar-content {
+    display: flex;
+    color: #ffffff;
+    background-color: $byz-purple-m;
+    margin-top: 10px;
+    padding: 5px 0;
+    position: relative;
+    &:before {
+        content: "";
+        width: 100%;
+        background-color: #fff;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        transition: all .2s ease;
+        z-index: -1;
+        border-top: 1px solid #ebedee;
+        border-bottom: 1px solid #ebedee;
+    }
+}
+
+.horizontal-bar-content-variation .horizontal-bar-content {
+    background-color: transparent;
+    margin-top: 10px;
+    padding: 5px 0;
+    position: relative;
+}
+
+.horizontal-bar-container-variation .filter-panel {
+    flex-basis: 100%;
+    padding-right: 0;
+    max-height: 200px;
+    transition: max-height .3s ease;
+    overflow: hidden;
+}
+
+.filter-list-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-container.filter-sort {
+    position: absolute;
+    right: 0px;
+    height: 120px;
+}
+  
+
+.horizontal {
+    z-index: 16;
+}
+
+
+.title {
+    height: 50px;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    overflow: hidden;
+    text-transform: uppercase;
+    border-left: 4px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 35px 0 16px;
+}
+
+.horizontal .title {
+    border: 1px solid transparent;
+    z-index: 19;
+    padding: 0 23px 0 10px;
+    height: 40px;
+}
+
+
+.horizontal-bar-container-variation .filter-panel div[class*=horizontal-filter] div[class^=title], 
+.horizontal-bar-container-variation7 .filter-panel div[class*=horizontal] a[class*=header_only] {
+    background-color: transparent;
+    // color: #000;
+}
+
+
+.gl-label {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    // font-family: AdihausDIN,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+.gl-label-l {
+    font-size: 13px;
+    line-height: 17px;
+}
+
+.options-container {
+    overflow: hidden;
+    height: 0;
+    transition: max-height .7s linear;
+    transform: translateZ(0);
+}
+
+.horizontal .options-container {
+    display: none;
+    max-height: 50vh;
+}
+
+.open .options-container {
+    display: block;
+    height: auto;
+}
+
+.open .options-container {
+    width: 300px;
+    overflow: auto;
+    position: absolute;
+    z-index: -0;
+    background: $byz-purple-l;
+    // border: 1px solid #000;
+    margin-top: 6px;
+    padding-top: 10px;
+}
+
+.filter-sort .open .options-container {
+   right: 0;
+}
+ 
+
+
+
+
+.open.horizontal .title {
+    // border: 1px solid #000;
+    border-bottom: none;
+}
+
+ul.multiselect-list, 
+ul.swatch-grid, 
+ul.swatch-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+ul.plp-sidebar-item {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    line-height: 48px;
+}
+
+ul.plp-sidebar-item li {
+    width: 100%;
+}
+
+.gl-form-item{
+    position: relative;
+}
+
+.sort-container .gl-form-item {
+    &:hover {
+        cursor: pointer;
+        background-color: #ffa500;
+    }
+}
+
+.multiselectFilter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 20px;
+    line-height: normal;
+    transition: background-color .1s cubic-bezier(.3,0,.45,1);
+}
+.gl-checkbox {
+    text-align: left;
+}
+
+.gl-checkbox-label {
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    line-height: 24px;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.gl-checkbox-input {
+    cursor: pointer;
+    flex-shrink: 0;
+    height: 24px;
+    margin: 0 14px 0 0;
+    opacity: 0;
+    pointer-events: all;
+    width: 24px;
+}
+
+.gl-checkbox-text {
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 30px;
+    padding-right: 1px;
+    transition: color .1s cubic-bezier(.3,0,.45,1),background-color .1s cubic-bezier(.3,0,.45,1);
+}
+
+
+
+.gl-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.gl-checkbox-label .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.gl-checkbox-label input ~ .checkmark {
+    background-color: white;
+    border: 2px solid;
+}
+
+/* When the checkbox is checked, add a blue background */
+.gl-checkbox-label input:checked ~ .checkmark {
+  background-color: #343a40;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.gl-checkbox-label .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.gl-checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.gl-checkbox-label .checkmark:after {
+    left: 7px;
+    top: 1px;
+    width: 8px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.disable-category {
+    background-color: gainsboro;
+    cursor: default;
+}
+
+
+.tags,
+.saved-tags {
+
+  a {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+}
+
+// ** Mobile **//
+.mobile {
+    display: none;
+}
+.mobile .filter {
+    width: 50%;
+    height: 50px;
+    text-align: center;
+    background-color: $byz-purple-m;
+    color: white;
+    bottom: 20%;
+    padding-top: 4%;
+    border: 1px solid #f1f1f1;
+}
+.mobile .mobile-filter-title {
+    font-weight: bold;
+}
+
+.mobile .saved-tags {
+    margin-top: 40px;
+}
+
+.overlay {
+    height: 100%;
+    z-index: 100 !important;;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 3%;
+    width: 100%;
+    // text-align: center;
+    margin-top: 30px;
+    height: 100%;
+    background-color: white;
+    padding-top: 20px;
+  }
+  
+  .overlay a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    font-size: 55px;
+    z-index: 10;
+  }
+
+  .overlay .title {
+    text-align: center;
+  }
+
+.accordion {
+    background-color: $byz-purple-l;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    transition: all 0.5s;
+}
+.accordion:hover, .active{
+    background-color: $byz-purple-m;
+    // color: $byz-purple-m;
+}
+.accordion::after{
+    content: "\02795";
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+.active::after{
+    content: "\2796";
+}
+.panel{
+    padding: 0 10px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+}
+.filter-list #collapse5 {
+    display: none;
+}
+.mobile-filter {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    height: auto;
+}
+
+.mobile-filter-sort .sort-item {
+    padding: 10px 10px 10px 10px;
+    border-bottom: 1px solid #ebedee;
+}
+
+
+  
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+  }
+
+
+
+@media (max-width: 767px) {
+
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+  .filter-list-container  .list-container {
+      display: contents;
+      padding-bottom: 10px;
+    }
+    .horizontal {
+        width: 100%;
+    }
+    .horizontal .horizontal-filter {
+        height: 100%;
+    }
+
+    .horizontal .title {
+        text-align: center;
+        z-index: 1;
+    }
+    .horizontal .horizontal-filter .open {
+       height: 10000px;
+    }
+
+    .open .options-container {
+        width: auto;
+        position: inherit;
+    }
+  }
+  
+  
+  
+
+
+  

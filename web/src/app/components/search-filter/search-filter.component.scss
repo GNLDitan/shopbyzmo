@@ -1,0 +1,73 @@
+.glass-search {
+    position: relative;
+}
+
+.left-side-menu {
+    display: flex;
+	min-width: 96px;
+}
+
+.search-container 
+.search-box.left {
+	left: 0;
+    top: 47px;
+}
+
+.search-box input.rounded {
+    border-radius: 500px !important;
+    border: none;
+    border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	height: 37px;
+	&.padder {
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 210px;
+		-webkit-transition: width .2s ease-in-out;
+		-moz-transition: width .2s ease-in-out;
+		transition: width .2s ease-in-out;
+	}
+	&:focus {
+		width: 350px;
+	}
+}
+
+.search-box button.rounded {
+	border-radius: 500px !important;
+	height: 37px;
+    border: none;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    margin-left: -3px;
+    margin-top: -2px;
+}
+
+
+.glass-search.glass-search-redesign .searchinput-wrapper {
+    padding: 8px 0 8px 30px;
+    position: absolute;
+    left: 0;
+}
+
+.start {
+    padding: 0px;
+    margin-left: 10px;
+}
+
+.end {
+    padding: 0px;
+    margin-left: 10px;
+}
+
+.date-range {
+    margin-left: 10px;
+  }
+
+.date {
+margin: auto;
+}
+
+.status{
+    right: 0;
+}
+  

@@ -1,0 +1,19 @@
+@import '../../../../../assets/styles/site';
+
+
+
+.table {
+    thead>tr>th {
+        vertical-align: bottom;
+        border-top: none;
+        border-bottom: 2px solid $byz-purple-l;
+     }
+    tbody > tr > td {
+        border-top: none !important; 
+    }
+}
+
+.total-container > .total {
+    font-weight: bold;
+}
+

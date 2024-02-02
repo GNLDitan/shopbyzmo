@@ -1,0 +1,95 @@
+<div class="byz-section-header-nb">
+    <h5>Shipping Details</h5>
+</div>
+<div>
+    <form autocomplete="off" class="form-horizontal" [formGroup]="shippingMethodForm">
+        <div class="form-group field">
+            <label for="completeName">Complete Name</label>
+            <input type="text" class="form-control" id="completeName" formControlName="completeName" disabled>
+        </div>
+        <div class="form-group field">
+            <label for="shippingAddress">Shipping Address</label>
+            <textarea type="text" class="form-control" id="shippingAddress" formControlName="shippingAddress" disabled>
+                    </textarea>
+        </div>
+        <div class="form-group field">
+            <label for="email">Email Address</label>
+            <input type="text" class="form-control" id="email" formControlName="email" disabled>
+        </div>
+        <div class="form-group field">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" class="form-control" id="mobileNumber" formControlName="mobileNumber" disabled>
+        </div>
+        <div class="form-group field">
+            <label for="specialInstruction">Special Instruction</label>
+            <input type="text" class="form-control" id="specialInstruction" formControlName="specialInstruction"
+                (change)="changeSpecialInstruction()">
+        </div>
+    </form>
+</div>
+<div class="byz-section-header-nb mt-3">
+    <h5>Select Shipping Method</h5>
+</div>
+
+<div id="accordion" class="payment-container">
+    <div class="card mt-1" *ngFor="let ship of shippings">
+        <div class="card-header" id="headingOne"
+            [ngClass]="{'disabled': isLockShipping(ship) }">
+            <h5 class="mb-0">
+                <div class="row">
+                    <div class="col-10">
+                        <input type="radio" name="ship" (click)="selectedShipping(ship)" data-toggle="collapse"
+                            [attr.data-target]="'#collapse'+ship.id" [checked]="ship.isSelected" 
+                            [attr.disabled]="isLockShipping(ship) ? '' : null">
+                        <span class="ml-2 font-weight-bold title">{{ship.shippingName}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="float-right shipping-rate">{{ship.rate | conversion }}</span>
+                    </div>
+                </div>
+
+            </h5>
+        </div>
+
+        <div [id]="'collapse'+ship.id" class="collapse" aria-labelledby="headingOne" data-parent="#accordion"
+            [ngClass]="{'show': ship.isSelected}">
+            <div class="card-body">
+                <div [innerHtml]="ship.description"></div>
+                <div *ngIf="ship.hasInsurance" class="mt-3">
+                    <input type="checkbox" class="check" [checked]="ship.applyInsurance"
+                        (click)="selectedShipping(ship, $event)">
+                    Apply Shipping Insurance
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- <div class="content-box" *ngFor="let ship of shippings">
+    <div class="content-box__row">
+        <div class="row">
+            <div class="col-9">
+                <input type="radio" name="ship" (click)="selectedShipping(ship)" [checked]="ship.isSelected">
+                <span class="font-weight-bold">
+                    {{ ship.shippingName }}
+                </span>: <div class="desc"> {{ ship.description }}</div><br>
+            </div>
+            <div class="col-3">
+                {{ship.rate | currency: '₱'}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-3"> -->
+<button type="submit" class="bz-btn mt-2" (click)="continuePayment()">
+    <span>
+        <ng-container>Continue to payment</ng-container>
+    </span>
+</button>
+
+<!-- <button type="submit" class="btn btn-block btn-accent" (click)="continuePayment()">
+        <ng-container>Continue to payment</ng-container>
+    </button> -->
+<!-- </div> -->

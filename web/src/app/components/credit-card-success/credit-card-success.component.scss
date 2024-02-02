@@ -1,0 +1,109 @@
+@import '../../../assets/styles/site.scss';
+.byz-success {
+  position: relative;
+  height: 100vh;
+
+  .byz-success-cont {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 15px;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+    .byz-success-head {
+        position: relative;
+        height: 220px;
+
+        h1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+            font-size: 186px;
+            font-weight: 400;
+            margin: 0;
+            background: linear-gradient(130deg, #79608d, #652d90);
+            color:transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+    }
+
+    h2 {
+        font-size: 33px;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 1em;
+        letter-spacing: 3px;
+    }
+
+    p {
+        font-size: 21px;
+        font-weight: 200;
+        margin-top: 0;
+        margin-bottom: 2em;
+    }
+
+    a {
+        color: #652d90;
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px dashed #652d90;
+    }
+
+    .byz-success-social > a{
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        width: 40px;
+        font-size: 17px;
+        color: #652d90;
+        border: 1px solid #eeeeee;
+        border-radius: 50%;
+        margin: 0 10px;
+        -webkit-transition: 0.2s all;
+        transition: 0.2s all;
+
+        &:hover {
+            color: #ffffff;
+            background-color: #652d90;
+            border-color: #652d90;
+        }
+    }
+
+    img {
+      height: 150px;
+      //width: 100%;
+      display: block;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+
+@media (max-width: 480px) {
+    .byz-notfound-cont .byz-notfound-head{
+        position: relative;
+        height: 168px;
+        
+        h1 {
+            font-size: 142px;
+        }
+    }
+
+    .byz-notfound-cont h2 {
+        font-size: 22px;
+    }
+}

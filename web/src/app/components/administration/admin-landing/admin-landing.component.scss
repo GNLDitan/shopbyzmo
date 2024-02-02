@@ -1,0 +1,128 @@
+
+@import '../../../../assets/styles/site.scss';
+.repad {
+    padding: 9px 10px;
+
+    .preview {
+        height: 30px;
+        width: 30px;
+
+        &.cb {
+            border: 1px solid $accent;
+        }
+    }
+
+    .btn-sm {
+        line-height: 20px;
+    }
+}
+
+
+.landing {
+    margin-bottom: 20px;
+}
+
+
+table th, table td{
+    width: 80px;
+    }
+
+    tbody{
+    width: 100%;
+    margin-right: 20px;
+}
+
+th:nth-child(1), td:nth-child(1){
+    text-align: left;
+    width: 300px !important;
+} 
+th:nth-child(2), td:nth-child(2){
+    text-align: center;
+    width: 100px !important;
+}
+
+th:nth-child(3), td:nth-child(3){
+    text-align: center;
+    width: 100px !important;
+}
+
+.bz-btn{
+    height: 35px;
+
+    &:hover{
+        background-color: #eaba6b;
+    }
+}
+
+.buttons{
+    white-space: nowrap;
+    width: 20%;
+
+    .edit{
+        margin-left: 10px;
+    }
+
+    .delete{
+        margin-left: 10px;
+    }
+
+    .up{
+        margin-left: 10px;
+    }
+
+    .down{
+        margin-left: 10px;
+    }
+}
+
+.table-responsive{
+    overflow: auto;
+}
+
+.table{
+    table-layout: fixed;
+}
+
+.url{
+    word-wrap:break-word;
+}
+
+
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    tbody{
+        width: 100%;
+        margin-right: 20px;
+    }
+
+    .buttons{
+        white-space: nowrap;
+        width: 50%;
+
+        .edit{
+            margin-left: 10px;
+        }
+    
+        .delete{
+            margin-left: 10px;
+        }
+    
+        .up{
+            margin-left: 10px;
+        }
+    
+        .down{
+            margin-left: 10px;
+        }
+    }
+}
+.url {
+    overflow-wrap: break-word;
+}

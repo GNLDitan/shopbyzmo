@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <h3 class="mb-2">LayAway</h3>
+    <div class="card byz-card mt-2 byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <div class="row pt-1">
+                <div class="col-md-4 col-6">
+                    <form [formGroup]="layAwayForm" (ngSubmit)="save()">
+                        <div class="form-group">
+                            <label for="maxNumberOfInstallmentPayment">Max Number of Installment payment</label>
+                            <input type="number" id="maxNumberOfInstallmentPayment" class="form-control" min="0"
+                                formControlName="maxNumberOfInstallmentPayment">
+                        </div>
+                        <div class="form-group">
+                            <label for="percentOfNonRefundDeposit">Percentage of Non refundable deposit(%)</label>
+                            <input type="number" id="percentOfNonRefundDeposit" class="form-control" min="0"
+                                formControlName="percentOfNonRefundDeposit">
+                        </div>
+                        <button type="submit" class="bz-btn">
+                            Save
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-9 col-12">
+                                <label for="datesOfPayment">Dates of Payment (Days)</label>
+                                <div class="table-responsive w-auto">
+                                    <table class="table byz-table">
+                                        <thead class="thead">
+                                            <tr>
+                                                <th scope="col-1">Day</th>
+                                                <th scope="col-1">Options</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let layAwayDate of layAwayDates">
+                                                <td>
+                                                    <div class="content-text-concat">
+                                                        <div>{{layAwayDate.paymentDay}}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="repad">
+                                                    <button class="btn btn-sm btn-outline-accent edit"
+                                                        (click)="deleteDate(layAwayDate)"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-5">
+                                <input type="number" class="form-control" [(ngModel)]="newDate" min="0" max="31">
+                            </div>
+                            <div class="col-2">
+                                <button class="bz-btn" (click)="saveDates()">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

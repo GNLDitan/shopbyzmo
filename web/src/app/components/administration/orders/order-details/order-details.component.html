@@ -1,0 +1,762 @@
+<div class="row">
+    <div class="col-lg-9 col-md-9 col-12">
+        <div class="container">
+            <h3 class="mb-0">Order Details</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form class="orderCont" [formGroup]="orderForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="orderNumber">Order No.</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <label> {{order.orderNumber}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="dateOrder">Order Date :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <label> {{order.dateOrder | date: 'MM/dd/yyyy'}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="invoiceNumber">Invoice No. <span *ngIf="order.statusId == 2"
+                                    class="asterisk">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <input type="text" id="invoiceNumber" class="form-control" formControlName="invoiceNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="customerName">Customer Name :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8 desc">
+                        <div class="form-group">
+                            <label> {{order.customerName}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="email">Email :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8 desc">
+                        <div class="form-group">
+                            <label> {{order.email}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="mobileNumber">Mobile Number :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <label> {{mobileNumber}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="shippingAddress">Shipping Address :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-8 desc">
+                        <div class="form-group">
+                            <label> {{order.shippingAddress}} </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="shippingAddress">Billing Address:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-8 desc">
+                        <div class="form-group">
+                            {{ order.shippingDetails.billingAddress }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="shippingMethodDescription">Shipping Via :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-8 desc">
+                        <div class="form-group">
+                            <label> {{shippingMethodDescription}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="orderForm.controls['statusId'].value == 3 || orderForm.controls['statusId'].value == 4">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="trackingNumber">Tracking No. <span *ngIf="order.statusId == 3"
+                                    class="asterisk">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <input type="text" id="trackingNumber" class="form-control"
+                                formControlName="trackingNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngIf="orderForm.controls['statusId'].value  == 3 || orderForm.controls['statusId'].value == 4">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="shipping-date">Shipping Date :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-8">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}" name="dp"
+                                    ngbDatepicker #ps="ngbDatepicker" formControlName="shippingDate">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" (click)="ps.toggle()" type="button"><i
+                                            class="fa fa-calendar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="special-instruction">Facebook Name:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-8 desc">
+                        <div class="form-group">
+                            {{ facebookName }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="special-instruction">Special Instruction :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-8 desc">
+                        <div class="form-group">
+                            {{ specialInstruction}}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="paymentStatusId">Payment Status :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="form-group">
+                            <select class="form-control" id="paymentStatusId" formControlName="paymentStatusId">
+                                <option [disabled]="isPaymentStatusDisable" [ngValue]="payment.id"
+                                    *ngFor="let payment of paymentStatusList">
+                                    {{ payment.description }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-1">
+                        <input hidden type="file" #uploader (change)="uploadFile($event,false,0,false,0)" />
+                        <a class="attachment" data-toggle="tooltip" title="Attach Proof of Payment"
+                            (click)="uploader.click()">
+                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div *ngIf="paymentAttachment.fileName != ''" class="file-content">
+                            <a class="attachment-link"
+                                (click)="downloadFile(paymentAttachment)">{{paymentAttachment.fileName}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="amountTypeId">Payment Type :</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-8 desc">
+                        <div class="form-group">
+                            <div [innerHtml]="order.paymentMethodName"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="order.statusId === 5">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="reason">Reason for cancellation</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-8">
+                        <div class="form-group">
+                            <label> {{order.reason}} </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive w-auto">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Item No.</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Order Price</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cart of order.orderCart">
+                                        <td>
+                                            <div class="col-12">
+                                                <img class="thumbnail" [src]="cart.product.currentImageUrl" alt=""
+                                                    width="120" height="100">
+                                            </div>
+                                        </td>
+                                        <td>{{ cart.product.itemNumber }}</td>
+                                        <td>
+                                            <div class="desc">{{ cart.product.productName }}</div>
+                                            <span *ngIf="cart.product.preOrder"><b>(Pre-Order)</b></span>
+                                        </td>
+                                        <td>{{ cart.quantity}}</td>
+                                        <td>{{ cart.totalPrice | currency: '₱'}}</td>
+                                        <td>{{ cart.totalAmount | currency: '₱'}}</td>
+                                        <td class="repad text-right buttons" *ngIf="cart.isLayAway">
+                                            <button class="btn btn-sm btn-outline-accent down" data-toggle="modal"
+                                                data-target="#at-layaway" (click)="viewLayAway(cart)">View LayAway
+                                            </button></td>
+                                        <td class="repad text-right buttons" *ngIf="cart.preOrder">
+                                            <button class="btn btn-sm btn-outline-accent down" data-toggle="modal"
+                                                data-target="#at-preorder" (click)="viewLayAway(cart)">View Remaining
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- table -->
+                <div class="row-fluid item-table mt-5">
+                    <div class="table-responsive-lg">
+                        <table class="table">
+                            <thead class="theader">
+                                <tr>
+                                    <th></th>
+                                    <th>Item No.</th>
+                                    <th>Item Name</th>
+                                    <th>Item Price</th>
+                                    <th>Qty</th>
+                                    <th>Order Price</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cart of order.orderCart">
+                                    <td>
+                                        <div class="col-12">
+                                            <img class="thumbnail" [src]="cart.product.currentImageUrl"
+                                                alt="Product image" width="120" height="100">
+                                        </div>
+                                    </td>
+                                    <td>{{ cart.product.itemNumber }}</td>
+                                    <td>
+                                        <div class="desc">{{ cart.product.productName }}</div>
+                                        <span *ngIf="cart.preOrder || cart.preOrderLayaway"><b>(Pre-Order)</b></span>
+                                    </td>
+                                    <td>
+                                        <div class="col">
+                                            <div class="row">
+                                                <span class="text-muted" *ngIf="!cart.onSale">{{ cart.origPrice |
+                                                    currency: '₱'}}</span>
+                                                <span ngPreserveWhitespaces class="text-muted" *ngIf="cart.onSale"><s
+                                                        class="origprice">{{cart.origPrice | currency: '₱'}}</s>
+                                                    <span> </span>
+                                                </span>
+                                            </div>
+                                            <div class="row" *ngIf="cart.onSale">
+                                                <span class="salesprice">{{cart.salesPrice | currency: '₱'}}</span>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>{{ cart.quantity}}</td>
+                                    <td>
+                                        <div class="col"
+                                            *ngIf="!cart.preOrder && !(cart.preOrderLayaway && !cart.isLayAway)">
+                                            <div class="row">
+                                                <span class="text-muted"> {{ cart.totalPrice | currency: '₱'}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col"
+                                            *ngIf="cart.preOrder || (cart.preOrderLayaway && !cart.isLayAway)">
+                                            <div class="row">
+                                                <span class="text-muted">
+                                                    {{ cart.origPrice | currency: '₱'}}</span>
+
+                                            </div>
+                                            <div class="row"
+                                                *ngIf="(cart.preOrder || (cart.preOrderLayaway && !cart.isLayAway)) && cart.totalPrice > 0">
+                                                <small> <span class="text-muted"> ( DP : {{ cart.totalPrice | currency:
+                                                        '₱'}} )</span>
+                                                </small>
+                                            </div>
+                                            <div class="row" *ngIf="cart.hasRushFee">
+                                                <span class="text-muted">
+                                                    (Rush Fee : {{ cart.rushFee | currency: '₱'}} )</span>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col">
+                                            <div class="row">
+                                                <span class="text-muted">
+                                                    {{ cart.totalAmount | currency: '₱'}}</span>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="repad text-right buttons" *ngIf="cart.isLayAway">
+                                        <button class="btn btn-sm btn-outline-accent down" data-toggle="modal"
+                                            data-target="#at-layaway" (click)="viewLayAway(cart)">View LayAway
+                                        </button>
+                                    </td>
+                                    <td class="repad text-right buttons"
+                                        *ngIf="cart.preOrder || ((cart.preOrderLayaway && !cart.isLayAway))">
+                                        <button class="btn btn-sm btn-outline-accent down" data-toggle="modal"
+                                            data-target="#at-preorder" (click)="viewLayAway(cart)">View Balance
+                                        </button>
+                                    </td>
+                                    <td *ngIf="!cart.isLayAway && !cart.preOrder"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="row breakdown">
+                    <div class="col-md-6 col-12">
+                        <div class="mt-3">
+                            <div class="subtotal">
+                                <label class="orderNum">Cost Breakdown</label>
+                            </div>
+                            <div class="subtotal">
+                                <label class="orderNum">Subtotal</label>
+                                <span class="float-right font-weight-bold">{{subTotal | currency: '₱'}}</span>
+                            </div>
+                            <div class="subtotal" *ngIf="order.discountAmount > 0">
+                                <label class="orderNum">Discount</label>
+                                <span class="float-right font-weight-bold">( {{order.discountAmount | currency: '₱'}}
+                                    )</span>
+                            </div>
+                            <div class="subtotal">
+                                <label class="orderNum">Shipping</label>
+                                <span class="float-right font-weight-bold">{{order.shippingAmount | currency:
+                                    '₱'}}</span>
+                            </div>
+                            <div class="subtotal" *ngIf="order.insuranceFee > 0">
+                                <label class="orderNum">Shipping Insurance Fee</label>
+                                <span class="float-right font-weight-bold">{{order.insuranceFee | currency:
+                                    '₱'}}</span>
+                            </div>
+                            <div class="subtotal mt-3">
+                                <label class="orderNum">Total</label>
+                                <span class="float-right font-weight-bold">{{order.totalPrice | currency: '₱'}}</span>
+                            </div>
+                            <!-- <div class="subtotal" *ngIf="order.layaway">
+                                <label class="orderNum">Amount to pay</label>
+                                <span class="float-right font-weight-bold">{{order.amountToPay | currency: '₱'}}</span>
+                            </div>
+                            <div class="subtotal" *ngIf="order.layaway">
+                                <span class="layAwayNote">For Layaway items, only the amount in Non refundable deposit
+                                    will be included in
+                                    Amount to Pay. Installment amount and Shipping will be paid on scheduled payment
+                                    date. </span>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-3 col-4">
+                        <div class="form-group">
+                            <label class="orderNum" for="statusId">Order Status</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="form-group">
+                            <select class="form-control" id="statusId" formControlName="statusId"
+                                (change)='onStatusSelected()'>
+                                <option [ngValue]="status.id" *ngFor="let status of statusType">
+                                    {{ status.description }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-2 email" *ngIf="orderForm.controls['statusId'].value != 4">
+                        <button (click)="sendEmail(0,false,0,false,false,false,false)" type="submit" class="bz-btn">
+                            {{emailText}} Email
+                        </button>
+                    </div>
+                    <div class="col-md-2 col-2 memail" *ngIf="orderForm.controls['statusId'].value != 4">
+                        <a class="attachment" data-toggle="tooltip"
+                            (click)="sendEmail(0,false,0,false,false,false,false)" title="attachment"><i
+                                class="far fa-envelope" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" [disabled]="isUpdateDisabled" (click)="save()" class="bz-btn">
+                            Update Order
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<section class="at-layaway-form">
+    <!-- LAYAWAY LOGIN -->
+    <div class="modal fade" data-backdrop="false" id="at-layaway" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>
+                        <div>
+                            <b>Order #{{order.id}}</b>
+                        </div>
+                        <b>LayAway Schedule for Item No. {{itemNumber}}</b>
+                    </span>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <span><b>Product Name:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.product.productName}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Price:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.totalAmount | currency: '₱'}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Number of installment:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.numberOfInstallment}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Day of Month:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{getDays(cart.datesOfPayment)}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <button
+                            *ngIf="cart.isPreOrderNotify"
+                            class="btn btn-sm btn-outline-accent down ml-2 prSend"
+                            data-toggle="tooltip" title="Pre Order Reminder"
+                            (click)="sendEmail(0,false,0,false,false,false,false,true, cart.product)">
+                            {{ cart.isNotifSend ? 'Re-send' : 'Send' }} Notify Customer
+                        </button>
+                    </div>
+                    <div class="row mt-3">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%"></th>
+                                    <th></th>
+                                    <th style="width: 10%;"></th>
+                                    <th style="width: 25%;"></th>
+                                    <th></th>
+                                    <th style="width: 20%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sched of cart.layAwaySchedule">
+                                    <td>
+                                        <span
+                                            *ngIf="!sched.isNonRefundDeposit && !sched.isShipping && !sched.isInsurance">
+                                            <b>{{sched.date | date}} :</b>
+                                        </span>
+                                        <span *ngIf="sched.isNonRefundDeposit">
+                                            <b>Non Refundable Deposit :</b>
+                                        </span>
+                                        <span *ngIf="sched.isShipping">
+                                            <b>Shipping :</b>
+                                        </span>
+                                        <div *ngIf="sched.isInsurance">
+                                            <b>Shipping Insurance Fee :</b>
+                                        </div>
+                                    </td>
+                                    <td>{{sched.monthly | currency: '₱'}}</td>
+                                    <td> <span *ngIf="isOnlinePayment">
+                                            {{sched.isCleared ? 'Paid' : 'Unpaid'}}
+                                        </span>
+                                        <div *ngIf="!isOnlinePayment">
+                                            <select id="currencyId" [(ngModel)]="sched.isCleared"
+                                                (change)="updatePaymentLayawaySchedule(sched)">
+                                                <option [disabled]="isUpdateDisabled" *ngFor="let opt of clearOption"
+                                                    [(ngValue)]="opt.id">
+                                                    {{ opt.value }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button *ngIf="!sched.isPrSend" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2 prSend"
+                                                data-toggle="tooltip" title="Payment Reminder"
+                                                (click)="sendEmail(sched.id,true,0,false,sched.isSendEmail,true,true)">PR
+                                                Send
+                                            </button>
+                                            <button *ngIf="sched.isPrSend" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Reminder"
+                                                (click)="sendEmail(sched.id,true,0,false,sched.isSendEmail,true,true)">PR
+                                                Resend
+                                            </button>
+                                            <button *ngIf="!sched.isSendEmail" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Confirmation"
+                                                (click)="sendEmail(sched.id,true,0,false,true,sched.isPrSend,false)">PC
+                                                Send
+                                            </button>
+                                            <button *ngIf="sched.isSendEmail" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Confirmation"
+                                                (click)="sendEmail(sched.id,true,0,false,true,sched.isPrSend,false)">PC
+                                                Resend
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td> <input hidden type="file" #uploader
+                                            (change)="uploadFile($event,true,sched.id,false,0)" />
+                                        <a class="attachment" data-toggle="tooltip" title="Attach Proof of Payment"
+                                            (click)="uploader.click()">
+                                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="sched.attachment.fileName != ''">
+                                            <span *ngIf="sched.attachment != null" class="file-content">
+                                                <a class="attachment-link"
+                                                    (click)="downloadFile(sched.attachment)">{{sched.attachment.fileName}}</a>
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>
+
+<section class="at-layaway-form">
+    <!--Pre ORDER -->
+    <div class="modal fade" data-backdrop="false" id="at-preorder" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>
+                        <div>
+                            <b>Order #{{order.id}}</b>
+                        </div>
+                        <b>Pre Order Schedule for Item No. {{itemNumber}}</b>
+                    </span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <span><b>Product Name:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.product.productName}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Price:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.origPrice | currency: '₱'}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2" *ngIf="cart.hasRushFee && cart.rushFee > 0">
+                        <div class="col-4">
+                            <span><b>Rush Fee:</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.rushFee | currency: '₱'}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <span><b>Qty :</b> </span>
+                        </div>
+                        <div class="col-8">
+                            <span> {{cart.quantity}} </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <button
+                            *ngIf="cart.isPreOrderNotify"
+                            class="btn btn-sm btn-outline-accent down ml-2 prSend"
+                            data-toggle="tooltip" title="Pre Order Reminder"
+                            (click)="sendEmail(0,false,0,false,false,false,false,true, cart.product)">
+                            {{ cart.isNotifSend ? 'Re-send' : 'Send' }} Notify Customer
+                        </button>
+                    </div>
+                    <div class="row mt-3">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%"></th>
+                                    <th style="width: 10%;"></th>
+                                    <th style="width: 10%;"></th>
+                                    <th style="width: 25%;"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sched of cart.preOrderSchedule">
+                                    <td><b>{{ sched.paymentTermDesc }}:</b> </td>
+                                    <td *ngIf="sched.paymentTerm === 'DP'"> {{sched.amount | currency:
+                                        '₱'}}</td>
+                                    <td *ngIf="sched.paymentTerm !== 'DP'"> {{sched.amount | currency: '₱'}}</td>
+                                    <td>
+                                        <div *ngIf="isOnlinePayment">
+                                            {{sched.isCleared ? 'Paid' : 'Unpaid'}}
+                                        </div>
+                                        <div *ngIf="!isOnlinePayment">
+                                            <select id="currencyId" [(ngModel)]="sched.isCleared"
+                                                (change)="updatePaymentPreOrderSchedule(sched)">
+                                                <option [disabled]="isUpdateDisabled" *ngFor="let opt of clearOption"
+                                                    [(ngValue)]="opt.id">
+                                                    {{ opt.value }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button *ngIf="!sched.isPrSend" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2 prSend"
+                                                data-toggle="tooltip" title="Payment Reminder"
+                                                (click)="sendEmail(0,false,sched.id,true,sched.isSendEmail,true,true)">PR
+                                                Send
+                                            </button>
+                                            <button *ngIf="sched.isPrSend" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Reminder"
+                                                (click)="sendEmail(0,false,sched.id,true,sched.isSendEmail,true,true)">PR
+                                                Resend
+                                            </button>
+                                            <button *ngIf="!sched.isSendEmail" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Confirmation"
+                                                (click)="sendEmail(0,false,sched.id,true,true,sched.isPrSend,false)">PC
+                                                Send
+                                            </button>
+                                            <button *ngIf="sched.isSendEmail" [disabled]="isUpdateDisabled"
+                                                class="btn btn-sm btn-outline-accent down ml-2" data-toggle="tooltip"
+                                                title="Payment Confirmation"
+                                                (click)="sendEmail(0,false,sched.id,true,true,sched.isPrSend,false)">PC
+                                                Resend
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td> <input hidden type="file" #uploader
+                                            (change)="uploadFile($event,false,0,true,sched.id)" />
+                                        <a class="attachment" data-toggle="tooltip" title="Attach Proof of Payment"
+                                            (click)="uploader.click()">
+                                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="sched.attachment.fileName != ''">
+                                            <span *ngIf="sched.attachment != null" class="file-content">
+                                                <a class="attachment-link"
+                                                    (click)="downloadFile(sched.attachment)">{{sched.attachment.fileName}}</a>
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LAYAWAY LOGIN ENDS -->
+</section>

@@ -1,0 +1,65 @@
+<div class="container-fluid blg">
+    <h2>Blog</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Blog</button>
+        </div>
+    </div>
+
+    <div class="card byz-container  mt-2">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <div class="row mt-2">
+                <div class="col-md-12 col-12">
+                    <div class="table-responsive">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th>Cover</th>
+                                    <th>Title</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let blog of blogs | paginate: config">
+                                    <td class="repad text-center">
+                                        <img alt="Blog cover" class="preview" *ngIf="blog.coverFileName != null"
+                                            [src]="getFullPath(blog.coverFileName)">
+                                        <img alt="No Image" class="preview cb" *ngIf="blog.coverFileName == null"
+                                            src="assets/img/no-image.png">
+                                    </td>
+                                    <td class="desc">
+                                        <div [innerHtml]="blog.title | sanitizeHtml"></div>
+                                    </td>
+                                    <!-- <td nowrap>
+                                    <div class="content-text-concat">
+                                        <div [innerHtml]="blog.description | sanitizeHtml : false"></div>
+                                    </div>
+                                </td> -->
+                                    <td>{{ blog.startDate | date:'MM/dd/yyyy' }}</td>
+                                    <td *ngIf="!blog.allDay">N/A</td>
+                                    <td *ngIf="blog.allDay">{{ blog.endDate | date:'MM/dd/yyyy' }}</td>
+                                    <td *ngIf="blog.isDraft"> Draft </td>
+                                    <td *ngIf="!blog.isDraft"> Published </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-accent edit" routerLink="{{blog.id}}"><i
+                                                class="fa fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-accent delete"
+                                            (click)="deleteBlog(blog)"><i class="fa fa-trash"></i></button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

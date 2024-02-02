@@ -1,0 +1,42 @@
+<div class="container-fluid mb-3">
+    <h2>User Admin Management</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add User</button>
+        </div>
+    </div>
+
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <div class="table-responsive w-auto">
+                <table class="table byz-table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col-4" width="45%">Name</th>
+                            <th scope="col-2" width="45%">Email</th>
+                            <th scope="col-2" width="10%">options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of adminUsers | paginate: config">
+                            <td>
+                                {{ user.name }}
+                            </td>
+                            <td>
+                                {{ user.email }}
+                            </td>
+                            <td class="repad text-right buttons">
+                                <button class="btn btn-sm btn-outline-accent edit" routerLink="{{user.id}}"><i
+                                        class="fa fa-edit"></i></button>
+
+                                <button class="btn btn-sm btn-outline-accent delete"
+                                    *ngIf="activeUser.id !== user.id && user.id !== 1 " (click)="delete(user)"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+<table
+    style="width:100%;border-spacing:0;border-collapse:collapse;border-top-width:1px;border-top-color:#e5e5e5;border-top-style:solid">
+    <tbody>
+        <tr>
+            <td style="padding:40px 0">
+                <center>
+                    <table style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p style="font-size:16px;color:#777;line-height:1.2em">Hi Admin, </p>
+                                    <p style="font-size:16px;color:#777;line-height:1.2em">You have received an order
+                                        from {CustomerName}. </p>
+                                    <p style="font-size:16px;color:#777;line-height:1.2em">The order details are as
+                                        follows:</p>
+                                    <p style="font-size:16px;color:#777;line-height:1.2em">Order# {OrderNumber}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:10px">
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Customer Name
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;;color:#555">
+                                                {CustomerName}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Email Address
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {EmailAddress}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Mobile Number
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {MobileNumber}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Shipping Address
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {ShippingAddress}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Billing Address
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {BillingAddress}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Shipping Via
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {ShippingVia}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;line-height:1.4;color:#777;line-height:1.2em">
+                                                Payment Via
+                                            </td>
+                                            <td
+                                                style="width:50%;padding-bottom: 10px;font-size:16px;font-weight:600;line-height:1.4;color:#555">
+                                                {PaymentVia}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table
+                                        style="width:100%;border-spacing:0;border-collapse:collapse;border-top-width:1px;border-top-color:#e5e5e5">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding:40px 0">
+                                                    <center>
+                                                        <table
+                                                            style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h3
+                                                                            style="font-weight:normal;font-size:20px;margin:0 0 25px">
+                                                                            Order summary
+                                                                        </h3>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table
+                                                            style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        {OrderItems}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table
+                                                            style="width:560px;text-align:left;border-spacing:0;border-collapse:collapse;margin:0 auto">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table
+                                                                            style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:20px">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="padding:5px 0;width:50%">
+                                                                                        <p
+                                                                                            style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                                                            <span
+                                                                                                style="font-size:16px">
+                                                                                                Subtotal
+                                                                                            </span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td style="padding:5px 0"
+                                                                                        align="right">
+                                                                                        <strong
+                                                                                            style="font-size:16px;color:#555">
+                                                                                            {SubTotal}
+                                                                                        </strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    {DiscountAmount}
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="padding:5px 0">
+                                                                                        <p
+                                                                                            style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                                                            <span
+                                                                                                style="font-size:16px">
+                                                                                                Shipping Amount
+                                                                                            </span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td style="padding:5px 0"
+                                                                                        align="right">
+                                                                                        <strong
+                                                                                            style="font-size:16px;color:#555">
+                                                                                            {ShippingAmount}
+                                                                                        </strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {InsuranceFee}
+                                                                                <tr>
+                                                                                    <td style="padding:5px 0">
+                                                                                        <p
+                                                                                            style="color:#777;line-height:1.2em;font-size:16px;margin:0">
+                                                                                            <span
+                                                                                                style="font-size:16px">
+                                                                                                Total Price
+                                                                                            </span>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td style="padding:5px 0"
+                                                                                        align="right">
+                                                                                        <strong
+                                                                                            style="font-size:16px;color:#555">
+                                                                                            {SumTotalPrice}
+                                                                                        </strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {AmountToPay}
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>

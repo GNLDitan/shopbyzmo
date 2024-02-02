@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Edit Landing</h3>
+            <form [formGroup]="landingForm" autocomplete="off">
+                <div class="row pt-1">
+                    <div class="col-md-8 col-12 landing-img">
+                        <img alt="No image" *ngIf="landingImageUrl == null" class="img" src="assets/img/no-image.png">
+                        <img alt="Cover image" *ngIf="landingImageUrl != null" class="img" [src]="landingImageUrl">
+                        <input type="file" name="landingImageFile" hidden #landingImageFile
+                            (change)="uploadLandingImage($event)">
+                    <div class="small">Properly format your blog cover image for different screen sizes. Preferred Image
+                        size Dimension 1110(width) x 700(height).
+                        </div>
+                        <button type="button" class="btn btn-block btn-outline-accent upload-landing"
+                            (click)="landingImageFile.click()">Upload Landing Image
+                        </button>
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-md-8 col-12">
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="text" id="url" class="form-control" formControlName="url">
+                            <div class="small">Make sure to include http:// or https:// with your URL.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-1" *ngIf="landingForm.controls.url.value.length > 0">
+                    <div class="col-md-8 col-12">
+                        <div class="form-group">
+                            <input type="checkbox" id="url" formControlName="isNewTab">    
+                            <label for="isNewTab" class="ml-2"> Display in new tab</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-green" (click)="save()">
+                            Update Landing
+                    </button>
+                    <button type="submit" class="btn btn-light-green delete" (click)="deleteLanding()">
+                        Delete
+                    </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

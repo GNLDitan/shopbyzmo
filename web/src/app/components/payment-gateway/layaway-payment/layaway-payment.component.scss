@@ -1,0 +1,31 @@
+.container {
+    min-height: 500px;
+ 
+     .card.info {
+         background-color: #F4EEE5;
+         .name {
+             color: #de7a2a;
+             font-size: 16px;
+         }
+         .details {
+             color:#0B3C5D;
+             padding-bottom: 20px;
+         }
+     }
+ 
+     .payment-details {
+         position: relative;
+     }
+     
+     .payment-details-footer {
+         position: absolute;
+         bottom: 0;
+         right: 35%;
+         color: #0B3C5D;
+         &:hover {
+             cursor: pointer;
+         }
+     }
+    
+ }
+ 

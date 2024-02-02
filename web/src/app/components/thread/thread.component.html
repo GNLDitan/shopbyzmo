@@ -1,0 +1,39 @@
+<div *ngFor="let comment of comments; index as index" [ngClass]="{'offset-comment': comment.hasOffset}">
+    <div class="demo-comment user-id-{{ comment.userId }}">
+        <div class="avatar">
+            <img class="ava-30" src="./assets/img/ava.jpg" alt="Ava image">
+        </div>
+        <div class="comment-body">
+            <div class="comment-heading">
+                <h4 class="user">{{ comment.userName }}</h4>
+                <h5 class="time"><small>{{comment.dateTime | date:'medium'}}</small></h5>
+            </div>
+            <p class="content">{{comment.commentContent}}</p>
+        </div>
+        <button class="buttons" *ngIf="comment.children.length && comment.fromUserId === userId"
+            (click)="comment.wantDel = true">Delete</button>
+        <button class="buttons" *ngIf="!comment.children.length && comment.fromUserId === userId"
+            (click)="onDelete(comment, index)">Delete</button>
+        <span *ngIf="comment.wantDel" style="color: brown">
+            Are you sure you want to delete this comment and all its child comments?
+            <button class="buttons" (click)="onDelete(comment, index)">OK</button>
+            <button class="buttons" (click)="comment.wantDel = false">Cancel</button>
+        </span>
+        <ng-container *ngIf="!comment.wantDel">
+            <button class="buttons" (click)="viewReply(comment)">Reply</button>
+            <form *ngIf="comment.viewReply" class="add-comment" [formGroup]="replyCommentForm" autocomplete="off"
+                (ngSubmit)="onSubmit(comment)">
+                <div class="col-12">
+                    <div class="form-group">
+                        <textarea wrap="hard" placeholder="Add reply ..." class="comment" id="commentContent"
+                            formControlName="commentContent"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-accent buttons">Add reply</button>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <cst-thread [comments]="comment.children" (newcomment)=updateComments($event)></cst-thread>
+</div>

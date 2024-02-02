@@ -1,0 +1,16 @@
+<div class="container container-fluid justify-content-center align-items-center" *ngIf="products.length > 0">
+    <div class="features">
+        <div class="feature-type">
+            <h4>{{inputFeatureType}}</h4>
+            <a class="bz-btn-text" (click)="seeMore()">
+                See More {{inputFeatureType}}
+                <span><i class="fas fa-angle-right"></i></span>
+                <span><i class="fas fa-angle-double-right"></i></span>
+            </a>
+        </div>
+        <div class="slider">
+            <app-slick-carousel [inputFeatureType]="inputFeatureType" [products]="products" [user]="user">
+            </app-slick-carousel>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="landing">
+        <app-landing></app-landing>
+</div>
+<app-features [inputFeatureType]="justArrived"></app-features>
+<app-features [inputFeatureType]="onSale"></app-features>
+<div class="container preorder">
+        <div class="absolute">
+                <img alt="Preorder doll" src="assets/img/pre-order.png">
+        </div>
+        <div class="orders">
+                <div class="details">
+                        <label>See the Dolls up for Pre Order!</label>
+                        <button type="button" class="bz-btn" (click)="seePreOrder()">
+                                <span>PRE-ORDER NOW!</span>
+                        </button>
+                </div>
+        </div>
+</div>
+<app-features [inputFeatureType]="preOrder"></app-features>
+<app-features [inputFeatureType]="onHandItem"></app-features>

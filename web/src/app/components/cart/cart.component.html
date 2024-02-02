@@ -1,0 +1,232 @@
+<div class="container carts">
+    <div class="row">
+        <div class="card shopping-cart col-md-10 col-12">
+            <div class="card-header header-content">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-12">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        Cart
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-12 header">
+                        Product Name
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-12 header">
+                        Item Price
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-12 headerQty">
+                        Qty
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2 col-12 header">
+                        Total Price
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="card-body">
+                <div *ngIf="cart.length === 0" class="empty">Your shopping cart is empty.</div>
+                <div class="row product-row" *ngFor="let item of cart">
+                    <div class="col-md-2 col-12">
+                        <a class="product-img" [routerLink]="['/products/' + item.product.linkName]">
+                            <img class="img-thumbnail" [src]="item.product.currentImageUrl" alt="Product image"
+                                width="120" height="100">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-12">
+                        <div class="row">
+                            <!-- <div class="col-12">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                  </label>
+                                  
+                            </div> -->
+                            <div class="col-md-7 col-12 desc">
+                                <h6 class="product-name"><strong>{{item.product.productName}}</strong></h6>
+                                <span *ngIf="(item.product.preOrder || item.product.preOrderLayaway)" class="pred"> <b>
+                                        (
+                                        Pre-Order ) </b></span>
+                                <span *ngIf="item.isExceed && (!item.product.preOrder && !item.product.preOrderLayaway)"
+                                    class="snote">Only
+                                    {{item.product.quantity}} pc/s
+                                    of this item left. </span>
+                            </div>
+                            <div class="col-md-5 col-12 price">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <small>
+                                            <span class="text-muted" *ngIf="!item.product.onSale">{{item.product.price |
+                                                conversion}}
+                                            </span>
+                                        </small>
+                                        <small ngPreserveWhitespaces>
+                                            <span class="text-muted" *ngIf="item.product.onSale"><s
+                                                    class="origprice">{{item.product.price |
+                                                    conversion}}</s>
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-12" *ngIf="item.product.onSale">
+                                        <small>
+                                            <span class="salesprice">{{item.product.salesPrice |
+                                                conversion}}
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="col-12"
+                                        *ngIf="item.product.preOrderDepositAmount > 0 &&  !item.isLayAway">
+                                        <small>
+                                            <span class="text-muted"> ( DP :
+                                                {{ item.product.preOrderDepositAmount | conversion}} )
+                                            </span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2 layaway" *ngIf="item.product.hasRushFee && !item.isLayAway">
+                            <div class="col-md-12 col-12">
+                                <div class="row mt-2 pb-2">
+                                    <div class="col-1">
+                                        <label class="customcheck">
+                                            <!--  -->
+                                            <input type="checkbox" (change)="rushFeeCart(item, $event)"
+                                                [(ngModel)]="item.hasRushFee">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-7">
+                                        <span><small>Rush fee option - via Air Cargo.</small> </span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="float-right">
+                                            {{ item.product.rushFee | conversion }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2 layaway"
+                            *ngIf="item.product.isLayAway || (item.product.preOrderLayaway && !item.hasRushFee)">
+                            <div class="col-md-12 col-12">
+                                <div class="row mt-2 pb-2">
+                                    <div class="col-8">
+                                        <span>Layaway option:
+                                            {{item.layAway.monthly | conversion}}/month</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <!-- <span class="float-right" *ngIf="!item.product.preOrderLayaway"> -->
+                                        <span class="float-right">
+                                            <label class="customcheck">
+                                                <input type="checkbox" [(ngModel)]="item.isLayAway"
+                                                    (change)="updateCartLayaway(item, $event)">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.isLayAway">
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            Number of installment :
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <!-- <input type="number" id="price" class="form-control"
+                                                   [(ngModel)]="item.layAway.numberOfInstallmentPayment"
+                                                   (change)="recomputeLayAway(item, $event)" min="1"> -->
+                                            <select id="typeId" [(ngModel)]="item.layAway.numberOfInstallmentPayment"
+                                                class="form-control" (change)="recomputeLayAway(item,$event)">
+                                                <option *ngFor="let num of numberOfInstallmentList" [value]="num.id">
+                                                    {{ num.id }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            Date of Payment :
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <select id="typeId" [(ngModel)]="item.layAway.datesOfPayment"
+                                                class="form-control" (change)="recomputeLayAway(item)">
+                                                <option *ngFor="let day of daysList" [value]="day.id">
+                                                    {{ day.value }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    Non Refundable Deposit:
+                                                </div>
+                                                <div class="col-3">
+                                                    <span class="float-right">
+                                                        {{ item.layAway.nonRefundDeposit | conversion }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <div class="row" *ngFor="let sched of item.layAwaySchedule">
+                                                <div class="col-9">
+                                                    {{sched.date | date}}:
+                                                </div>
+                                                <div class="col-3">
+                                                    <span class="float-right">
+                                                        {{sched.monthly | conversion}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-12">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="quantity-selector">
+                                    <button class="btn btn-default cb" (click)="addMinusQuantity(item,false)">-</button>
+                                    <input class="quantity_label" type="text" name="Quantity" value="{{item.quantity}}"
+                                        id="quantity" (change)="onChange($event,item.product)" />
+                                    <button class="btn btn-default cb" (click)="addMinusQuantity(item,true)">+</button>
+                                </div>
+                            </div>
+                            <div class="col-4 price">
+                                <span class="text-muted">{{item.totalPrice | conversion}}</span>
+                            </div>
+                            <div class="col-3">
+                                <button [disabled]="user.isAdmin" type="button" (click)=deleteItem(item.product)
+                                    class="btn btn-outline-danger btn-xs delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-12 checkout">
+            <div class="pull-right" style="margin: 10px">
+                <div class="pull-right" style="margin: 5px">
+                    Total price: <b>{{sumTotalPrice | conversion}}</b>
+                </div>
+                <button type="submit" class="bz-btn" [disabled]="user.isAdmin || cart.length == 0"
+                    (click)="gotoShipping()">
+                    <span>Checkout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

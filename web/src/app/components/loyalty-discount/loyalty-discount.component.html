@@ -1,0 +1,88 @@
+<div class="container">
+
+    <div class="back">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-12">
+                <h3 class="title">Rewards and Discount</h3>
+                <div *ngIf="!hasLoyalty">
+                    <div class="row">
+                        <div class="col-12 text-center mt-5">
+                            <h3> Buy more products to earn Rewards Points.</h3>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let voucher of loyaltyVoucher">
+                    <div class="card" *ngIf="voucher.loyaltyDiscount.discount > 0">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-12">
+                                <div class="img">
+                                    <img class="img-fluid" src="assets/img/byzmo_header.png" alt="Byzmo header">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-12">
+                                <div class="coupon-title"> Congratulations! You have gained a Loyalty Discount.
+                                </div>
+                                <div>Save of up to
+                                    <span *ngIf="voucher.loyaltyDiscount.discountAmountType == 1">
+                                        {{voucher.loyaltyDiscount.discount | conversion }}
+                                    </span>
+                                    <span *ngIf="voucher.loyaltyDiscount.discountAmountType == 2">
+                                        {{voucher.loyaltyDiscount.discount }} %
+                                    </span> on your next order. To claim Loyalty Discount, use the CODE above in your
+                                    next purchase.</div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-12">
+                                <div class="coupon-title">{{voucher.discountCode}}</div>
+                                <button class="btn btn-green mt-3" *ngIf="!voucher.isClaimed"
+                                    disabled>Available</button>
+                                <button class="btn btn-green mt-3" *ngIf="voucher.isClaimed" disabled>claimed</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-12">
+
+                <h3 class="title">Loyalty Discount</h3>
+                <form [formGroup]="loyaltyForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="accumulatedPurchaseAmount">Accumulated Purchase Amount</label>
+                        <input type="text" id="accumulatedPurchaseAmount" class="form-control"
+                            formControlName="accumulatedPurchaseAmount" formatNumeric>
+                    </div>
+                    <div class="form-group">
+                        <label for="qualifiedDiscount">Qualified Discount</label>
+                        <input type="text" id="qualifiedDiscount" class="form-control"
+                            formControlName="qualifiedDiscount">
+                    </div>
+                </form>
+
+                <div class="table-responsive w-auto">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Tier Name</th>
+                                <th scope="col">Accumulated Purchase Amount</th>
+                                <th scope="col">Discount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let discount of loyaltyDiscount">
+                                <td>{{ discount.tierLevel }}</td>
+                                <td class="text-center">
+                                    {{ discount.rangeFrom }} - {{ discount.rangeTo }}
+                                </td>
+                                <td class="text-right"> <span
+                                        *ngIf="discount.discountAmountType === 1">{{discount.discount | conversion }}</span>
+
+                                    <span *ngIf="discount.discountAmountType != 1">{{discount.discount}}%</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

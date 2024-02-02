@@ -1,0 +1,102 @@
+<!-- <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let img of products" class="slide">
+        <div class="card">
+            <div class="card-image">
+                <img class="card-img-top" [src]="img.currentImageUrl" alt="">
+            </div>
+            <div class="text-img d-xs-none" *ngIf="inputFeatureType === 'Just Arrived'">
+                new
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"> {{img.productName}} </h5>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-primary btn-sm float-right">Add to cart</a>
+            </div>
+        </div>
+    </div>
+</ngx-slick-carousel> -->
+<!-- <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let img of products" class="slide">
+        <div class="card">
+            <div class="card-image">
+                <img class="img-responsive" [src]="img.currentImageUrl" alt="">
+            </div>
+        </div>
+    </div>
+</ngx-slick-carousel> -->
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div *ngFor="let img of products">
+        <div ngxSlickItem class="slide">
+            <a class="card" [routerLink]="['/products/' + img.linkName]">
+                <div class="card-image">
+                    <img class="img-fluid" [src]="img.currentImageUrl" alt="Product image">
+                </div>
+                <div *ngIf="featureType !== ''">
+                    <div class="type-lb" *ngIf="inputFeatureType === 'Just Arrived'">
+                        <label class="new">New</label>
+                    </div>
+                    <div class="type-on" *ngIf="inputFeatureType === 'On Sale'">
+                        <label class="onsale">Sale</label>
+                    </div>
+                </div>
+
+                <div *ngIf="featureType == ''">
+                    <div class="type-lb" *ngIf="img.displayTag === 'just arrived'">
+                        <label class="new">New</label>
+                    </div>
+                    <div class="type-on" *ngIf="img.displayTag === 'on sale'">
+                        <label class="onsale">Sale</label>
+                    </div>
+                    <div class="type-on" *ngIf="img.displayTag === 'pre-order'">
+                        <label class="pre-order">Pre Order</label>
+                    </div>
+                </div>
+            </a>
+            <div class="product-text">
+                <h4 class="product-name">{{img.productName}}</h4>
+                <div class="product-price">
+                    <div *ngIf="img.preOrder" class="viewDetails">
+                        <!-- <h4> {{product.preOrderDepositAmount | currency: '₱'}} </h4> -->
+                        <span> <a [routerLink]="['/products/' + img.linkName]">View Details</a> </span>
+                    </div>
+                    <div *ngIf="!img.preOrder">
+                        <div *ngIf="!img.onSale">
+                            <span class="price">{{img.price | conversion }}</span>
+                            <span *ngIf="img.isLayAway" class="info-layaway">
+                                <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip"
+                                    title="(Layaway option available)"></i>
+
+                            </span>
+                        </div>
+                        <div ngPreserveWhitespaces *ngIf="img.onSale"><s
+                                class="origprice">{{img.price | conversion }}</s>
+                            <span> </span>
+                            <span class="salesprice"> {{img.salesPrice | conversion }}</span>
+                            <span *ngIf="img.isLayAway" class="info-layaway">
+                                <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip"
+                                    title="(Layaway option available)"></i>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="cartButton">
+                    <button *ngIf="img.quantity > 0 && !img.preOrder" class="bz-btn" (click)="addProductToCart(img)">
+                        <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                    </button>
+                    <button *ngIf="img.quantity == 0" class="btn outofstock" title="under construction">OUT
+                        OF STOCK</button>
+                    <!-- <a *ngIf="img.quantity > 0 && img.onSale && !img.preOrder" class="bz-btn"
+                        (click)="addProductToCart(img)">
+                        <span>ADD TO CART</span>
+                    </a> -->
+                    <button *ngIf="img.preOrder && img.quantity > 0" class="bz-btn" (click)="addProductToCart(img)">
+                        <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ngx-slick-carousel>

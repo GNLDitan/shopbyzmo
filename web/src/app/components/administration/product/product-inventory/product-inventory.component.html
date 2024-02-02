@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <h2>{{ product.productName }}</h2>
+    <h6 class="bal"><b>Balance: {{ Quantity }} pcs.</b></h6>
+    <form [formGroup]="inventoryForm" (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <input type="number" id="quantity" class="form-control" formControlName="quantity"
+                    [min]="0 - product.quantity">
+            </div>
+            <div class="col-md-1 col-12 bt">
+                <button type="submit" [disabled]="!inventoryForm.valid || inventoryForm.controls['quantity'].value == 0"
+                    class="bz-btn">
+                    {{ inventoryForm.controls['quantity'].value > -1 ? 'Add Stock' : 'Adjust Stock' }}
+                </button>
+            </div>
+            <div class="col-md-1 col-12 bt">
+                <button type="button" class="bz-btn" (click)="goBack()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div class="row pt-1">
+        <div class="col-md-12 col-12">
+            <div class="table-responsive">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th style="width:25%">Date Modified</th>
+                            <th style="width:25%">Order Number</th>
+                            <th>Quantity</th>
+                            <th>Order Status</th>
+                            <!-- <th>Payment Status</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let inventory of inventoryList | paginate: config">
+                            <td>{{ inventory.dateCreated | date: 'MM/dd/yyyy' }}</td>
+                            <td (click)="toOrderPage(inventory)" [ngClass]="{'inventory-order': inventory.orderNumber > 0}">
+                                {{ inventory.orderNumber <= 0 ? '' : inventory.orderNumber }}
+                            </td>
+                            <td>
+                                {{ inventory.quantity }}
+                                {{ inventory.quantity <= 0 && inventory.orderNumber <= 0 ? '(adjusted)' : '' }}
+                            </td>
+                            <td>{{ inventory.orderNumber <= 0 ? '' : getStatus(inventory.statusId) }}</td>
+                            <!-- <td>{{ inventory.orderNumber <= 0 ? '' : getPaymentStatus(inventory.paymentStatusId) }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

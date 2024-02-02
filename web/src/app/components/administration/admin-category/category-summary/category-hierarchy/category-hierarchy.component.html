@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                <div class="row">
+                    <div class="col-md-9 col-lg-9 col-12">
+                        <span>Change Level</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9 col-lg-9 col-12">
+                        <h5>Set Level</h5>
+                        <div class="card-separator"></div>
+                        <div class="form-group">
+                            <label for="typeId">Level</label>
+                            <select class="form-control" [(ngModel)]="selectedLevel">
+                                <option *ngFor="let cat of categoryHierarchyList" [value]="cat.code">
+                                    {{ cat.description }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <h5 class="mt-5">Set Hierarchy</h5>
+                        <div class="card-separator"></div>
+                        <div class="form-group">
+                            <label for="typeId">Category</label>
+                            <select class="form-control" [(ngModel)]="selectedHierarchy.category"
+                                [disabled]="selectedLevel == categoryHierarchy.category"
+                                (change)="configHierarchy(categoryHierarchy.category)">
+                                <option *ngFor="let cat of category.category" [value]="cat.code">
+                                    {{ cat.category }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for=" typeId">Sub Category</label>
+                            <select class="form-control" [(ngModel)]="selectedHierarchy.subcategory"
+                                (change)="configHierarchy(categoryHierarchy.subcategory)" [disabled]="selectedHierarchy.category == 'N/A'  
+                                            || selectedLevel == categoryHierarchy.subcategory
+                                            || selectedLevel == categoryHierarchy.category">
+                                <option *ngFor=" let cat of category.subcategory" [value]="cat.code">
+                                    {{ cat.category }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="typeId">Brand</label>
+                            <select class="form-control" [(ngModel)]="selectedHierarchy.brand"
+                                (change)="configHierarchy(categoryHierarchy.brand)" [disabled]="selectedHierarchy.category == 'N/A' 
+                                            || selectedLevel == categoryHierarchy.brand 
+                                            || selectedLevel == categoryHierarchy.subcategory
+                                            || selectedLevel == categoryHierarchy.category">
+                                <option *ngFor=" let cat of category.brand" [value]="cat.code">
+                                    {{ cat.category }}
+                                </option>
+                            </select>
+                        </div>
+                        <h5 class="mt-5">Category Result</h5>
+                        <div class="card-separator"></div>
+                        <div class="form-group">
+                            <ul class="breadcrumb">
+                                <li *ngFor="let cat of resultCategory"><a>{{cat.category}}</a>
+                                </li>
+                                <li>{{ selectedCategory.category }}</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-sm btn-outline-accent edit" (click)="save()">
+                            <i class="fa fa-save"> Save</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

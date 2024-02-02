@@ -1,0 +1,57 @@
+<div class="container-fluid blg">
+    <h2>Stock Products Report</h2>
+    <app-report-product-filter (filterSettings)="search($event)" [inputReportType]="reportType" (outputPrint)="print()"
+        (outputExport)="export()">
+    </app-report-product-filter>
+
+    <div class="card byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <h5 class="text-center">Stock Products Report</h5>
+            <h5 class="text-center">{{ categories }}</h5>
+            <h5 class="text-center">{{productTypeDesc}}</h5>
+            <h5 class="text-center">{{stocksDesc}}</h5>
+
+            <div class="table-responsive">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th></th>
+                            <th class="text-center" width="40%">Product Name</th>
+                            <th class="text-center">Notification</th>
+                            <th class="text-center">Item Number</th>
+                            <th class="text-center">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let report of reports; let i = index">
+
+                            <td class="repad">
+                                {{ i + 1 }}
+                            </td>
+                            <td class="repad">
+                                {{report.productName }}
+                            </td>
+                            <td class="repad text-center">
+                                <span *ngIf="report.notif > 0"> {{report.notif }}</span>
+                                <span *ngIf="report.notif == 0"> - </span>
+                            </td>
+                            <td class="repad text-center">
+                                {{report.itemNumber }}
+                            </td>
+                            <td class="text-center">
+                                {{report.remainingQuantity }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div class="total-container">
+                <span class="total">TOTAL: {{totalOrder | currency: '₱'}}</span>
+            </div> -->
+        </div>
+
+    </div>
+</div>

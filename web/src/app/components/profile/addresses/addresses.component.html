@@ -1,0 +1,168 @@
+<div class="container justify-content-center align-items-center info">
+    <div class="row mod-profile">
+        <div class="col-lg-12 col-md-12 col-12">
+            <div class="byz-section-header-nb mt-3">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h5>Your Addresses</h5>
+                    <a class="add-link" *ngIf="!isEdit" (click)="addAddress()">Add</a>
+                </div>
+            </div>
+            <div class="address">
+                <ul class="address-items" *ngIf="!isEdit">
+                    <li *ngFor="let address of addresses">
+                        <div class="item-header" *ngIf="address.isDefault">Default</div>
+                        <div class="item-content">
+                            <div class="flex-container flex-wrap">
+                                <div class="flex-item">
+                                    <div>{{ address.address }}</div>
+                                    <div *ngIf="isLocal">{{ address.city }}, {{ getProvinceName(address.province) }}
+                                        {{ address.zipCode }} , {{ getCountryName(address.countryCode) }}
+                                    </div>
+                                    <div *ngIf="!isLocal">{{ address.city }}, {{ address.zipCode }} ,
+                                        {{ getCountryName(address.countryCode) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer mt-2">
+                            <div class="flex-item">
+                                <a class="edit-link" (click)="editAddress(address)">Edit</a>
+                                <span> | </span>
+                                <a class="delete-link" (click)="deleteAddress(address)">Delete</a>
+                            </div>
+                        </div>
+                        <div class="default  mt-2" *ngIf="!address.isDefault">
+                            <a class="default-link" (click)="setDefault(address)">Set as default</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="my-5" *ngIf="addresses.length === 0 && !isEdit">
+                No addresses found.
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <form autocomplete="off" [formGroup]="addressForm" *ngIf="isEdit" (ngSubmit)="saveAddress()">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" class="form-control" formControlName="address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Barangay</label>
+                        <input type="text" id="barangay" class="form-control" formControlName="barangay">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" class="form-control" formControlName="city">
+                    </div>
+
+                    <div class="form-group" *ngIf="isLocal">
+                        <label for="province">Province</label>
+                        <select class="form-control" id="province" formControlName="province">
+                            <option [value]="province.code" *ngFor="let province of provinces">{{ province.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="province">Country</label>
+                        <select class="form-control" id="countrycode" formControlName="countrycode"
+                            (change)="countryChange()">
+                            <option [value]="country.code" *ngFor="let country of countries">{{ country.name }}
+                            </option>
+                        </select>
+                    </div>
+<!-- 
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text" id="zipCode" class="form-control" formControlName="zipCode">
+                    </div> -->
+                    <!-- Other than US, CN, JP, PH CA -->
+                    <div *ngIf="['US','JP','CN','PH', 'CA'].indexOf(addressForm.controls.countrycode.value) < 0">
+                        <div class="form-group  field">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                        </div>
+                    </div>
+                    <!-- PH -->
+                    <div *ngIf="addressForm.controls.countrycode.value == 'PH'">
+                        <div class="form-group field-half field">
+                            <label for="province">Province</label>
+                            <select class="form-control" id="province" formControlName="province">
+                                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group field-half field">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                        </div>
+                    </div>
+                    <!-- US -->
+                    <div *ngIf="addressForm.controls.countrycode.value == 'US'">
+                        <div class="form-group field-half field">
+                            <label for="states">States</label>
+                            <select class="form-control" id="states" formControlName="states">
+                                <option [value]="prv.code" *ngFor="let prv of states">{{ prv.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group field-half field">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" class="form-control" id="zipCode" formControlName="zipCode">
+                        </div>
+                    </div>
+                    <!-- CN -->
+                    <div *ngIf="addressForm.controls.countrycode.value == 'CN'">
+                        <div class="form-group field-half field">
+                            <label for="province">Province</label>
+                            <select class="form-control" id="province" formControlName="province">
+                                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group field-half field">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                        </div>
+                    </div>
+                    <!-- JP -->
+                    <div *ngIf="addressForm.controls.countrycode.value == 'JP'">
+                        <div class="form-group field">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                        </div>
+                        <div class="form-group field">
+                            <label for="prefecture">Prefecture</label>
+                            <select class="form-control" id="prefecture" formControlName="prefecture">
+                                <option [value]="prv.code" *ngFor="let prv of prefecture">{{ prv.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- CA -->
+                    <div *ngIf="addressForm.controls.countrycode.value == 'CA'">
+                        <div class="form-group field-half field">
+                            <label for="province">Province</label>
+                            <select class="form-control" id="province" formControlName="province">
+                                <option [value]="prv.code" *ngFor="let prv of provinces">{{ prv.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group field-half field">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-accent">Save</button>
+                        <button type="button" (click)="cancelEdit()" class="btn btn-accent ml-2">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,279 @@
+<div class="container">
+    <app-custom-breadcrumb></app-custom-breadcrumb>
+    <div class="row pt-2 product-container">
+        <div class="product-header col-lg-8 col-md-8 col-12 ">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 order-lg-1 order-md-1  order-2">
+                    <div class="thumbnails-container">
+                        <app-slick-product-image [imageBlobs]="imageBlobs" (setFeatureImg)="setFeatureImg($event)">
+                        </app-slick-product-image>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9 order-lg-2 order-md-2 order-1"
+                    *ngIf="imageBlobs.length > 0">
+                    <app-thumb-image-feature [inputfeatureImg]="featureImg" [inputImages]="imageBlobs">
+                    </app-thumb-image-feature>
+                </div>
+            </div>
+        </div>
+        <div class="purchase-panel col-lg-4 col-md-4 col-12">
+            <div class="pricing product-purchase">
+                <div class="row title">
+                    <div class="col-12">
+                        <h3> {{ product.productName || "" }}</h3>
+                        <div class="price-panel">
+                            <!-- <div *ngIf="product.preOrder">a
+                                <h4> {{product.preOrderDepositAmount | currency: '₱'}} </h4>
+                            </div> -->
+                            <!-- <div *ngIf="!product.preOrder"> -->
+                            <div class="col">
+                                <div class="row">
+                                    <h4 *ngIf="!product.onSale">{{product.price | conversion }}</h4>
+                                    <h4 ngPreserveWhitespaces *ngIf="product.onSale"><s
+                                            class="origprice">{{product.price | conversion }}</s>
+                                        <span> </span>
+                                        <span class="salesprice">{{product.salesPrice | conversion }}</span>
+                                    </h4>
+                                </div>
+                                <div class="row" *ngIf="preOrderDownPayment > 0 && !isApply">
+                                    <h4> ( Downpayment : {{ preOrderDownPayment | conversion }} )</h4>
+                                    <small *ngIf="product.preOrderLayaway">
+                                        Remaining balance will be paid in full when product arrives. You can also avail
+                                        Layaway/ Installment payment option below.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- </div> -->
+                        </div>
+                        <div class="card-separator"></div>
+                        <div class="saved-tags mt-3">
+                            <ng-container *ngFor="let dTag of designTags">
+                                <div class="badge badge-lg badge-secondary" [ngClass]="{'justArrive' : dTag.name == 'just arrived',
+                                    'on-hand' : dTag.name == 'on hand',
+                                    'on-sale' : dTag.name == 'on sale',
+                                    'pre-order' : (dTag.name == 'pre-order' || dTag.name == 'pre-order-layaway') 
+                                    }">
+                                    <span class="preOrdertip" *ngIf="['pre-order'].indexOf(dTag.name) >= 0"
+                                        data-toggle="tooltip"
+                                        title="Place your order now,  pay only the downpayment upon checkout &#xA; and the remaining balance will be paid when the product is ready for shipping.">
+                                        pre-order</span>
+                                    <span *ngIf="['pre-order'].indexOf(dTag.name) <= -1">{{
+                                        dTag.name == 'pre-order-layaway' ? 'pre-order' :dTag.name }}</span>
+
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div *ngIf="product.quantity > 0" class="quantity-panel">
+                            <label for="quantity">Quantity: </label>
+                            <input id="quantity" (change)="onChange($event,product)" type="number" min="1"
+                                value="{{product.quantity}}">
+                        </div>
+                        <div *ngIf="product.quantity > 0 && (!product.preOrder && !product.preOrderLayaway)"
+                            class="mt-3">
+                            <button type="button" class="bz-btn" (click)="addProductToCart(product)">
+                                <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                            </button>
+                        </div>
+
+                        <div *ngIf="(product.preOrder || product.preOrderLayaway) && product.quantity > 0" class="mt-3">
+                            <button type="button" (click)="addProductToCart(product)" class="bz-btn px-3">
+                                <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                            </button>
+                        </div>
+                        <div *ngIf="product.quantity == 0" class="mt-3">
+                            <button type="button" class="bz-stock-btn">
+                                <span class="span-text">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-ban fa-stack-2x"></i>
+                                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    OUT OF STOCK
+                                </span>
+                            </button>
+                        </div>
+
+                        <span *ngIf="addToCartDisable && !product.preOrder && !user.isAdmin" class="snote">Only
+                            {{remainingQuantity}} pc/s
+                            of this item left. </span>
+
+                        <div class="mt-3">
+                            <!-- <button *ngIf="user.id == 0" type="button" class="btn wishlist login" data-toggle="tooltip"
+                                title="Login" href="#" id="userLoginId" data-toggle="modal" data-target="#cart-login"
+                                [ngClass]="{'outofstock': product.quantity == 0}">
+                                <span class=heart><i class="fa fa-heart" aria-hidden="true"></i>
+                                    <span class="wish-text"> Add to Wish List
+                                    </span>
+                                </span>
+                            </button> -->
+
+                            <button type="button" class="btn wishlist" (click)="addToWishList()" [disabled]="isloading"
+                                [ngClass]="{'outofstock': product.quantity == 0}">
+                                <span class=heart><i class="fa fa-heart" aria-hidden="true"
+                                        [ngClass]="{'isAdded': isWishList}"></i>
+                                    <span class="wish-text"> {{ !isWishList ? 'Add to Wish List' : 'On Wish List'}}
+                                    </span>
+                                </span>
+                            </button>
+                            <button class="notify-me " (click)="notify()" *ngIf="product.quantity == 0"
+                                [disabled]="isloading" data-toggle="tooltip"
+                                title="You will be notified when available">
+                                <i class="fa fa-bell" aria-hidden="true" [ngClass]="{'isAdded': isNotify}"></i>
+                            </button>
+                        </div>
+
+                        <div *ngIf="product.isLayAway || product.preOrderLayaway" class="mb-4 layaway">
+                            <span>Layaway Options: {{ layAwayDetails.monthly | conversion }} </span>
+                            <span class="float-right" (click)="isShow = !isShow"><i class="fa fa-plus"
+                                    aria-hidden="true"></i></span>
+                            <div class="details" *ngIf="isShow">
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        Number of installment :
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-12">
+                                        <select id="typeId" class="form-control"
+                                            [(ngModel)]="numberOfInstallmentPayment" (change)="recomputeLayAway()">
+                                            <option *ngFor="let num of numberOfInstallmentList" [value]="num.id">
+                                                {{ num.id }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        Date of Payment :
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-12">
+                                        <select id="typeId" class="form-control" [(ngModel)]="days"
+                                            (change)="recomputeLayAway()">
+                                            <option *ngFor="let day of daysList" [value]="day.id">
+                                                {{ day.value }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                Non Refundable Deposit:
+                                            </div>
+                                            <div class="col-3">
+                                                <span class="float-right">
+                                                    {{ layAwayDetails.nonRefundDeposit | conversion }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-12">
+                                        <div class="row" *ngFor="let sched of layAwaySchedule">
+                                            <div class="col-9">
+                                                {{sched.date | date}}:
+                                            </div>
+                                            <div class="col-3">
+                                                <span class="float-right">
+                                                    {{sched.monthly | conversion }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-dark plan" *ngIf="!isApply " (click)="isApply = !isApply">
+                                    <span> Apply Plan</span>
+                                </button>
+                                <button class="btn btn-danger plan" *ngIf="isApply " (click)="isApply = !isApply">
+                                    <span> Cancel</span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="note" *ngIf="product.preOrder">
+                            <p><b>PLEASE NOTE THIS IS A PREORDER ITEM.</b></p>
+                            <p><span class="cont">
+                                    <i>Amount indicated is only the Downpayment, you are not yet paying for the full
+                                        amount.</i>
+                                </span></p>
+                        </div>
+
+                        <div class="address-panel">
+                            <div [innerHtml]="productDescription | sanitizeHtml"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-features-related [relate]="product.category" [productId]="product.id" *ngIf="product.id > 0">
+</app-features-related>
+
+
+
+<section class="at-login-form">
+
+    <div class="modal fade" data-backdrop="false" id="cart-login" tabindex="-1" role="dialog"
+        aria-labelledby="addresssLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <div class="col-12">
+                            <div class="logo">
+                                <img alt="logo" src="assets/img/byzmo_header.png">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-fb" title="Under construction" data-dismiss="modal"
+                        (click)="signInWithSocialMedia('facebook')"> <i class="fab fa-facebook-f pull-left"
+                            aria-hidden="true"></i>
+                        Login with Facebook </button> <br>
+                    <button class="btn-gp" data-dismiss="modal" (click)="signInWithSocialMedia('google')">
+                        <i class=" fab fa-google-plus-g pull-left" aria-hidden="true"></i>
+                        Login with Google </button> <br>
+                    <div class="signup-or-separator">
+                        <span class="h6 signup-or-separator--text">or</span>
+                        <hr>
+                    </div>
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                        <div class="form-group">
+                            <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="password"
+                                placeholder="Password">
+                        </div>
+                        <div class="row">
+                            <div class="col error">
+                                <span *ngIf="errorMessage !== null && errorMessage !== undefined && errorMessage !== ''"
+                                    class="error-message">{{ errorMessage }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><a data-dismiss="modal" routerLink="/forgot">
+                                        Forgot Password?</a></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="bz-btn">
+                            <span>Login</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

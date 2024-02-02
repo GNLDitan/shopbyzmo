@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Add Payment Method</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form [formGroup]="paymentMethodForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div class="row pt-1">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name">Payment Method Name <span class="asterisk">*</span></label>
+                                    <input type="text" id="name" class="form-control" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="description">Payment Description <span class="asterisk">*</span></label>
+                                    <quill-editor #quillEditor [modules]="editor_description_modules"
+                                        formControlName="description" (onEditorCreated)="onEditorCreated($event)">
+                                    </quill-editor>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="checkbox" id="with-account" formControlName="withAccount">
+                                    <label for="with-account" class="check"> With Account Number</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="checkbox" id="withTransactionFee" formControlName="withTransactionFee">
+                                    <label for="withTransactionFee" class="check"> With Transaction Fee</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="emailInstruction">Email Instruction <span
+                                            class="asterisk">*</span></label>
+                                    <quill-editor #quillEditor [modules]="editor_modules"
+                                        formControlName="emailInstruction" (onEditorCreated)="onEditorCreated($event)">
+                                    </quill-editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row save-d">
+                    <div class="col-6">
+                        <button type="submit" (click)="save()" class="bz-btn">
+                            Save Payment Method
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row save-m">
+            <div class="col-6">
+                <button type="submit" (click)="save()" class="bz-btn">
+                    Save Payment Method
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="row pt-1" *ngIf="paymentMethodForm.controls['withAccount'].value">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-8">
+                        <h6>Account Number/s (<span class="text-primary">
+                                {{ paymentMethodAccounts.length }}
+                            </span>) <span class="asterisk">*</span> </h6>
+                    </div>
+                    <div class="col-4 add">
+                        <button class="byz-btn-trans-r text-primary" (click)="accountInfo()">
+                            <span><i class="fa fa-plus"></i></span> Add Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" *ngIf="paymentMethodForm.controls['withAccount'].value">
+                <div class="row-fluid item-table mt-5">
+                    <div class="table-responsive-lg" *ngIf="!viewAccountInfo">
+                        <table class="table byz-table">
+                            <thead class="theader">
+                                <tr>
+                                    <th scope="col">Bank Name</th>
+                                    <th scope="col">Account Number</th>
+                                    <th scope="col">Account Name</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let accounts of paymentMethodAccounts">
+                                    <td>{{ accounts.bankName }}</td>
+                                    <td>{{ accounts.accountNumber }}</td>
+                                    <td>
+                                        <div class="desc">
+                                            {{ accounts.accountName }}
+                                        </div>
+                                    </td>
+                                    <td class="repad text-right">
+                                        <button *ngIf="!accounts.isDeleted" (click)="deleteAccount(accounts)"
+                                            class="byz-close text-primary" type="button"><span><i
+                                                    class="far fa-trash-alt fa-xs"></i></span></button>
+                                        <button *ngIf="accounts.isDeleted" (click)="undoRemove(accounts)"
+                                            class="byz-close text-primary" type="button"><span><i
+                                                    class="fas fa-undo fa-xs"></i></span></button>
+                                        <button *ngIf="!accounts.isDeleted" class="byz-close text-primary"
+                                            (click)="editAccountInfo(accounts)"><i
+                                                class="far fa-edit fa-xs"></i></button>
+                                        <!-- <button class="btn btn-sm btn-outline-accent delete"
+                                                (click)="deleteAccount(accounts)"><i class="fa fa-trash"></i></button> -->
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="paymentMethodForm.controls['withAccount'].value">
+            <div class="col-12" *ngIf="viewAccountInfo">
+                <app-account-info [accountCount]="paymentMethodAccounts.length"
+                    (viewAccountInfo)="cancelViewAccountInfo($event)" (accountInfo)="contentHandler($event)">
+                </app-account-info>
+            </div>
+        </div>
+
+        <div class="row mt-5" *ngIf="paymentMethodForm.controls['withTransactionFee'].value">
+            <div class="col-8">
+                <h6 class="mb-0">Transaction Fee</h6>
+            </div>
+            <div class="col-4 add">
+                <button class="byz-btn-trans-r text-primary" (click)="addTransactionFee()">
+                    <span><i class="fa fa-plus"></i></span> Add Transaction Fee
+                </button>
+            </div>
+
+            <div class="col-12" *ngIf="!isAddFee">
+                <table class="table byz-table">
+                    <thead class="theader">
+                        <tr>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Rate Type</th>
+                            <th class="text-center">Amount</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let fees of transactionFees; let i = index">
+                            <td>{{ fees.description }}</td>
+                            <td class="text-center">{{ getRateDescription(fees.amountTypeId) }}</td>
+                            <td class="text-center"> {{ fees.amount }} </td>
+                            <td class="repad text-right">
+                                <button class="byz-close text-primary" (click)="deleteTransactionFee(i)"><i
+                                        class="far fa-trash-alt fa-xs"></i></button>
+                                <button (click)="editTransactionFee(fees, i)" class="byz-close text-primary"
+                                    type="button"><span><i class="far fa-edit fa-xs"></i></span></button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12" *ngIf="isAddFee">
+                <app-transaction-fee [selectedTransactionFees]="selectedTransactionFee"
+                    (outputTransactionFees)="saveTransactionFee($event)"
+                    (outputIsCancel)="cancelTransactionFee($event)"></app-transaction-fee>
+            </div>
+        </div>
+
+    </div>
+
+</div>

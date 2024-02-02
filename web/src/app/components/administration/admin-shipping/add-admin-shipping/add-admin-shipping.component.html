@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+        <div class="container">
+            <h3 class="mb-0">Add Shipping</h3>
+            <div class="small">Fields marked with <span class="asterisk">(*)</span> are required.</div>
+            <form [formGroup]="shippingForm" autocomplete="off" (ngSubmit)="save()">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div class="row pt-1">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="shippingName">Shipping Provider Name <span
+                                            class="asterisk">*</span></label>
+                                    <input type="text" id="shippingName" class="form-control"
+                                        formControlName="shippingName">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="trackingUrl">Tracking Url <span class="asterisk">*</span></label>
+                                    <input type="text" id="trackingUrl" class="form-control"
+                                        formControlName="trackingUrl">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="description">Description <span class="asterisk">*</span></label>
+                                    <input type="text" id="description" class="form-control"
+                                        formControlName="description">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="rate" class="text-md-left text-center">
+                                        Base Rate
+                                    </label>
+                                    <input id="rate" type="number" class="form-control" formControlName="rate" min="0">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="customcheck">Additional Rate
+                                        <input type="checkbox" id="hasAdditionRate" formControlName="hasAdditionRate">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="customcheck">Enable Insurance
+                                        <input type="checkbox" id="hasInsurance" formControlName="hasInsurance">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="customcheck">International
+                                        <input type="checkbox" id="isInternational" formControlName="isInternational">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12" *ngIf="shippingForm.controls['hasInsurance'].value">
+                                <div class="form-group">
+                                    <label for="everyAmount">Every Amount<span class="asterisk">*</span></label>
+                                    <input type="number" id="everyAmount" class="form-control"
+                                        formControlName="everyAmount">
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="shippingForm.controls['hasInsurance'].value">
+                                <div class="form-group">
+                                    <label for="insuranceFee">Shipping Insurance Fee<span
+                                            class="asterisk">*</span></label>
+                                    <input type="number" id="insuranceFee" class="form-control"
+                                        formControlName="insuranceFee">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="currencyId">Currency</label>
+                                    <select class="form-control" id="currencyId" formControlName="currencyId" #mySelect>
+                                        <option [value]="currency.code" *ngFor="let currency of currencyType">
+                                            {{ currency.description }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" class="bz-btn">
+                            Save Shipping
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- -->
+    <div class="col-lg-4 col-md-4 col-12" *ngIf="shippingForm.controls['hasAdditionRate'].value">
+        <button class="bz-btn float-right" (click)="addItem()">
+            Add Item
+        </button>
+        <table class="table byz-table">
+            <thead class="theader">
+                <tr>
+                    <th class="text-center" width="40%">item Count</th>
+                    <th class="text-center" width="20%">Price</th>
+                    <th class="text-center" width="25%">option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of shippingItemCost; let i = index">
+                    <td class="text-center">
+                        <span *ngIf="!item.isEdited">
+                            {{ item.fromCount }} <span *ngIf="item.toCount > 1">- {{ item.toCount }}</span>
+                        </span>
+                        <span *ngIf="item.isEdited" class="shiprange">
+                            <input type="number" min="1" class="form-control fromCount mr-2"
+                                [(ngModel)]="item.fromCount" (input)="onchangeFrom($event, item)">
+                            <input type="number" min="1" class="form-control toCount" [(ngModel)]="item.toCount"
+                                (input)="onchangeTo($event, item.fromCount, i)">
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="!item.isEdited">
+                            {{ item.amount }}
+                        </span>
+                        <span *ngIf="item.isEdited">
+                            <input type="number" class="form-control" [(ngModel)]="item.amount">
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-accent view" *ngIf="item.isEdited"
+                            (click)="saveItem(item, i)">Save</button>
+                        <button class="btn btn-sm btn-outline-accent view" *ngIf="!item.isEdited"
+                            (click)="item.isEdited = !item.isEdited">Edit</button>
+                        <button class="btn btn-sm btn-outline-accent ml-2" (click)="deleteItem(i)">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- itemCount: number;
+price: number;
+isEdited: boolean; -->

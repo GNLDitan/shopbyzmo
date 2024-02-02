@@ -1,0 +1,80 @@
+<div class="container orders">
+    <div class="col-12">
+        <div class="row">
+            <div class="text-left">
+                <h2 class="title">My Orders</h2>
+            </div>
+
+        </div>
+        <div class="row fluid">
+            <div class="table-responsive-lg">
+                <table class="table">
+                    <thead class="theader">
+                        <tr>
+                            <th>Order No.</th>
+                            <th>Date of Order</th>
+                            <th>Payment Status</th>
+                            <th>Fulfillment Status</th>
+                            <th>Tracking No.</th>
+                            <th>LayAway</th>
+                            <th>Pre-Order</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ord of orders | paginate: config">
+                            <td> {{ ord.id }}</td>
+                            <td>{{ ord.dateOrder | date:'MM/dd/yyyy' }}</td>
+                            <td>{{getPaymentStatus(ord.paymentStatusId)}}</td>
+                            <td>{{getStatus(ord.statusId)}}</td>
+                            <!-- <td> {{ ord.trackingNumber }} </td> -->
+                            <td>
+                                <div *ngIf="ord.statusId == 3">
+                                    <a href="{{ord.trackingUrl}}" target="_blank">{{ord.trackingNumber}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content-text-concat">
+                                    <input type="checkbox" class="check" [disabled]="true" [(ngModel)]="ord.layaway"
+                                        [name]="ord.layaway">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content-text-concat">
+                                    <input type="checkbox" class="check" [disabled]="true"
+                                        [(ngModel)]="ord.withPreOrder" [name]="ord.withPreOrder">
+                                    <!-- <input type="checkbox" class="check" [disabled]="true"
+                                        [(ngModel)]="ord.withPreOrder" [name]="ord.withPreOrder"> -->
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <span> {{ ord.totalPrice | conversion }}</span>
+                                </div>
+                                <div class="row">
+                                    <button class="bz-btn" type="button" (click)="toClientOrderInfo(ord)">View
+                                        Details</button>
+                                    <button class="bz-btn" type="button" (click)="payNow(ord)" *ngIf="ord.paynowEnable">
+                                        <div *ngIf="ord.paymongoStatus != 2">Pay Now</div>
+                                        <div *ngIf="ord.paymongoStatus == 2">Processing</div>
+                                    </button>
+                                    <button class="bz-btn" type="button" (click)="review(ord)" *ngIf="ord.statusId === 4">
+                                        <div >Review</div>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row" *ngIf="viewContentInfo">
+        <div class="col-12">
+            <app-client-order-info (viewContentInfo)="cancelViewContentInfo($event)">
+            </app-client-order-info>
+        </div>
+    </div> -->
+</div>

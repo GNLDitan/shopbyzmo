@@ -1,0 +1,104 @@
+<div class="byz-section-header mt-3">
+    <h5><a class="m-2" (click)="infoCancel()"><span><i class="fas fa-chevron-left header"></i></span></a>
+        Blog content
+    </h5>
+</div>
+<div class="byz-section-body mf-max-body-width mt-5">
+    <form class="form-horizontal" [formGroup]="contentForm">
+        <div class="row pt-1">
+            <div class="col-sm-3 col-6">
+                <div class="form-group">
+                    <label for="typeId">Content Type</label>
+                    <select class="form-control" id="typeId" formControlName="typeId" #mySelect
+                        (change)='onOptionsSelected(mySelect.value)'>
+                        <option [value]="content.id" *ngFor="let content of contentType">
+                            {{ content.type }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-1">
+            <div class="col-sm-9 col-12">
+                <div class="form-group">
+                    <label for="headerText">Content Description <span class="asterisk">*</span></label>
+                    <input type="text" id="headerText" class="form-control" formControlName="headerText">
+                </div>
+            </div>
+        </div>
+        <div class="row pt-1" *ngIf="contentForm.controls.typeId.value == 3">
+            <div class="col-sm-9 col-12">
+                <div class="form-group">
+                    <label for="videoLink">Video link <span class="asterisk">*</span></label>
+                    <input type="text" id="videoLink" (change)="onChange($event)" (paste)="onPaste($event)"
+                        class="form-control" formControlName="videoLink">
+                </div>
+            </div>
+        </div>
+        <div class="row pt-1" *ngIf="contentForm.controls.typeId.value == 3">
+            <div class="col-sm-9 col-12">
+                <div *ngIf="embeddedUrl != ''" class="embed-responsive embed-responsive-16by9 video">
+                    <iframe class="embed-responsive-item" [src]="embeddedUrl" width="560" height="315"
+                        style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                </div>
+            </div>
+
+            <!-- <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="560" height="349" src="//player.vimeo.com/video/197933516"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                    src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/globeliveph/videos/374979950085384/&show_text=0&width=560"
+                    width="560" height="315" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                    allowTransparency="true" allowFullScreen="true"></iframe>
+            </div>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe src="https://www.dailymotion.com/video/x20qnej_red-bull-presents-wild-ride-bmx-mtb-dirt_sport"
+                    width="560" height="315" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                    allowTransparency="true" allowFullScreen="true"></iframe>
+            </div> -->
+
+        </div>
+        <div class="row pt-1" *ngIf="contentForm.controls.typeId.value == 1">
+            <div class="col-12">
+                <div class="form-group content-body">
+                    <label for="description">Content Body <span class="asterisk">*</span></label>
+                    <quill-editor #quillEditor [modules]="editor_modules" formControlName="description"
+                        (onEditorCreated)="onEditorCreated($event)">
+                    </quill-editor>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-1" *ngIf="isImage">
+            <div class="col-sm-9 col-12">
+                <button type="button" class="btn btn-block btn-outline-accent" (click)="upload.click()">
+                    Upload Blog content images
+                </button>
+                <input type="file" name="file" hidden #upload multiple (change)="uploadImages($event)">
+            </div>
+        </div>
+        <div class="row pt-1" *ngIf="!isUploading && isImage">
+            <div class="col-lg-4 col-md-6 col-12 col-fix blog-image" *ngFor="let img of imageBlobs; let i = index">
+                <div *ngIf="img.imageUrl != null" class="img-options blog-image-in">
+                    <img alt="Blog image" class="img" [src]="img.imageUrl">
+                    <button class="btn btn-sm delete" (click)="removeImages(img.imageUrl)"><i
+                            class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row pt-1">
+                <div class="col-12">
+                    <button (click)="infoCancel()" type="button"
+                        class="byz-btn-trans-r mr-2 text-danger">Cancel</button>
+                    <button type="submit" (click)="createUpdateHandler()"
+                        class="byz-btn-trans-r mr-2 text-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

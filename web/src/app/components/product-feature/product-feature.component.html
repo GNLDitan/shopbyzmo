@@ -1,0 +1,62 @@
+<div class="container px-0 pt-2 products">
+    <div class="row mt-5">
+        <div class="col-12 col-sm-12">
+            <h4 class="item-list-title">{{ currentFeature }}</h4>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-lg-3 col-md-3 col-12 product-item" *ngFor="let product of products">
+            <div class="card mt-3">
+                <div class="card-image">
+                    <img (click)="selectProduct(product)" class="img-fluid" [src]="product.currentImageUrl" alt="Feature image">
+                </div>
+            </div>
+            <div class="product-text">
+                <h4 class="product-name">{{product.productName}}</h4>
+                <div class="product-price">
+                    <div *ngIf="product.preOrder" class="viewDetails">
+                        <!-- <h4> {{product.preOrderDepositAmount | currency: '₱'}} </h4> -->
+                        <h4> <a (click)="selectProduct(product)">View Details</a> </h4>
+                    </div>
+                    <div *ngIf="!product.preOrder">
+                        <h4 *ngIf="!product.onSale">{{product.price | conversion }}</h4>
+                        <h4 *ngIf="product.onSale"><s class="origprice">{{product.price | conversion }}</s>
+                            <span class="salesprice"> {{product.salesPrice | conversion }}</span></h4>
+                    </div>
+                </div>
+                <div class="cartButton">
+                    <button *ngIf="product.quantity > 0 && !product.preOrder" class="bz-btn"
+                        (click)="addProductToCart(product)">
+                        <span><i class="fa fa-shopping-cart"></i> ADD TO CART</span>
+                    </button>
+                    <button *ngIf="product.quantity == 0" [disabled]="true" class="bz-stock-btn">
+                        <span class="span-text">
+                            <span class="fa-stack">
+                                <i class="fa fa-ban fa-stack-2x"></i>
+                                <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            </span>
+                            OUT OF STOCK
+                        </span>
+                    </button>
+                    <button *ngIf="product.preOrder && product.quantity > 0" class="bz-btn"
+                        (click)="addProductToCart(product)">
+                        <span><i class="far fa-clock"></i> PRE-ORDER</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row m-5" *ngIf="hasMore">
+        <!-- <div class="offset-lg-4 col-lg-4 offset-md-4 col-md-4 col-12 text-center mt-3">
+            <a class="card-load-more button cart" (click)="showMore()"> Load More</a>
+        </div> -->
+        <div class="col-12 col-sm-12 text-center">
+            <a class="bz-btn-text see-more" (click)="showMore()">
+                SEE MORE {{ currentFeature }}
+                <span><i class="fas fa-angle-right"></i></span>
+                <span><i class="fas fa-angle-double-right"></i></span>
+            </a>
+        </div>
+    </div>
+</div>

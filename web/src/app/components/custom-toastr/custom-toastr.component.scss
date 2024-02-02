@@ -1,0 +1,39 @@
+@import '../../../assets/styles/site.scss';
+
+:host {
+    background-color: #FFF;
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    border-radius: 3px 3px 3px 3px;
+    color: #000;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+:host a {
+    font-size: 18px;
+}
+
+:host p {
+    margin: 0;
+    margin-top: 1rem;
+}
+
+:host.toastr-info{
+    border: 2px solid $toastr-info;
+}
+  
+:host.toastr-success{
+    border: 2px solid $toastr-success;
+}
+
+:host.toastr-warning{
+    border: 2px solid $toastr-warning;
+}
+
+:host.toastr-danger{
+    border: 2px solid $toastr-danger;
+}

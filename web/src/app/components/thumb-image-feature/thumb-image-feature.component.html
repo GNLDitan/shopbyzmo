@@ -1,0 +1,25 @@
+<div class="gallery-feature img-zoom-container">
+    <div class="text-center">
+        <div class="image-container img-magnifier-container" (mouseleave)="removeMagnify()"
+            (click)="openModal()">
+            <!-- <div class="image detail-view img-responsive" [style.background]="'url(' + featureImg + ')'"
+                (click)="openModal()">
+            </div> -->
+            <div class="img-control" id="myimageParent" >
+                <img id="myimage" [src]="featureImg" class="image detail-view img-responsive"
+                (mouseenter)="magnify('myimage', 2)" alt="Magnify image">
+            </div>
+      
+        </div>
+    </div>
+</div>
+
+<div class="theater" *ngIf="selectedImage != null">
+    <div class="theater-in">
+        <img alt="full-screen" [src]="selectedImage">
+        <i class="fa fa-times" (click)="closeModal()"></i>
+
+        <span class="imageScrollBack" (click)="next()"><i class="fas fa-angle-right"></i></span>
+        <span class="imageScrollNext" (click)="previous()"><i class="fas fa-angle-left"></i></span>
+    </div>
+</div>

@@ -1,0 +1,349 @@
+@import '../../../assets/styles/site.scss';
+.carts {
+    position: relative;
+    min-height: 100vh;
+    margin-bottom: 20px;
+}
+.shopping-cart {
+    margin-top: 20px;
+}
+
+.cb{
+    cursor: pointer;
+}
+
+.product-row {
+    padding-bottom: 20px;
+    border-bottom: outset;
+    padding-top: 20px;
+
+    .product-img {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.panel-heading {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border-bottom: 4px solid #f0f0f0;
+}
+
+.img-responsive {
+    cursor: pointer;
+}
+
+.checkout {
+    margin-top: 20px;
+    margin-top: 2.5em;
+}
+
+.origprice {
+    color: rgb(52, 58, 64);
+}
+
+.salesprice {
+    color: red;
+}
+
+.empty{
+    text-align: center;
+    /* vertical-align: middle; */
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.quantity-panel{
+    input {
+        width: 70px;
+        padding-left: 10px;
+        margin-top: 10px;
+        height: 35px;
+    }
+}
+
+.delete {
+    margin-top: 10px;
+}
+
+.checkout {
+    font-size: 20px;
+}
+
+.checkout-link {
+    font-size: 20px;
+}
+.layaway {
+    background-color: #f8f9fa;
+    width: auto;
+    border: solid 1px;
+    margin-left: 10px;
+}
+
+
+.customcheck {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.customcheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.customcheck:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.customcheck input:checked ~ .checkmark {
+    background-color: #19647e;
+    border-radius: 5px;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.customcheck input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.customcheck .checkmark:after {
+    left: 8px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.snote{
+    font-size: 12px;
+    color: red;
+}
+
+.desc{
+    word-break: break-all;
+}
+
+.headerQty{
+    text-align: center;
+}
+
+
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    font-size: 17px;
+    border: 1px solid #e1e3e4;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(225,227,228,0.2);
+    vertical-align: middle;
+}
+
+.quantity_label{
+    width: 40px;
+    text-align: center;
+    height: 100%;
+    appearance: none;
+    padding: 0 5px;
+    min-width: 32px;
+    text-align: center;
+    border: none;
+
+}
+
+/* Chrome, Safari, Edge, Opera */
+.quantity_label::-webkit-outer-spin-button,
+.quantity_label::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.header-content{
+    color: #ffffff;
+    background-color: #652d90;
+}
+
+.colspan {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+.text-muted{
+    font-size: 13px;
+}
+
+.card-body {
+    padding: 0 1em;
+}
+
+.price{
+    margin-top: 10px;
+}
+
+.bz-btn{
+    cursor: pointer;
+}
+
+.pred{
+    color: #ffa500;
+  }
+
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width:  52px;
+    height: 24px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffa500;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    .order-summary-panel .panel-heading {
+        display: none;
+    }
+
+    .order-summary-panel .cart-product-price {
+        display: none;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .headerQty{
+        display: none;
+    }
+
+    .layaway{
+        width: 95%;
+    }
+
+    .qty{
+        height: 30px !important;
+    }
+
+    .delete{
+        height: 30px;
+    }
+
+    .bz-btn {
+        // position: fixed;
+        // left: 0;
+        // bottom: 0;
+        width: 100%;
+        // height: 8%;
+        // z-index: 1000;
+        // padding-top: 10px;
+        // border-radius: 0px;
+        // background: $byz-purple-l;
+        
+        // span {
+        //     background: $byz-purple-l;
+        // }
+    }
+
+}
+
+
+
+
+@media (min-width: 1200px){
+    .hidden-lg {
+        display: none!important;
+    }
+    
+}
+
+
+

@@ -1,0 +1,188 @@
+.item-list-title {
+    text-transform: uppercase;
+    font-weight: bold !important;
+    font-size: 28px !important;
+}
+
+
+// .img-responsive {
+//     display: block;
+//     max-width: 100%;
+//     height: auto;
+// }
+
+
+// .img-responsive {
+//     display: block;
+//     max-width: 100%;
+//     height: auto;
+// }
+
+
+.card {
+    object-fit: cover;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 300px;
+    width: 230px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.card-image {
+    margin: auto;
+    max-height: 250px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+  
+.img-fluid {
+    height: 230px;
+    margin: auto;
+}
+
+
+.card-title {
+    font-size: unset;
+    text-align: center;
+}
+
+.card-body {
+    height: 90px;
+}
+
+.card-footer {
+    background: transparent;
+    height: 60px;
+}
+
+.product-item {
+    margin: 1em 0;
+}
+
+.product-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 58px;
+}
+
+.product-text{
+    padding: 10px;
+    // background: #f5f5f5;
+    // text-align: center;
+
+    .cart {
+      color: #f5f5f5;
+      background: #484848;
+      cursor: pointer;
+    }
+  }
+    
+.products {
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 100vh;
+}
+
+.origprice {
+    color: rgb(52, 58, 64);
+}
+
+.salesprice {
+    color: red;
+}
+
+.see-more {
+    font-size: 22px;
+    text-transform: uppercase;
+
+    span:nth-child(2) {
+        display: none;
+    }
+
+    &:hover {
+        span:nth-child(1) {
+            display: none;
+        }
+
+        span:nth-child(2) {
+            display: inline-block;
+        }
+    }
+}
+
+// .card-load-more {
+//     font-family: Roboto-Medium;
+//     margin: 0 auto;
+//     display: block;
+//     width: 387px;
+//     height: 40px;
+//     line-height: 40px;
+//     text-align: center;
+//     font-size: 14px;
+//     color: #662e93;
+//     border: 1px solid #662e93;
+//     text-transform: uppercase;
+
+//     &:hover{
+//         cursor: pointer;
+//     }
+// }
+
+.cart {
+    cursor: pointer !important;
+    background-color:#662e93 !important;
+
+    &:hover{
+        background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%) !important;
+        background-color:#378de5 !important;
+    }
+}
+
+.outofstock {
+    color: white;
+    cursor: not-allowed;
+    background-color: #666;
+}
+
+.loadButton {
+    text-align:center;
+    height: 50px;
+  }
+  
+  .load {
+      box-shadow: 4px 6px 0px 0px #1564ad;
+      background-color:#662e93;
+      border:1px solid #337bc4;
+      display:inline-block;
+      cursor:pointer;
+      color:#ffffff !important;
+      font-size:12px;
+      padding:9px 76px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px #528ecc;
+  }
+  .load:hover {
+      background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+      background-color:#378de5;
+  }
+  .load:active {
+      position:relative;
+      top:1px;
+  }
+  
+  .viewDetails{
+        a{
+            color: blue;
+            text-decoration: underline;
+            background-color: transparent; // Remove the gray background on active links in IE 10.
+            cursor: pointer !important;
+        }
+    }
+  
+  

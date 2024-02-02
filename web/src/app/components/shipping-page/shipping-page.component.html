@@ -1,0 +1,234 @@
+<div class="container container-lg justify-content-center align-items-center dashboard mb-3">
+    <div class="mb-3 header-breadcrumb">
+        <span (click)="toCart()"><i class="fas fa-shopping-cart mr-2"></i> ></span>
+        <app-breadcrumb></app-breadcrumb>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-12">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 mt-3">
+            <div class="card byz-container shopping-cart byz-card">
+                <div class="card-header">
+                    <div>Items in cart ({{cart.length}})</div>
+                </div>
+                <div class="card-body">
+                    <div class="row product-row mb-5" *ngFor="let item of cart">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class=" col-12 col-sm-12 col-md-4 text-center">
+                                    <img class="img-thumbnail" [src]="item.product.currentImageUrl" alt="Product image"
+                                        width="120" height="100">
+                                </div>
+                                <div class="col-12 text-sm-center text-md-left col-md-8">
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <h6 class="product-name">{{item.product.productName}}</h6>
+                                            <span *ngIf="item.product.preOrder || item.product.preOrderLayaway"
+                                                class="pred"><b>(Pre-Order)</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <span class="text-muted"
+                                                        *ngIf="!item.product.onSale">{{item.product.price | conversion
+                                                        }}</span>
+
+                                                    <p ngPreserveWhitespaces *ngIf="item.product.onSale">
+                                                        <span class="text-muted"><s
+                                                                class="origprice">{{item.product.price | conversion
+                                                                }}</s></span>
+                                                        <span> </span>
+                                                        <span class="salesprice">
+                                                            {{item.product.salesPrice | conversion }}</span>
+                                                    </p>
+
+                                                </div>
+                                                <div class="row"
+                                                    *ngIf="item.product.preOrderDepositAmount > 0 && !item.isLayAway">
+                                                    <span class="text-muted"> ( DP :
+                                                        {{ item.product.preOrderDepositAmount | conversion }} )
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-10">
+                                            <div class="row">
+                                                <div class="col-1 ec"><b>
+                                                        <p>X</p>
+                                                    </b></div>
+                                                <div class="col-3 qty">
+                                                    <input class="quantity_label" type="text" min="1" name="Quantity"
+                                                        value="{{item.quantity}}" id="quantity" [disabled]="true" />
+                                                    <!-- <span class="text-muted"> <b>{{item.quantity}}</b>
+                                                    </span> -->
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1" *ngIf="item.hasRushFee">
+                                        <div class="col-10">
+                                            <span class="text-muted">
+                                                Rush Fee :
+                                                {{item.rushFee | conversion }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-10">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <span class="text-muted"> Total :
+                                                        {{item.totalAmount | conversion }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mb-2" *ngIf="item.isLayAway">
+                                <div class="col-12">
+                                    <div class="layaway pt-1 pb-1 pl-1 mt-2">
+                                        <div class="mt-2">
+                                            <span>Layaway option: {{item.layAway.monthly | conversion }}/month</span>
+                                            <span class="float-right">
+                                                <label class="customcheck">
+                                                    <input type="checkbox" [(ngModel)]="item.isLayAway" disabled>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </span>
+                                        </div>
+
+                                        <div class="detals mt-2 ml-2" *ngIf="item.isLayAway">
+                                            <div>Number of installment: <div>
+                                                    <input type="number" id="price" class="form-control option-controls"
+                                                        [(ngModel)]="item.layAway.numberOfInstallmentPayment" min="1"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                            <div class="mt-1">Date of Payment: <div>
+                                                    <select id="typeId" [(ngModel)]="item.datesOfPayment"
+                                                        class="form-control option-controls" disabled>
+                                                        <option *ngFor="let day of daysList" [value]="day.id">
+                                                            {{ day.value }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-1 mt-1 mr-4">Non Refundable Deposit:
+                                                <span class="float-right">
+                                                    {{ item.layAway.nonRefundDeposit | conversion }}
+                                                </span>
+                                            </div>
+
+                                            <div *ngFor="let sched of item.layAwaySchedule" class="mr-4 mb-2">
+                                                <div *ngIf="!sched.isNonRefundDeposit">
+                                                    <div class="mb-1">
+                                                        {{sched.date | date}}:
+                                                        <span class="float-right">
+                                                            {{sched.monthly | conversion }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="discount-details">
+                <span>Discount Code</span>
+                <span class="float-right discount-code">
+                    <input type="text" class="form-control" class="discount" [(ngModel)]="discountCode"
+                        [disabled]="disableDiscount">
+                    <button class="btn btn-sm btn-outline-accent ml-2" (click)="applyDiscount()"
+                        *ngIf="!disableDiscount">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-accent ml-2" (click)="applyDiscount()" disabled
+                        *ngIf="disableDiscount" data-toggle="tooltip"
+                        title="(Discount not available for Layaway/OnSale/Pre-Order items.)">
+                        Apply
+                    </button>
+
+                </span>
+
+            </div>
+            <div class="mt-3">
+                <div class="subtotal">
+                    <span>Subtotal</span>
+                    <span class="float-right font-weight-bold">{{productPrice | conversion }}</span>
+                </div>
+                <div ngPreserveWhitspaces class="subtotal" *ngIf="discountAmount > 0">
+                    <span>Discount </span>
+                    <span *ngIf="discountNoteEnable" class="byz-tooltip">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <span class="byz-tooltiptext"> (Layaway/ On Sale excluded from Discount/Promotions)</span>
+                    </span>
+                    <span class="float-right font-weight-bold"> ( {{discountAmount | conversion }} )</span>
+                </div>
+                <div class="subtotal">
+                    <span>Shipping</span>
+                    <span class="float-right">
+                        <div *ngIf="!isShipMethod">
+                            Calculated at next step
+                        </div>
+                        <div *ngIf="isShipMethod">
+                            <span class="float-right font-weight-bold">{{shippingAmount | conversion }}</span>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="subtotal" *ngIf="insuranceFee > 0">
+                    <span>Shipping Insurance Fee</span>
+                    <span class="float-right">
+                        <span class="float-right font-weight-bold">{{insuranceFee | conversion }}</span>
+                    </span>
+                </div>
+
+                <div class="subtotal mt-3">
+                    <span>Total</span>
+                    <span class="float-right font-weight-bold">{{sumTotalPrice | conversion }}</span>
+                </div>
+                <div class="subtotal" *ngIf="isWithLayAway">
+                    <span class="orderNum">Amount to pay</span>
+                    <span class="float-right font-weight-bold">{{amountToPay | conversion }}</span>
+                </div>
+                <div *ngIf="trnRtFee > 0">
+                    <span>Transaction Fee</span>
+                    <span class="float-right font-weight-bold">{{trnRtFee | conversion }}</span>
+                </div>
+                <div *ngIf="fnlAmtTp > 0">
+                    <span>Final amount to pay</span>
+                    <span class="float-right font-weight-bold">{{fnlAmtTp | conversion }}</span>
+                </div>
+
+
+                <div class="subtotal mt-2" *ngIf="isWithLayAway">
+                    <span>For Layaway payment plan, only the Non Refundable Deposit is included in Amount to Pay upon
+                        checkout.
+                        Items will be shipped once all scheduled payments are paid and acknowlege.
+                        In the final payment will the shipping fee be included.
+                    </span>
+                </div>
+                <div class="subtotal mt-2" *ngIf="isWithPreOrder">
+                    <span>For Pre Order items, you are only paying for the Downpayment amount upon complete order,
+                        remaining balance and shipping will be paid once we inform you that the item has arrived.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

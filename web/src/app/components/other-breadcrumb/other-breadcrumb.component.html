@@ -1,0 +1,8 @@
+<ul class="breadcrumb">
+    <ng-template ngFor let-route [ngForOf]="breadcrumbs">
+        <li *ngIf="!route.terminal" class="breadcrumb-item">
+            <a class="bread" href="" [routerLink]="[route.url]">{{ route.displayName }}</a>
+        </li>
+        <li *ngIf="route.terminal" class="breadcrumb-item active" aria-current="page">{{ route.displayName }}</li>
+    </ng-template>
+</ul>

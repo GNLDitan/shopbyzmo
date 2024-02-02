@@ -1,0 +1,44 @@
+@import '../../../assets/styles/site.scss';
+
+
+    .header {
+        font-size: 22px;
+        color: #222;
+    }
+    .title {
+        color: #4b4b4b;
+        font-weight: bold;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        height: 70px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .most-popular {
+        font-size: 12px;
+    }
+    
+    .image{
+        margin-bottom: 10px;
+
+        a {
+            display: block;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border: 1px solid gray;
+            &:hover {
+                cursor: pointer !important;
+                box-shadow: 0 8px 10px -5px #3f474e;
+            }
+        }
+    }
+    
+

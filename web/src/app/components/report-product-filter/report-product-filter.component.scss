@@ -1,0 +1,101 @@
+@import '../../../assets/styles/site.scss';
+.content {
+    padding: 10px;
+
+    .search {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+    
+    .filter-controls {
+        width: 160px;
+    }
+
+
+    
+    .in-selected-ter {
+        overflow: hidden;
+        width: 94%;
+        border-right: none !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        display: inline-block;
+        margin-top: 5px;
+        line-height: 20px;
+        margin-left: 3px;
+    }
+
+    .box-select {
+        font-size: 14px !important;
+        display: inline !important;
+        background-color: #eee;
+        padding: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        margin-right: 4px;
+        cursor: default;
+    }
+
+    .fake-input {
+        border-color: #3c8dbc;
+        border: 1px solid black;
+        border-radius: 10px;
+        height: 35px;
+    }
+
+    .fa-check {
+        color: transparent;
+    }
+    .fa-check-s {
+        color: #333 !important;
+    }
+        
+    .category {
+        position: absolute;
+        z-index: 1000;
+        border: 1px solid #ccc !important;
+        padding: 0 !important;
+        background-color: #fff;
+    }
+    .category section {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .category section ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .category section ul li {
+        padding: 5px;
+        cursor: pointer;
+    }
+    .category section ul li:hover {
+        background-color: #eee;
+    }
+    .category section ul li i {
+        padding: 0 10px;
+    }
+    .category-controls {
+        width: 100%;
+        border-top: 1px solid #ddd;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        height: 30px;
+        margin-bottom: -4px;
+    }
+    .category-controls.x-rep {
+        margin-bottom: 0;
+    }
+    .category-controls span {
+        height: 100%;
+        background-color: #eee;
+        margin-bottom: 0 !important;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .category-controls.x-rep span {
+        font-size: 12px;
+    }
+}

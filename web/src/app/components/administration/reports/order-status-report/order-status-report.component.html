@@ -1,0 +1,74 @@
+<div class="container-fluid blg">
+    <h2>Order Status Report</h2>
+    <app-report-filter (filterSettings)="search($event)" [inputReportType]="reportType" (outputPrint)="print()"
+        (outputExport)="export()">
+    </app-report-filter>
+
+
+    <div class="card byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <h5 class="text-center">ORDER STATUS REPORT</h5>
+            <h5 class="text-center">"{{orderStatus}}"</h5>
+            <h5 class="text-center">{{filterSetting.startDate | date:'MM/dd/yyyy' }} to
+                {{filterSetting.endDate | date:'longDate'}}</h5>
+            <div class="table-responsive">
+                <table class="table byz-table" id="excel-table">
+                    <thead class="theader">
+                        <tr>
+                            <th>Order Date</th>
+                            <th>Order Number</th>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Items in Order</th>
+                            <th>Email Status</th>
+                            <th>Order Amount</th>
+                            <th>Order Status</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let report of reports; let i = index">
+                            <td class="repad text-center">
+                                {{report.orderDate | date:'MM/dd/yyyy' }}
+                            </td>
+
+                            <td class="repad text-center">
+                                {{report.orderId }}
+                            </td>
+                            <td class="repad ">
+                                {{report.completeName }}
+                            </td>
+                            <td class="repad ">
+                                {{report.email }}
+                            </td>
+                            <td class="repad ">
+                                <div *ngFor="let item of report.products">
+                                    {{item.productName}}
+                                </div>
+                            </td>
+                            <td class="repad ">
+                                {{report.isSendEmail ? 'Sent' : 'Not Yet'}}
+                            </td>
+                            <td class="repad ">
+                                {{report.total | currency: '₱'}}
+                            </td>
+                            <td class="repad ">
+                                {{ descriptionStatus(report.statusId) }}
+                            </td>
+                            <td class="repad ">
+                                {{report.paymentStatus }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-container">
+                <span class="total">TOTAL: {{totalOrder | currency: '₱'}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

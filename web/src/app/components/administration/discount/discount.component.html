@@ -1,0 +1,54 @@
+<div class="container-fluid blg">
+    <h2>Discount</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Discount</button>
+        </div>
+    </div>
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <div class="table-responsive w-auto">
+                <table class="table byz-table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Code</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let discount of discounts | paginate: config">
+                            <td>
+                                <div class="desc">
+                                    {{ discount.code }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="desc">
+                                    {{ discount.description }}
+                                </div>
+                            </td>
+                            <td>{{getAmountType(discount.amountTypeId)}}</td>
+                            <td *ngIf="discount.amountTypeId == 1">{{ discount.amount | currency: '₱' }}</td>
+                            <td *ngIf="discount.amountTypeId == 2">{{ discount.amount }} %</td>
+                            <td>{{ discount.startDate | date:'longDate' }}</td>
+                            <td>{{ discount.endDate | date:'longDate' }}</td>
+                            <td class="repad text-right buttons">
+                                <button class="btn btn-sm btn-outline-accent edit" routerLink="{{discount.id}}"><i
+                                        class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-accent delete"
+                                    (click)="deleteDiscount(discount)"><i class="fa fa-trash"></i></button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

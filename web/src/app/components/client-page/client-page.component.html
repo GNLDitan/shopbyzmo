@@ -1,0 +1,11 @@
+<app-navigation></app-navigation>
+<div class="content">
+    <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"></ngx-spinner>
+    <div *ngIf="isDoneLoad">
+        <router-outlet></router-outlet>
+        <div class="footer-container">
+            <app-footer></app-footer>
+        </div>
+        <app-scroll-top></app-scroll-top>
+    </div>
+</div>

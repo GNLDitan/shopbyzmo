@@ -1,0 +1,54 @@
+<!-- Start Slider -->
+<!-- <section class="section">
+    <div class="banner">
+        <div class="full-width-carousel no-gutters" style="width: auto;">
+            <div *ngFor="let landing of landings">
+                <img alt="" *ngIf="splashIndex == landing.orderId" [src]="(landing.fullPath)" [@animateSplash]>
+            </div>
+        </div>
+        <div class="slides-navigation">
+            <a class="next" (click)="slideshow('next')"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <a class="prev" (click)="slideshow('back')"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </div>
+
+        <div *ngIf="landings != null" class="carousel-index text-center">
+            <ul>
+                <li class="option-dot" *ngFor="let landing of landings"
+                    (click)="splashIndex = landing.orderId; resetInterval();"
+                    [ngClass]="splashIndex == landing.orderId ? 'active' : 'none'">
+                </li>
+            </ul>
+        </div>
+    </div>
+</section> -->
+<!-- End Slider -->
+
+<div class="bleed">
+    <div class="row background" [style.backgroundImage]="'url('+ tempImages[splashIndex-1] + ')'">
+        <div class="col"></div>
+    </div>
+    <div *ngIf="landings != null" class="container carousel">
+        <div class="row imageRows">
+            <div class="col" [@blockInitAnimation]>
+                <ng-container *ngFor="let landing of landings">
+                    <img class="mx-auto" alt="Landing image" *ngIf="splashIndex == landing.orderId" [src]="(landing.fullPath)"
+                        (click)="openUrl(landing.url, landing.isNewTab)" [@animateSplash]>
+                </ng-container>
+            </div>
+        </div>
+        <!--<div class="row arrows">
+            <div class="col">
+                <a class="next" (click)="slideshow('next')"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                <a class="prev" (click)="slideshow('back')"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </div>
+        </div>-->
+    </div>
+    <div *ngIf="landings != null" class="carousel-index text-center">
+        <ul>
+            <li class="option-dot" *ngFor="let landing of landings"
+                (click)="splashIndex = landing.orderId; resetInterval();"
+                [ngClass]="splashIndex == landing.orderId ? 'active' : 'none'">
+            </li>
+        </ul>
+    </div>
+</div>

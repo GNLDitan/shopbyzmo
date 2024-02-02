@@ -1,0 +1,52 @@
+@import '../../../assets/styles/site.scss';
+.container {
+    // margin-top: 80px;
+    // margin-bottom: 20px;
+    // height: 100vh;
+    .thank-you {
+      text-align: center;
+  
+      img.logo-img {
+        height: 130px;
+        text-align: center;
+      }
+  
+      .thank-you-text {
+        .purchase {
+          color: $byz-purple-m;
+        }
+        h1, h3 {
+          margin-bottom: 0;
+          line-height: 1;
+        }
+      }
+    }
+  
+    .register {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+
+  
+.at-layaway-form .ta-l
+{
+	text-align:left;
+	margin-top: 5px;
+}
+
+ .at-layaway-form .modal-dialog {
+	width: auto;
+  margin: 30px auto;
+}
+
+.at-layaway-form .modal-content
+{
+  padding: 0px 10px;
+}
+
+.at-layaway-form  .modal-header {
+    padding: 10px 10px;
+    border-bottom: 0px solid #e5e5e5;
+}

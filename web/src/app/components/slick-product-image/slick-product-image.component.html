@@ -1,0 +1,7 @@
+<span class="btn-prev text-center" (click)="prev()"><span class="arrow up"></span></span>
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let img of imageBlobs; let i = index" class="slide" (click)="setDefaultImage(i)">
+        <img class="img-responsive" [src]="img.imageUrl" alt="Carousel image">
+    </div>
+</ngx-slick-carousel>
+<span class="btn-next text-center" (click)="next()"><span class="arrow down"></span></span>

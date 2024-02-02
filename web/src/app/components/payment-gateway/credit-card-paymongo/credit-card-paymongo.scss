@@ -1,0 +1,37 @@
+.btn {
+    margin: 0;
+    padding: 3px 6px;
+    vertical-align: middle;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: navy;
+    height: 90px;
+    border-radius: 50px;
+    top: 35%;
+    left: 35%;
+    margin: 0;
+    position: absolute;
+    [data-icon] {
+        padding-left: 10px;
+    }
+    img {
+        height: 60px;
+    }
+    span {
+        margin-right: 20px;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+  .btn {
+    width: 100%;
+    position: static;
+    margin: 20px 0 20px 0;
+   
+  }
+}

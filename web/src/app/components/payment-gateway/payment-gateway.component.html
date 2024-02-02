@@ -1,0 +1,138 @@
+<div class="container">
+    <br>
+    <div class="row payment-details" *ngIf="activeOrder.paymentStatusId != 3">
+        <div class="col-12 col-md-7 col-lg-7">
+            <article class="card info">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                            role="tab" aria-controls="nav-home" aria-selected="true">Order Details</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Customer Details</a>
+                    </div>
+                </nav>
+                <div class="tab-content container" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="details">
+                            <h2>Order Details</h2>
+                            <div class="row mb-3">
+                                <div class="col-lg-4 col-md-4 col-12">Merchant Name:</div>
+                                <div class="col-lg-8 col-md-8 col-12">Shop Byzmo</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-4 col-md-4 col-12">Date:</div>
+                                <div class="col-lg-8 col-md-8 col-12">{{currentDate | date }}</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-4 col-md-4 col-12">Transaction Amount:</div>
+                                <div class="col-lg-8 col-md-8 col-12">{{ transactionAmount | conversion  }}</div>
+                            </div>
+                            <div class="row mb-3" *ngIf="transactionFee > 0">
+                                <div class="col-lg-4 col-md-4 col-12">Transaction Charge:</div>
+                                <div class="col-lg-8 col-md-8 col-12">{{ transactionFee | conversion }}</div>
+                            </div>
+                            <div class="row mb-3" *ngIf="finalAmount > 0">
+                                <div class="col-lg-4 col-md-4 col-12">Amount To Pay</div>
+                                <div class="col-lg-8 col-md-8 col-12">{{ finalAmount | conversion }}</div>
+                            </div>
+                            <!-- <div class="row mb-3">
+                                <div class="col-5 text-center">Name</div>
+                                <div class="col-3 text-center">Quantity</div>
+                                <div class="col-4 text-center">Price</div>
+                            </div>
+                            <div class="row mb-3" *ngFor="let order of activeOrder.orderCart">
+                                <div class="col-5">{{ order.product.productName }}</div>
+                                <div class="col-3 text-center">x{{ order.quantity }}</div>
+                                <div class="col-4 text-center" *ngIf="order.isLayAway">
+                                    {{ order.layAwaySchedule[0].monthly | conversion  }}</div>
+                                <div class="col-4 text-center" *ngIf="!order.isLayAway">
+                                    <div *ngIf="order.product.onSale">
+                                        {{ order.product.salesPrice | conversion  }}
+                                    </div>
+                                    <div *ngIf="!order.product.onSale">
+                                        {{ order.product.price | conversion  }}
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 mt-3">
+                                <div class="col-7 offset-1">{{ activeOrder.shippingDetails.shippingMethodDescription }}
+                                </div>
+                                <div class="col-4 text-center">
+                                    <div *ngIf="activeOrder.shippingDetails.shippingAmount > 0">
+                                        {{activeOrder.shippingDetails.shippingAmount | conversion}}
+                                    </div>
+                                    <div *ngIf="activeOrder.shippingDetails.shippingAmount == 0">
+                                        Free
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3 mt-3">
+                                <div class="col-7 offset-1">Discount
+                                </div>
+                                <div class="col-4 text-center">
+                                    <div *ngIf="!isNullOrUndefined(activeOrder.shippingDetails.discountCode)">
+                                        {{ activeOrder.shippingDetails.discount.amount | conversion }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row total mb-3">
+                                <div class="col-8">Total</div>
+                                <div class="col-4 text-center" id="totalPaymentId">
+                                    {{ activeOrder.amount | conversion  }}</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="name pt-3 mb-3">
+                            <span>{{activeOrder.shippingDetails.completeName}}</span>
+                            <div> {{activeOrder.shippingDetails.email}} </div>
+                            <div> {{activeOrder.shippingDetails.mobileNumber}} </div>
+                        </div>
+                        <h4>Billing Details</h4>
+                        <div class="details">
+                            <div> {{activeOrder.shippingDetails.billingAddress}} </div>
+
+                        </div>
+
+                        <h4>Shipping Details</h4>
+                        <div class="details">
+                            <div> {{shippingAddress}} </div>
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!-- <div class="payment-details-footer mb-3" (click)="toAPaymentMethod()">
+                Select Another Payment Method
+            </div> -->
+        </div>
+        <div class="col-12 col-md-5 col-lg-5">
+            <div class="payment-container">
+
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="activeOrder.paymentStatusId == 3">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="thank-you">
+                <img alt="thank-you" src="assets/img/byzmo_header.png">
+                <div class="thank-you-text text-center">
+                    <h1 class="pt-2">Payment Complete</h1>
+                    <div class="pt-2">Thank you for shopping with us.
+                    </div>
+                </div>
+
+                <div class="register pt-4">
+                    <button class="btn btn-outline-primary" (click)="goToProduct()">Shop more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--container end.//-->

@@ -1,0 +1,73 @@
+<div class="container-fluid blg">
+    <h2>Shipping Report</h2>
+    <app-report-filter (filterSettings)="search($event)" [inputReportType]="reportType" (outputPrint)="print()"
+        (outputExport)="export()">
+    </app-report-filter>
+    <div class="card byz-container">
+        <div class="card-body">
+            <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="#38146c" type="ball-spin"
+                [fullScreen]="false">
+            </ngx-spinner>
+            <h5 class="text-center">Shipping Order Report</h5>
+            <h5 class="text-center">"{{shippingMethod}}"</h5>
+            <h5 class="text-center">{{filterSetting.startDate | date:'longDate'}} to
+                {{filterSetting.endDate | date:'longDate'}}</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="theader">
+                        <tr>
+                            <th class="text-center">Order Date</th>
+                            <th class="text-center">Order Number</th>
+                            <th class="text-center">Shipping Date</th>
+                            <th class="text-center">Customer Name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Tracking No.</th>
+                            <th class="text-center">Invoice No.</th>
+                            <th class="text-center">Order Amount</th>
+                            <th class="text-center">Balance Amount</th>
+                            <th class="text-center">Order Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let report of reports">
+                            <td class="repad text-center">
+                                {{report.orderDate | date:'MM/dd/yyyy' }}
+                            </td>
+                            <td class="repad text-center">
+                                {{report.orderId }}
+                            </td>
+                            <td class="repad text-center">
+                                {{ report.shippingDate | date:'MM/dd/yyyy' }}
+                            </td>
+                            <td class="text-center">
+                                {{report.completeName }}
+                            </td>
+                            <td class="text-center">
+                                {{report.email }}
+                            </td>
+                            <td class="text-center ">
+                                {{report.trackingNumber}}
+                            </td>
+                            <td class="text-center ">
+                                {{report.invoiceNumber}}
+                            </td>
+                            <td class="repad text-center">
+                                {{report.total | number : '1.0-2'}}
+                            </td>
+                            <td class="repad text-center">
+                                {{report.balance | number : '1.0-2'}}
+                            </td>
+                            <td class="repad text-center">
+                                {{ descriptionStatus(report.statusId) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-container">
+                <span class="total">TOTAL: {{totalOrder | currency: '₱'}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

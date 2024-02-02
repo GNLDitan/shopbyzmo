@@ -1,0 +1,99 @@
+<!-- <div class="container-fluid padding">
+    <div class="row d-flex">
+        <div class="news col-lg-8 col-md-8 col-12">
+            <div class="row">
+                <div class="border-bottom header pt-3 py-2 mb-4 col-12">Blogs</div>
+                <div class="search col-12">
+                    <div class="input-icons foat-left">
+                        <i class="fa fa-search icon"></i>
+                        <input type="text" name="search" placeholder="Search.." [(ngModel)]="inputSearchProduct"
+                            autocomplete="off" (change)="setFilter() " class="input-field ">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngFor="let blog of blogs">
+                <div class="row" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="600"
+                    *ngIf="!blog.isDraft">
+                    <div class="image col-lg-6 col-md-6 col-12">
+                        <img [src]="blog.coverFileName" (click)="goToContent(blog)">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="title py-2" (click)="goToContent(blog)">
+                            {{blog.title}}
+                        </div>
+
+                        <div class="py-2">
+                            {{blog.startDate | date:'mediumDate'}}
+                        </div>
+                        <div class="description py-2">
+                            {{blog.displayDescription}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-md-4 col-12" data-aos="fade-left">
+            <app-blog-most-popular></app-blog-most-popular>
+            <app-blog-trending></app-blog-trending>
+        </div>
+
+    </div>
+</div> -->
+<div class="container blog">
+    <div class="row">
+        <div class="news col-lg-8 col-md-8 col-12">
+            <div class="row mb-4">
+                <div class="border-bottom header pt-3 py-2 mb-4 col-12">Blogs</div>
+                <div class="search col-12">
+                    <div class="search-container">
+                	<button class="search-btn" aria-label="Search button" >
+                            <span><i class="fa fa-search" (click)="setFilter()"></i></span>
+                        </button>
+                	<label for="inp-search" class="byz-vshidden">Search</label>
+                	<input type="text" id="inp-search" name="search" placeholder="Search blog..." [(ngModel)]="inputSearchProduct" autocomplete="off"
+				(change)="setFilter()" class="search-input">
+
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let blog of blogs">
+                <div class="row" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="600"
+                    *ngIf="!blog.isDraft">
+                    <!-- <div class="image col-lg-6 col-md-6 col-12">
+                                <div class="image-child" [ngStyle]="{'background-image':'url(' + blog.coverFileName + ')'}"
+                                    (click)="goToContent(blog)">
+                                </div>
+                            </div> -->
+                    <div class="image col-lg-6 col-md-6 col-12 mt-4">
+                        <a [routerLink]="['/blog/content/' + blog.id + '/' + blog.titleUrl]">
+                            <img [src]="blog.coverFileName" alt="Blog cover">
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12 titleBlog">
+                        <a class="title py-2" [routerLink]="['/blog/content/' + blog.id + '/' + blog.titleUrl]">
+                            {{blog.title}}
+                        </a>
+
+                        <div class="py-2 date">
+                            {{blog.startDate | date:'mediumDate'}}
+                        </div>
+                        <div class="description py-2">
+                            <!-- <div [innerHtml]="blog.description | sanitizeHtml : false"></div> -->
+                            {{blog.displayDescription}}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="showNoResults" class="no-search">No Results Found</div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+            <app-blog-most-popular></app-blog-most-popular>
+            <app-blog-popular-post></app-blog-popular-post>
+            <app-blog-trending></app-blog-trending>
+        </div>
+    </div>
+</div>

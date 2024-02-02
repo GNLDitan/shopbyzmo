@@ -1,0 +1,23 @@
+<div id="accordion">
+    <div class="card mt-1" *ngFor="let mod of modeOfPayments">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <input type="radio" name="ship" (click)="selectedPayments(mod)" data-toggle="collapse"
+                    [attr.data-target]="'#collapse'+mod.id" [checked]="mod.isSelected">
+                <span class="ml-2 font-weight-bold title">{{mod.name}}</span>
+            </h5>
+        </div>
+
+        <div [id]="'collapse'+mod.id" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div [innerHtml]="mod.description"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row mt-3">
+    <div class="col-12">
+        <button id="submit-button" class="btn btn-green" (click)="continuePayment()">Continue Payment</button>
+    </div>
+</div>

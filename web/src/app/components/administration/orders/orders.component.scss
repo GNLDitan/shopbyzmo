@@ -1,0 +1,72 @@
+@import '../../../../assets/styles/site';
+
+
+.blg {
+    margin-bottom: 20px;
+}
+
+.buttons{
+    white-space: nowrap;
+    width: 20%;
+
+    .view{
+        margin-left: 10px;
+    }
+
+    .print{
+        margin-left: 10px;
+    }
+}
+
+// .table{
+//     table-layout: fixed;
+// }
+
+
+
+.bz-btn{
+    height: 35px;
+
+    &:hover{
+        background-color: #eaba6b;
+    }
+}
+
+// .desc{
+//     max-width: 300px;
+//     overflow-wrap: break-word;
+// }
+
+// .other-column{
+//     width: 200px;
+// }
+
+@media (min-width:1200px) {
+    td {
+        width: 100px;
+    }
+}
+
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    
+    .buttons{
+        white-space: nowrap;
+        width: 50%;
+    
+        .view{
+            margin-left: 10px;
+        }
+    
+        .print{
+            margin-left: 10px;
+        }
+    }
+}
+

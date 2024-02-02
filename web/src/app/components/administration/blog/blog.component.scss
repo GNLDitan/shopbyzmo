@@ -1,0 +1,101 @@
+@import '../../../../assets/styles/site.scss';
+
+.repad {
+    padding: 9px 10px;
+
+    .preview {
+        height: 50px;
+        width: 50px;
+
+        &.cb {
+            border: 1px solid $accent;
+        }
+    }
+
+    .btn-sm {
+        line-height: 20px;
+    }
+}
+
+.blg {
+    margin-bottom: 20px;
+}
+
+
+// table th, table td{
+//     width: 80px;
+//     }
+
+//     tbody{
+//     width: 100%;
+//     margin-right: 20px;
+// }
+
+// th:nth-child(1), td:nth-child(1){
+//     text-align: center;
+// }
+// th:nth-child(2), td:nth-child(2){
+//     width: 150px !important;
+//     text-align: left;
+// }
+
+// th:nth-child(3), td:nth-child(3){
+//     text-align: center;
+// }
+
+// th:nth-child(4), td:nth-child(4){
+//     text-align: center;
+// }
+
+// th:nth-child(5), td:nth-child(5){
+//     text-align: center;
+// }
+
+.edit {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.delete {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+// .table-responsive{
+//     overflow: auto;
+// }
+
+.buttons{
+    white-space: nowrap;
+    width: 20%;
+}
+
+.bz-btn{
+    height: 35px;
+    width: 150px;
+    &:hover{
+        background-color: #eaba6b;
+    }
+}
+
+.desc{
+    width: 360px;
+    display: table;
+    word-wrap: break-word;
+}
+
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 599px)
+{
+    
+    .buttons{
+        white-space: nowrap;
+        width: 50%;
+    }
+}
+

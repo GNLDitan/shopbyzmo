@@ -1,0 +1,35 @@
+@import '../../../assets/styles/site.scss';
+
+.info {
+    min-height: 550px;
+    position: relative;
+    height: auto;
+    padding: 2em;
+    // margin-top: 10em;
+    // margin-bottom: 5em;
+    // background-color: #ffffff;
+    // box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
+.title-container {
+    // border-bottom: solid 2px $byz-purple-m;
+    margin-bottom: 20px;
+}
+
+.title-container .title {
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 32px;
+    // padding: 0 0 11px;
+    position: relative;
+    text-transform: uppercase;
+    // color: $byz-purple-m;
+    font-weight: bold;
+    margin-left: 12px;
+    margin-top: 20px;
+}
+
+.content .title {
+    font-weight: bold;
+    font-size: 20px;
+}

@@ -1,0 +1,29 @@
+<div class="card-fs-content">
+    <div class="card-fs-content-header J_FSHeader">Whats New</div>
+    <div class="card-fs-content-body J_FSBody">
+        <div *ngFor="let product of products">
+            <a routerLink="products/{{ product.id }}" class="card-fs-content-body-unit hp-mod-card-hover J_FSItemUnit">
+                <div class="fs-card-img-container">
+                    <img class="fs-card-img" [src]="product.currentImageUrl" alt="Product image">
+                </div>
+                <div class="fs-card-text">
+                    <div class="fs-card-title">{{product.productName}}</div>
+                    <div class="fs-card-price">
+                        <span class="currency">₱</span><span class="price">0.50</span>
+                    </div>
+                    <div class="fs-card-origin-price">
+                        <span class="fs-origin-price">
+                            <span class="currency">₱</span><span class="price">1.00</span>
+                        </span>
+                        <span class="fs-discount">
+                            -50%
+                        </span>
+                    </div>
+                    <div class="fs-card-sold">
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

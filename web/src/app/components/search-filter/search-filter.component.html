@@ -1,0 +1,106 @@
+<form autocomplete="off" class="form-horizontal" [formGroup]="searchForm">
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <div class="form-group">
+                <div class="glass-search glass-search-redesign focused">
+                    <div class="search-container">
+                        <div class="search-box text-lg-left text-md-left text-center">
+                            <input type="text" placeholder="Search Order # or Name or Product Name.." name="searchInput"
+                                formControlName="searchInput" autocomplete="off" class="rounded padder"
+                                (change)="searchFilter()">
+                            <button type="submit" (click)="searchFilter()" class="rounded"><i
+                                    class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-2">
+                    <label for="start-date">Status:</label>
+                </div>
+                <div class="col-md-6 col-6">
+                    <div class="form-group">
+                        <select class="form-control" id="statusId" formControlName="statusId" #mySelect
+                            (change)='searchFilter()'>
+                            <option [value]="status.id" *ngFor="let status of statusFilter">
+                                {{ status.description }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-2"><label for="paymentStatusId">Payment Status:</label></div>
+                <div class="col-md-6 col-6">
+                    <div class="form-group">
+                        <select class="form-control" id="paymentStatusId" formControlName="paymentStatusId"
+                            (change)='searchFilter()'>
+                            <option [ngValue]="pstatus.id" *ngFor="let pstatus of paymentStatus">
+                                {{ pstatus.description }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-2"><label for="tag">Tags:</label></div>
+                <div class="col-md-6 col-6">
+                    <div class="form-group">
+                        <select class="form-control" name="tag" formControlName="tag" id="tag"
+                        (change)='searchFilter()'>
+                            <option [ngValue]="tag.name" *ngFor="let tag of allTags" >{{tag.name | titlecase}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group" *ngIf="isShowRushFee">
+                        <input type="checkbox" class="text-center mr-2" formControlName="isRushFee" (change)="searchFilter()">
+                        <span>Rush Orders Only</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <input type="checkbox" id="date-filter" formControlName="withDateRange">
+                <label for="all-day" class="date-range">Date filter</label>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="searchForm.controls['withDateRange'].value">
+        <div class="col-md-1 col-4"><label for="start-date">Date From:</label></div>
+        <div class="col-md-2 col-8">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}" name="dp" ngbDatepicker
+                        #d="ngbDatepicker" formControlName="startDate" (dateSelect)="onDateSelect()">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 col-4"><label for="end-date">Date To:</label></div>
+        <div class="col-md-2 col-8">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}" name="dp" ngbDatepicker
+                        #dp="ngbDatepicker" formControlName="endDate" (dateSelect)="onDateSelect()">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,135 @@
+@import '../../../assets/styles/site.scss';
+
+.gallery-feature > div {
+    height: 650px;
+}
+
+.img-responsive {
+    max-width: 100%;
+    -o-object-position: center center;
+    object-position: center center;
+    object-fit: contain;
+    max-height: 100%;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  padding: 0.5em;
+  max-height: 650px;
+  background-color: #f0f0f0;
+}
+
+.img-control {
+  margin: auto;
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%); /* Safari and Chrome */
+  -moz-transform: translate(-50%, -50%); /* Firefox */
+  -ms-transform: translate(-50%, -50%); /* IE 9 */
+  -o-transform: translate(-50%, -50%); /* Opera */
+  
+}
+.image {
+  display: block;
+  width: 100%;
+  max-height: 650px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: crosshair;
+  
+}
+
+
+.theater {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(#000000, 0.5);
+  z-index: 2000;
+
+  .theater-in {
+    padding: 0 25px;
+
+    img {
+      height: 100vh;
+    }
+
+    .fa-times {
+      font-size: 24px;
+      color: #ffffff;
+      cursor: pointer;
+      position: absolute;
+      top: 40px;
+      right: 40px;
+    }
+  }
+}
+
+ .imageScrollBack i {
+  font-size: 40px;
+  color: #ffffff;
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  right: 40px;
+}
+
+.imageScrollNext i {
+  font-size: 40px;
+  color: #ffffff;
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  left: 40px;
+}
+
+
+.img-magnifier-container {
+  position:relative;
+}
+
+::ng-deep .img-magnifier-glass {
+  position: absolute;
+  border: 3px solid $byz-purple-l;
+  // border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 200px;
+  height: 200px;
+}
+
+.fa-angle-right, .fa-angle-left, .fa-times {
+  color: #ffffff !important;
+}
+
+
+@media screen and (max-width: 750px){
+  .image-container {
+    max-width: 100%;
+    height: auto;
+  }  
+  .gallery-feature > div  {
+    height: auto !important;
+  }
+  .img-responsive {
+    max-height: 640px!important;
+    height: 80% !important;
+  }
+  .img-control {
+    position: inherit;
+    left:0;
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+  }
+}

@@ -1,0 +1,47 @@
+<div class="container-fluid blg">
+    <h2>Shipping</h2>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="bz-btn" routerLink="add">Add Shipping</button>
+        </div>
+    </div>
+    <div class="card byz-container mt-2">
+        <div class="card-body">
+            <div class="table-responsive w-auto ">
+                <table class="table byz-table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let shipping of shippings | paginate: config">
+                            <td>{{ shipping.shippingName }}</td>
+                            <td>
+                                <div class="desc">
+                                    {{ shipping.description }}
+                                </div>
+                            </td>
+                            <td> <span *ngIf="shipping.currencyId === 1">{{shipping.rate | currency: '₱'}}</span>
+
+                                <span *ngIf="shipping.currencyId != 1">{{shipping.rate}}</span>
+                            </td>
+                            <td class="repad text-right buttons">
+                                <button class="btn btn-sm btn-outline-accent edit" routerLink="{{shipping.id}}"><i
+                                        class="fa fa-edit"></i></button>
+
+                                <button class="btn btn-sm btn-outline-accent delete"
+                                    (click)="deleteShipping(shipping)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</div>

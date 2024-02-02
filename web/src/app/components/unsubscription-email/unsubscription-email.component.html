@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="title">Enter email address to unsubscribe from updates about Shop Byzmo</div>
+    <div class="row mt-2">
+        <div class="col-5">
+            <form autocomplete="off" [formGroup]="emailSubscribeForm" (ngSubmit)="unsubscribe()">
+                <div class="form-group field">
+                    <label for="email" class="byz-vshidden">Email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email"
+                        placeholder="Your email address">
+                </div>
+
+                <button class="bz-btn">
+                    <span class="span-text">
+                        Unsubscribe
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div> 
+</div>
