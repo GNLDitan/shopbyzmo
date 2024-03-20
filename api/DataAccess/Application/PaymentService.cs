@@ -210,7 +210,8 @@ namespace ByzmoApi.DataAccess.Applcation
                     p_withaccount = paymentMethod.WithAccount,
                     p_emailinstruction = paymentMethod.EmailInstruction,
                     p_withtransactionfee = paymentMethod.WithTransactionFee,
-                    p_ispaymongo = paymentMethod.IsPaymongo
+                    p_ispaymongo = paymentMethod.IsPaymongo,
+                    p_isenable = paymentMethod.IsEnable
                 });
             }
             catch (NpgsqlException ex)
@@ -615,7 +616,8 @@ namespace ByzmoApi.DataAccess.Applcation
                         p.emailinstruction,
                         p.isactive,
                         p.withtransactionfee,
-                        p.ispaymongo
+                        p.ispaymongo,
+                        p.isenable
                     FROM payment.paymentmethod p;
                  ");
             }

@@ -63,12 +63,32 @@ namespace ByzmoApi.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("getcheckoutpaymentmethodlistrange")]
+        public async Task<IActionResult> GetCheckoutPaymentMethodListRange(Filter filter)
+        {
+            try
+            {
+                var paymentMethods = await _paymentService.GetPaymentMethodListRangeAsync(filter);
+                foreach (var paymentMethod in paymentMethods)
+                    paymentMethod.TransactionFee = await _paymentService.GetTransactionFeesBPaymentMethodIdAsync(paymentMethod.Id);
+
+                return Ok(paymentMethods.Where(item => item.IsEnable));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [AllowAnonymous]
         [HttpGet("getcreditcardmethod")]
         public async Task<IActionResult> GetCreditCardMethod()
         {
             try
             {
                 var creditCardMethod = await _paymentService.GetCreditCardMethodAsync();
+
+                // await _paymentService.AddIsPaymongoAsync();
                 
                 return Ok(creditCardMethod);
             }

@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.FileProviders;
 using ByzmoApi.DataAccess.Applcation;
+using Serilog;
+
 
 namespace ByzmoApi
 {
@@ -43,6 +45,15 @@ namespace ByzmoApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+              // Build configuration
+
+            var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(Configuration)
+            .CreateLogger();
+
+            services.AddLogging(loggingBuilder =>
+             loggingBuilder.AddSerilog(dispose: true));
+            
             services.AddSingleton<IAppSettings>(_appSettings);
             services.AddSingleton<INpgSqlServerRepository, NpgSqlServerRepository>(serviceProvider =>
             {

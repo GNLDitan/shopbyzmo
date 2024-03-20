@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 
 using static ByzmoApi.Enum.Payment;
 using static ByzmoApi.Enum.PaymongoStatus;
+using Serilog;
 
 namespace ByzmoApi.Controllers
 {
@@ -248,6 +249,9 @@ namespace ByzmoApi.Controllers
         [HttpPost("webhooks-creditcard")]
         public async Task<IActionResult> WebHooksCreditCard([FromBody] PaymongoWebhooks payload)
         {
+            Log.Debug("Webhook Received: webhooks-creditcard");
+            Log.Debug("Webhook Received: " + JsonConvert.SerializeObject(payload));
+            
             //* temporary token *//
             User user = new User();
             user.Email = _AppSettings.AccessUserName;
@@ -258,6 +262,8 @@ namespace ByzmoApi.Controllers
             var srcId = response.Id.ToString();
             var gcashpayment = await _paymentService.GetGCashPaymentBySourceIdAsync(srcId);
             string type = "source".ToString();
+
+            Log.Debug("Webhook Received: " + JsonConvert.SerializeObject(gcashpayment));
 
             string status  = "pending";
             if (response.Attributes.Payments != null && response.Attributes.Payments.Count() > 0) {

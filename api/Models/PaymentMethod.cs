@@ -19,5 +19,6 @@ namespace ByzmoApi.Models
         public IEnumerable<TransactionFees> TransactionFee { get; set; }
         public bool HasMinimumAmount { get; set; }
         public bool IsPaymongo { get; set; }
+        public bool IsEnable { get; set; }
     }
 }

@@ -158,7 +158,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   loadPayments() {
     this.filter.limit = 9999999;
     const parent = this;
-    this.paymentService.getPaymentMethodListRange(this.filter).then((result: any) => {
+    this.paymentService.getCheckoutPaymentMethodListRange(this.filter).then((result: any) => {
       if (!Utils.isNullOrUndefined(result)) {
         this.modeOfPayments = result;
 
@@ -408,6 +408,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
                       result.paymentStatusId = 2;
                     } else if (result.paymentMethodName.trim() === Utils.ONLINE_PAYMENT.GrabPay) {
                       result.paymentStatusId = 2;
+                    } else  if (result.paymentMethodName.trim().toLowerCase() === Utils.ONLINE_PAYMENT.OnlineBanking.toLowerCase()) {
+                      this.navigationService.toPaymentOnlineBankingPaymongo(result.securityId);
                     }
                   }
 
@@ -451,6 +453,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
                       this.navigationService.toPaymentGcash(result.securityId);
                     } else if (result.paymentMethodName.trim() === Utils.ONLINE_PAYMENT.GrabPay) {
                       this.navigationService.toPaymentGrabPay(result.securityId);
+                    } else  if (result.paymentMethodName.trim() === Utils.ONLINE_PAYMENT.OnlineBanking) {
+                      this.navigationService.toPaymentOnlineBankingPaymongo(result.securityId);
                     } else {
                       this.navigationService.toOrderComplete(result.id);
                     }

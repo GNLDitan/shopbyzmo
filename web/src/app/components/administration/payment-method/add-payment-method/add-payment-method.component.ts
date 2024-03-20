@@ -48,6 +48,7 @@ export class AddPaymentMethodComponent implements OnInit {
       withTransactionFee: [false],
       emailInstruction: ['', Validators.required],
       isActive: [true],
+      isEnable: [true]
     });
 
     this.editor_modules = {

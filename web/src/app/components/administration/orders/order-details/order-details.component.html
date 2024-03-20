@@ -549,10 +549,12 @@
                                         </div>
                                     </td>
                                     <td>{{sched.monthly | currency: '₱'}}</td>
-                                    <td> <span *ngIf="isOnlinePayment">
+                                    <td> 
+                                        <!-- <span *ngIf="isOnlinePayment">
                                             {{sched.isCleared ? 'Paid' : 'Unpaid'}}
                                         </span>
-                                        <div *ngIf="!isOnlinePayment">
+                                        <div *ngIf="!isOnlinePayment"> -->
+                                        <div>
                                             <select id="currencyId" [(ngModel)]="sched.isCleared"
                                                 (change)="updatePaymentLayawaySchedule(sched)">
                                                 <option [disabled]="isUpdateDisabled" *ngFor="let opt of clearOption"
@@ -561,6 +563,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <!-- </div> -->
                                     </td>
                                     <td>
                                         <div class="btn-group">

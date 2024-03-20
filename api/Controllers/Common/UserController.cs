@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using ByzmoApi.DataAccess.Common;
 using ByzmoApi.Models;
 using ByzmoApi.DataAccess.Applcation;
+using Serilog;
+using Newtonsoft.Json;
 
 namespace ByzmoApi.Controllers.Common
 {
@@ -43,7 +45,6 @@ namespace ByzmoApi.Controllers.Common
 
                 string tokenString = _userService.CreateToken(user);
 
-                // return basic user info and token to store in client side
                 return Ok(new
                 {
                     userData.Name,

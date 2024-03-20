@@ -30,6 +30,14 @@ export class PaymentService {
         .subscribe((data: any) => resolve(data), (error) => reject(error));
     });
   }
+  getCheckoutPaymentMethodListRange(filter: FilterSetting) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.api}/getcheckoutpaymentmethodlistrange`, filter)
+        .subscribe((data: any) => resolve(data), (error) => reject(error));
+    });
+  }
+
+  
 
   createPaymentMethod(paymentMethod: PaymentMethod) {
     return new Promise((resolve, reject) => {

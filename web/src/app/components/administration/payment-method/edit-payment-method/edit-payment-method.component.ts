@@ -49,7 +49,8 @@ export class EditPaymentMethodComponent implements OnInit {
       emailInstruction: ['', Validators.required],
       isActive: [true],
       withTransactionFee: [true],
-      isPaymongo: [false]
+      isPaymongo: [false],
+      isEnable: [true]
     });
 
 
