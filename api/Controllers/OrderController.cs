@@ -478,6 +478,75 @@ namespace ByzmoApi.Controllers
         }
 
 
+        [AllowAnonymous]
+        [HttpGet("getorderbyclientid/{securityid}")]
+        public async Task<IActionResult> GetProductReviewByclientid(string securityid)
+        {
+            try
+            {
+                var order = await _orderService.GetOrderBySecurityIdAsync(securityid);
+
+                order.ShippingDetails = await _shippingService.GetShippingDetailsByIdAsync(order.ShippingId);
+                order.OrderCart = await _orderService.GetCartByOrderIdAsync(order.Id);
+                order.OrderReason = new OrderReason();
+                order.OrderAttachment = await _orderService.GetOrderAttachmentByOrderIdAsync(order.Id);
+                foreach (var crt in order.OrderCart)
+                {
+                    crt.Product = await _productService.GetProductByIdAsync(crt.ProductId);
+
+                    if (crt.ProductId > 0)
+                    {
+                        crt.Product.ProductImages = await _productService.GetProductImagesByIdAsync(crt.ProductId);
+                    }
+
+                    if (crt.isLayAway)
+                    {
+                        crt.LayAwaySchedule = await _orderService.GetLayAwayScheduleAsync(order.Id, crt.ProductId);
+                    }
+                    if (crt.PreOrder)
+                    {
+                        crt.PreOrderSchedule = await _orderService.GetPreOrderScheduleAsync(order.Id, crt.ProductId);
+                    }
+                    if (crt.PreOrderLayaway && !crt.isLayAway)
+                    {
+                        crt.PreOrderSchedule = await _orderService.GetPreOrderScheduleAsync(order.Id, crt.ProductId);
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(order.ShippingDetails.DiscountCode))
+                {
+                    var discount = await _productService.GetDiscountByCodeAsync(order.ShippingDetails.DiscountCode);
+                    if (discount == null)
+                    {
+                        var loyalty = await _iLoyaltyService.GetLoyaltyVoucherByCodeAsync(order.ShippingDetails.DiscountCode);
+                        var voucher = await _iLoyaltyService.GetLoyaltyDiscountByIdAsync(loyalty.LoyaltyDiscountId);
+                        discount = new Discount()
+                        {
+                            Id = loyalty.Id,
+                            Code = loyalty.DiscountCode,
+                            Amount = voucher.Discount,
+                            AmountTypeId = voucher.DiscountAmountType,
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now.AddDays(1),
+                            IsActive = loyalty.IsActive
+                        };
+                    }
+                    order.ShippingDetails.Discount = discount;
+                }
+
+
+                return Ok(order);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
+
+        
+
+
         [HttpGet("getpreorderschedulebyid/{id}")]
         public async Task<IActionResult> GetPreOrderScheduleById(int id)
         {
@@ -499,6 +568,25 @@ namespace ByzmoApi.Controllers
             }
 
         }
+
+
+        [HttpPost("createorderproductrate")]
+        public async Task<IActionResult> AddOrderProductRate([FromBody] OrderProductRate productRate)
+        {
+            try
+            {
+                var result = await _orderService.CreateOrderProductReviewAsync(productRate);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
+
+
+        
     }
 
 

@@ -55,6 +55,7 @@
             </a>
             <div class="product-text">
                 <h4 class="product-name">{{img.productName}}</h4>
+                <app-star-rating [rate]="img.rates"></app-star-rating>
                 <div class="product-price">
                     <div *ngIf="img.preOrder" class="viewDetails">
                         <!-- <h4> {{product.preOrderDepositAmount | currency: '₱'}} </h4> -->
@@ -80,7 +81,6 @@
                         </div>
 
                     </div>
-
                 </div>
                 <div class="cartButton">
                     <button *ngIf="img.quantity > 0 && !img.preOrder" class="bz-btn" (click)="addProductToCart(img)">

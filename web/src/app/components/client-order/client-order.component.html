@@ -58,7 +58,7 @@
                                         <div *ngIf="ord.paymongoStatus != 2">Pay Now</div>
                                         <div *ngIf="ord.paymongoStatus == 2">Processing</div>
                                     </button>
-                                    <button class="bz-btn" type="button" (click)="review(ord)" *ngIf="ord.statusId === 4">
+                                    <button class="bz-btn" type="button" (click)="review(ord)" *ngIf="ord.paymentStatusId === 3">
                                         <div >Review</div>
                                     </button>
                                 </div>

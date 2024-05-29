@@ -71,6 +71,10 @@ namespace ByzmoApi.DataAccess.Applcation
         IEnumerable<OrderEmailHeader> GetOrderEmailHeader();
         Task<bool> UpdatePreOrderNotificationAsync(PreOrderNotification notif);
         bool UpdatePreOrderNotification(PreOrderNotification notif);
+        Task<bool> CreateOrderProductReviewAsync(OrderProductRate productRate);
+        bool CreateOrderProductReview(OrderProductRate productRate);
+        Task<IEnumerable<OrderProductRate>> GetOrderProductRatesByProductIdAsync(int productId);
+        IEnumerable<OrderProductRate> GetOrderProductRatesByProductId(int productId);
 
     }
     public class OrderService : BaseNpgSqlServerService, IOrderService
@@ -772,6 +776,47 @@ namespace ByzmoApi.DataAccess.Applcation
         }
 
 
+        public async Task<bool> CreateOrderProductReviewAsync(OrderProductRate productRate)
+        {
+            return await Task.Run(() => CreateOrderProductReview(productRate));
+        }
 
+        public bool CreateOrderProductReview(OrderProductRate productRate)
+        {
+            try
+            {
+                   return _npgSqlServerRepository.ExecuteThenReturn<bool>("orders.createorderproductreview", new {
+                    p_rate = productRate.Rate,
+                    p_comment = productRate.Comment,
+                    p_productid = productRate.ProductId,
+                    p_orderid = productRate.OrderId,
+                    p_activeuser = productRate.ActiveUser,
+                    p_parentid = productRate.ParentId
+                });
+            }
+            catch (NpgsqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<OrderProductRate>> GetOrderProductRatesByProductIdAsync(int productid)
+        {
+            return await Task.Run(() => GetOrderProductRatesByProductId(productid));
+        }
+
+        public IEnumerable<OrderProductRate> GetOrderProductRatesByProductId(int productid)
+        {
+            try
+            {
+                return _npgSqlServerRepository.ExecuteThenReturnList<OrderProductRate>("orders.getorderproductreview", new {
+                    p_productid = productid
+                }); 
+            }
+            catch (NpgsqlException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

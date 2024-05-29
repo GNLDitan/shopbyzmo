@@ -22,17 +22,19 @@ namespace ByzmoApi.Controllers
         private readonly IProductService _productService;
         private readonly IFileService _fileService;
         private readonly ILoyaltyService _iLoyaltyService;
-
+        private readonly IOrderService _orderService;
 
         public ProductController(IProductService productService,
             IAppSettings appSettings,
             IFileService fileService,
-            ILoyaltyService iLoyaltyService)
+            ILoyaltyService iLoyaltyService,
+            IOrderService orderService)
         {
             _appSettings = appSettings;
             _productService = productService;
             _fileService = fileService;
             _iLoyaltyService = iLoyaltyService;
+            _orderService = orderService;
         }
 
         [AllowAnonymous]
@@ -91,8 +93,11 @@ namespace ByzmoApi.Controllers
                 var product = await _productService.GetProductByIdAsync(id);
                 var images = await _productService.GetProductImagesByIdAsync(id);
                 var tags = await _productService.GetTagsByIdAsync(id);
+                var orderProductRates = await _orderService.GetOrderProductRatesByProductIdAsync(id);
+
                 product.ProductImages = images;
                 product.Tags = tags;
+                product.OrderProductRates = orderProductRates;
                 return Ok(product);
             }
             catch (Exception ex)

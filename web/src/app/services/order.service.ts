@@ -10,6 +10,7 @@ import { DOCUMENT } from '@angular/common';
 import { LayAwaySchedule } from '../classes/layaway-schedule';
 import { PreOrderSchedule } from '../classes/pre-order-schedule';
 import { PreOrderNotification } from '../classes/preorder-notification';
+import { OrderProductRate } from '../classes/order-product-rate';
 
 @Injectable({
     providedIn: 'root'
@@ -117,6 +118,12 @@ export class OrderService {
                 .subscribe((data) => resolve(data), (error) => reject(error));
         });
     }
+    orderProductReview(orderProductRate: OrderProductRate) {
+        return new Promise((resolve, reject) => {
+            this.http.post(`${this.api}/createorderproductrate`, orderProductRate)
+                .subscribe((data) => resolve(data), (error) => reject(error));
+        });
+    }
 
     adminSendEmail(order: Order) {
         // let div = this.document.createElement('div');
@@ -181,4 +188,6 @@ export class OrderService {
 
         return order;
     }
+
+   
 }

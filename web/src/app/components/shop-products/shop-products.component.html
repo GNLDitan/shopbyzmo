@@ -21,6 +21,11 @@
                 <div class="row title">
                     <div class="col-12">
                         <h3> {{ product.productName || "" }}</h3>
+                        <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                            <li [ngClass]="{'selected': (star <= productRatings)}">
+                                <i class="fa fa-star fa-2x"></i>
+                            </li>
+                        </ul>
                         <div class="price-panel">
                             <!-- <div *ngIf="product.preOrder">a
                                 <h4> {{product.preOrderDepositAmount | currency: '₱'}} </h4>

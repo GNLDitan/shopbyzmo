@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <h3 class="title">Rate and review order product</h3>
-                <div *ngFor="let cartProduct of order.orderCart">
+                <div *ngFor="let cartProduct of order.orderCart; let index = index">
                     <div class="card order-padding">
                         <div class="row">
                             <div class="col-1 text-center">
@@ -14,10 +14,17 @@
                                     {{ cartProduct.product.productName }}
                                 </div>
                                 <div><small>{{cartProduct.product.itemNumber}}</small></div>
+                                <div *ngIf="cartProduct.hasReview == true">
+                                    <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                                        <li [ngClass]="{'selected': (star <= cartProduct.rating)}">
+                                            <i class="fa fa-star fa-2x"></i>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-2" *ngIf="cartProduct.hasReview == false">
                                 <button class="btn btn-outline-primary" data-toggle="modal" 
-                                    data-target="#at-review" (click)="viewReviewProduct(cartProduct)">Review
+                                    data-target="#at-review" (click)="viewReviewProduct(cartProduct, index)">Review
                                 </button>
                             </div>
                         </div>

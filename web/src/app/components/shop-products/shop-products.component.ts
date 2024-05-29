@@ -42,6 +42,7 @@ export class ShopProductsComponent implements OnInit, OnDestroy {
   featureImg: string;
   designTags: Tag[];
   isLoading: boolean;
+  stars: number[] = [1, 2, 3, 4, 5];
 
 
   public onHandItem: string;
@@ -78,6 +79,7 @@ export class ShopProductsComponent implements OnInit, OnDestroy {
   isloading: boolean;
   loginForm: any;
   errorMessage: string;
+  productRatings: number;
 
   constructor(
     public dataService: DataService,
@@ -117,6 +119,7 @@ export class ShopProductsComponent implements OnInit, OnDestroy {
     this.layAwaySchedule = new Array();
     this.layAwayDetails = new ProductLayAway();
     this.wishList = new UserWishlist();
+    this.productRatings = 0;
     this.userNotification = new UserProductNotification();
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -185,6 +188,9 @@ export class ShopProductsComponent implements OnInit, OnDestroy {
               image.isDefaultImage = images.isDefaultImage;
               this.imageBlobs.push(image);
 
+              const sum = product.orderProductRates.reduce((sum, item) => sum + item.rate, 0);
+              const average = sum / product.orderProductRates.length;
+              this.productRatings = average;
             });
             this.isLoading = false;
 

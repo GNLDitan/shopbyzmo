@@ -19,6 +19,7 @@ export class SlickCarouselComponent implements OnInit {
   @Input() products: Array<Product>;
   @Input() inputFeatureType: any;
   @Input() user: User;
+  
   ipAddress: string;
   selectedIP: Subscription;
   featureType: string;

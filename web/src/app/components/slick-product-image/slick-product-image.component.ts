@@ -10,6 +10,8 @@ import { SlickCarouselComponent } from 'ngx-slick-carousel';
 export class SlickProductImageComponent implements OnInit {
   @Output() setFeatureImg: EventEmitter<string>;
   @Input() imageBlobs: ImageViewer[];
+  @Input() rate: number;
+  
 
   @ViewChild('slickModal', { static: false }) slickModal: SlickCarouselComponent;
 

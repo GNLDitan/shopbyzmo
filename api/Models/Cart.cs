@@ -38,6 +38,7 @@ namespace ByzmoApi.Models
         public decimal RushFee { get; set; }
         public bool PreOrderLayaway { get; set; }
         public bool IsNotifSend { get; set; }
-        
+        public bool HasReview { get; set; }
+        public int Rating { get; set; }
     }
 }

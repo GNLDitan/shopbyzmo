@@ -35,6 +35,8 @@ export class Cart {
     preOrderLayaway: boolean;
     hasMinimumAmount: boolean;
     isPreOrderNotify: boolean;
+    hasReview: boolean;
+    rating: number;
     constructor() {
         this.layAway = new ProductLayAway();
         this.layAwaySchedule = new Array<LayAwaySchedule>();

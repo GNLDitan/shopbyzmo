@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cart } from 'src/app/classes/cart';
 import { Order } from 'src/app/classes/order';
+import { OrderProductRate } from 'src/app/classes/order-product-rate';
 import { DataService } from 'src/app/services/data.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -21,6 +22,7 @@ export class CustomerOrderReviewComponent implements OnInit {
   cart: Cart;
   productFolder: string;
   clientComment: string;
+  selectedIndex: number;
 
   constructor(private route: ActivatedRoute,
               private orderService: OrderService,
@@ -55,7 +57,8 @@ export class CustomerOrderReviewComponent implements OnInit {
     console.log('Value of star', star);
   }
 
-  viewReviewProduct(cart: Cart) {
+  viewReviewProduct(cart: Cart, currentIndex: number) {
+    this.selectedIndex = currentIndex;
     this.cart = cart;
   }
 
@@ -64,15 +67,20 @@ export class CustomerOrderReviewComponent implements OnInit {
   }
 
   submitReview() {
-    let review: any = {
+    let review: OrderProductRate = {
       rate: this.selectedValue,
       comment: this.clientComment,
       productId: this.cart.product.id,
       orderId: this.order.id,
-      activeUser: this.dataService.activeUser.id
+      activeUser: this.dataService.activeUser.id,
+      parentId: 0
     }
+    this.orderService.orderProductReview(review).then((result) => {
+      console.log(result)
+      this.order.orderCart[this.selectedIndex].hasReview = true;
+      this.order.orderCart[this.selectedIndex].rating = this.selectedValue;
 
-    console.log(review)
+    }).catch((err) => console.log(err))
   }
 
 

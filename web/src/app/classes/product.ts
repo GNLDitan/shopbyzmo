@@ -1,4 +1,5 @@
 import { FileMapper } from './file-mapper';
+import { OrderProductRate } from './order-product-rate';
 import { Tag } from './tag';
 
 export class Product {
@@ -31,11 +32,14 @@ export class Product {
     isDeleted: boolean;
     preOrderLayaway: boolean;
     isSelected: boolean;
+    orderProductRates: Array<OrderProductRate>;
+    rates: number;
     constructor() {
         this.productImages = new Array<FileMapper>();
         this.tags = new Array<Tag>();
         this.preOrderDepositAmount = 0;
         this.productName = '';
         this.displayTag = '';
+        this.orderProductRates = new Array<OrderProductRate>();
     }
 }

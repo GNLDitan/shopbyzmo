@@ -31,6 +31,8 @@ namespace ByzmoApi.Models
         public decimal Sorting {get;set;}
         public bool IsDeleted { get; set; }
         public bool PreOrderLayaway { get; set; }
+        public int Rates { get; set; }
+        public IEnumerable<OrderProductRate> OrderProductRates { get; set; }
         
     }
 }

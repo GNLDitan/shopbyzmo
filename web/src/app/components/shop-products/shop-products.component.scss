@@ -443,6 +443,29 @@ button[disabled]:hover {
   
 }
 
+
+.rating-list {
+    margin-bottom: 0px;
+    li {
+      float: right;
+      color: #ddd;
+      padding: 5px 5px;
+    
+    }
+  }
+    
+  
+  .rating-list,
+  .rating-list ~ li, .rating-list li.selected {
+    color: #ffd700;
+  }
+  
+  .rating-list {
+    display: inline-block;
+    list-style: none;
+  }
+  
+
 @media only screen and (min-width: 280px) and (max-width: 599px) {
     /*.thumbnails-container{
         position: absolute;
