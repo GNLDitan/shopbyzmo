@@ -36,17 +36,20 @@ CREATE OR REPLACE VIEW orders.ordercartview AS
 
 
 CREATE OR REPLACE VIEW orders.orderproductreviewview AS
-	select rw.id,
-		rw.rate,
-		rw.comment,
-		rw.productid,
-		rw.orderid,
-		rw.activeuser,
-		rw.parentid,
-		us.name
-	from orders.orderproductreview rw
-	inner join application.user us on rw.activeuser = us.id
+ SELECT rw.id,
+    rw.rate,
+    rw.comment,
+    rw.productid,
+    rw.orderid,
+    rw.activeuser,
+    rw.parentid,
+    us.name,
+	rw.createddate
+   FROM orders.orderproductreview rw
+     JOIN application."user" us ON rw.activeuser = us.id;
 
+ALTER TABLE orders.orderproductreviewview
+    OWNER TO byzmo_admin;
 
 GRANT ALL ON TABLE orders.orderproductreviewview TO byzmo_admin;
 GRANT ALL ON TABLE orders.orderproductreviewview TO postgres;
@@ -300,3 +303,4 @@ $BODY$;
 
 ALTER FUNCTION product.getproductslistrange(text, text, text[], text, text[], integer, integer, text, boolean)
     OWNER TO postgres;
+	

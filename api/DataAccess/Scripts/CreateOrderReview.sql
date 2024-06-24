@@ -37,7 +37,8 @@ GRANT DELETE, INSERT, SELECT, UPDATE ON TABLE orders.orderproductreview TO byzmo
 GRANT ALL ON TABLE orders.orderproductreview TO postgres;
 
 
-
+ALTER TABLE orders.orderproductreview
+ADD COLUMN createddate timestamp with time zone;
 
 
 CREATE OR REPLACE FUNCTION orders.createorderproductreview(
@@ -58,8 +59,8 @@ AS $BODY$
 DECLARE
 	d_currentid integer;
 BEGIN
-	INSERT INTO orders.orderproductreview(rate, comment, productid, orderid, activeuser, parentid)
-	VALUES(p_rate, p_comment, p_productid, p_orderid, p_activeuser, p_parentid) RETURNING id INTO d_currentid;
+	INSERT INTO orders.orderproductreview(rate, comment, productid, orderid, activeuser, parentid, createddate)
+	VALUES(p_rate, p_comment, p_productid, p_orderid, p_activeuser, p_parentid, CURRENT_DATE) RETURNING id INTO d_currentid;
 	
 	
 	RETURN QUERY SELECT * 
@@ -77,3 +78,5 @@ ADD COLUMN hasReview BOOLEAN DEFAULT false;
 
 ALTER TABLE cart.cart
 ADD COLUMN rating NUMERIC DEFAULT 0;
+
+

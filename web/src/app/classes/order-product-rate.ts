@@ -5,5 +5,6 @@ export class OrderProductRate {
     orderId: number;
     activeUser: number;
     parentId: number;
+    createdDate: Date
 }
     

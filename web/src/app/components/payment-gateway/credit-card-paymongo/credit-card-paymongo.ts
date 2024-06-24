@@ -1,17 +1,11 @@
 import { Component, HostListener, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AttachPaymentIntentData, PaymentIntentData, PaymentIntentResource } from 'paymongoo/dist/payment-intents';
 import { Subscription } from 'rxjs';
 import { Utils } from 'src/app/app.utils';
 import { BraintreePayment } from 'src/app/classes/braintree-payment';
-import { CreditCard } from 'src/app/classes/credit-card';
 import { CreditCardPayment } from 'src/app/classes/credit-card-payment';
-import { GCashPayment } from 'src/app/classes/gcash-payment';
-import { PaymentDetails } from 'src/app/classes/payment-details';
 import { Address, AttachPaymentIntent, Billing, CreditCardAttributes, CreditCardDetails, LineItem, PaymentMethod, PaymentResource } from 'src/app/classes/paymongo';
 import { PaymongoBankPayment } from 'src/app/classes/paymongo-bank-payment';
 import { DataService } from 'src/app/services/data.service';
-import { NavigationService } from 'src/app/services/navigation.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { PaymongoService } from 'src/app/services/paymongo.service';
 import { ToasterService } from 'src/app/services/toaster.service';
@@ -120,7 +114,6 @@ export class CreditCardPaymongoComponent implements OnInit, OnDestroy {
     address.postal_code = this.payment.Order.shippingDetails.postalCode;
     address.state = this.payment.Order.shippingDetails.states;
 
-
     // Billing //
     const billing = new Billing();
     billing.email = this.payment.Order.shippingDetails.email;
@@ -137,7 +130,7 @@ export class CreditCardPaymongoComponent implements OnInit, OnDestroy {
     this.paymentMethod.attributes = attributes;
     this.paymentMethod.attributes.type = "card";
     this.paymentMethod.attributes.livemode = environment.production;
-
+    this.paymentMethod.attributes.description = `Payment for Order#${this.payment.Order.id}`;
     this.paymentMethod.attributes.payment_method_types = ["card"];
     
     if (this.payment.isTotal) {
@@ -168,9 +161,7 @@ export class CreditCardPaymongoComponent implements OnInit, OnDestroy {
 
     attributes.line_items = [lineItem]
     this.paymentMethod.attributes = attributes;
-
-
-
+    
     this.creditCardPayment.orderId = this.payment.orderId;
     this.creditCardPayment.paymentType = this.payment.paymentType;
     this.creditCardPayment.refId = refid;

@@ -1,0 +1,41 @@
+
+
+.features {
+    width: 100%;
+    display: inline-block;
+    // margin: 50px 0;
+  
+    .feature-type {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      border-top: 3px solid #f0f0f0;
+      border-bottom: 3px solid #f0f0f0;
+  
+      h4 {
+        align-self: center;
+        text-transform: uppercase;
+        font-weight: bold !important;
+        font-size: 28px !important;
+      }
+  
+      a {
+        align-self: center;
+  
+        span:nth-child(2) {
+          display: none;
+        }
+  
+        &:hover {
+          span:nth-child(1) {
+            display: none;
+          }
+  
+          span:nth-child(2) {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }

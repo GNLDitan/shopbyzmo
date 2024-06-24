@@ -217,6 +217,7 @@ import { CreditCardUtilityComponent } from './components/credit-card-utility/cre
 import { CreditCardSuccessComponent } from './components/credit-card-success/credit-card-success.component';
 import { OnlineBankingPaymongoComponent } from './components/payment-gateway/online-banking-paymongo/online-banking-paymongo';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { ProductReviewsComponent } from './components/product-reviews/product-reviews.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -275,6 +276,7 @@ export function provideConfig() {
     FooterComponent,
     ThumbImageFeatureComponent,
     ProductsComponent,
+    ProductReviewsComponent,
     SlickProductImageComponent,
     StarRatingComponent,
     CustomBreadcrumbComponent,

@@ -809,9 +809,10 @@ namespace ByzmoApi.DataAccess.Applcation
         {
             try
             {
-                return _npgSqlServerRepository.ExecuteThenReturnList<OrderProductRate>("orders.getorderproductreview", new {
-                    p_productid = productid
-                }); 
+                return _npgSqlServerRepository.ExecuteThenReturnList<OrderProductRate>($@"
+                    select * 
+                    from orders.orderproductreviewview
+                    where productid = {productid}"); 
             }
             catch (NpgsqlException ex)
             {

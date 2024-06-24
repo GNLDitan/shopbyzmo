@@ -1,0 +1,23 @@
+<div class="container container-fluid justify-content-center align-items-center">
+    <div class="features">
+        <div class="feature-type">
+            <h4>Product Reviews</h4>
+        </div>
+        <div *ngFor="let productRate of orderProductRates">
+            <div class="d-flex">
+                <div class="mr-auto p-2">
+                    <app-star-rating [rate]="productRate.rate"></app-star-rating>
+                    <div>{{productRate.name}}</div>
+                </div>
+                <div class="p-2">{{calcDate(productRate.createdDate)}}</div>
+                <!-- {{rate.name}}
+                {{rate.rate}} -->
+            </div>
+            <div class="d-flex">
+                <div class="mr-auto p-2">
+                    <div>{{productRate.comment}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,6 +27,7 @@
 
             <div class="product-text">
                 <h4 class="product-name">{{product.productName}}</h4>
+                <app-star-rating [rate]="product.rates"></app-star-rating>
                 <div class="product-price">
                     <div *ngIf="product.preOrder" class="viewDetails">
                         <div class="view-details"> <a [routerLink]="['/products/' + product.linkName]">View Details</a>

@@ -14,5 +14,7 @@ namespace ByzmoApi.Models
         public int OrderId { get; set; }
         public int ActiveUser { get; set; }
         public int ParentId { get; set; }
+        public string Name { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }
